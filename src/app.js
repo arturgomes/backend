@@ -34,12 +34,6 @@ class App {
   }
 
   routes() {
-    this.server.all('/', (req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-      next();
-    });
-
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }
