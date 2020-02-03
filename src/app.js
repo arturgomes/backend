@@ -26,36 +26,23 @@ class App {
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
-    this.server.use(cors());
+    // Set up a whitelist and check against it:
+    const whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co'];
+    const corsOptions = {
+      origin(origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+    };
+    d;
+    this.server.use(cors(corsOptions));
     this.server.use(
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
-    this.server.use((req, res, next) => {
-      /* var err = new Error('Not Found');
-       err.status = 404;
-       next(err); */
-
-      // Website you wish to allow to connect
-      res.setHeader('Access-Control-Allow-Origin', '*');
-
-      // Request methods you wish to allow
-      res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-      );
-
-      // Request headers you wish to allow
-      res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization'
-      );
-
-      //  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-      // Pass to next layer of middleware
-      next();
-    });
   }
 
   routes() {
