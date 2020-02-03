@@ -26,19 +26,7 @@ class App {
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
-    // this.server.use(cors());
-
-    const whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co'];
-    const corsOptions = {
-      origin(origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
-    };
-    this.server.use(cors(corsOptions));
+    this.server.use(cors());
     this.server.use(
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
