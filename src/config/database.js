@@ -1,6 +1,4 @@
 require('dotenv/config');
-const fs = require('fs');
-const rdsCa = fs.readFileSync(__dirname + '/rds-combined-ca-bundle.pem');
 
 module.exports = {
   dialect: 'postgres',
