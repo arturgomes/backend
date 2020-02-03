@@ -34,6 +34,7 @@ class App {
   }
 
   routes() {
+    this.server.options('*', cors()); // include before other routes
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }
