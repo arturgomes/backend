@@ -4,18 +4,19 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import Youch from 'youch';
-// import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 
 import routes from './routes';
-// import sentryConfig from './config/sentry';
+import sentryConfig from './config/sentry';
 import './database';
 
 class App {
   constructor() {
     this.server = express();
 
-    // Sentry.init(sentryConfig);
+    Sentry.init(sentryConfig);
+
 
     this.middlewares();
     this.routes();
@@ -23,21 +24,20 @@ class App {
   }
 
   middlewares() {
-    // The request handler must be the first middleware on the app
+    this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
     this.server.use(cors());
     this.server.use(
       '/files',
-      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+      express.static(path.resolve('..', 'tmp', 'uploads'))
     );
   }
 
   routes() {
     this.server.use(routes);
+    this.server.use(Sentry.Handlers.errorHandler());
 
-    // The request handler must be the first middleware on the app
-    // this.server.use(Sentry.Handlers.requestHandler());
   }
 
   exceptionHandler() {

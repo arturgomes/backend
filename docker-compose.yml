@@ -1,8 +1,8 @@
 version: "3"
 
-services: 
+services:
   app:
     build: .
-    ports:
-      - "8080:8080"
+    ports: 
+      - "3000:3000"
     command: yarn start

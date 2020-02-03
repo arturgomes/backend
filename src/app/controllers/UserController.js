@@ -76,6 +76,7 @@ class UserController {
 
       await User.findOne({ id })
         .then(user => {
+          console.log(user);
           user.update({
             feedcoins: user.feedcoins + 1,
           });

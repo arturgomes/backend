@@ -1,13 +1,16 @@
-FROM node:10-alpine
+FROM node:8-alpine
 
 WORKDIR /usr/app
+
 COPY package.json yarn.lock ./
-RUN apk add g++ make python
+RUN apk --no-cache add --virtual builds-deps build-base python
 
 RUN yarn
 
-COPY . . 
+COPY . ./
 
-EXPOSE 8080
+RUN yarn build
+
+EXPOSE 3000
 
 CMD ["yarn","start"]
