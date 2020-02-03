@@ -55,12 +55,10 @@ class UserController {
 
     const { fid } = req.body;
     if (fid && Valid.isUUID(fid)) {
-      // console.log(`fid = ${fid}`);
       await Feedback.findOne({
         id: fid,
       })
         .then(feed => {
-          // console.log(feed);
           if (!feed.user_id) {
             return res
               .status(400)
@@ -71,12 +69,12 @@ class UserController {
           });
           return res.json({ message: 'OK' });
         })
-        // .catch(error => console.log(error));
-        .catch(() => { });
+        .catch(() => {
+          console.log('error');
+        });
 
       await User.findOne({ id })
         .then(user => {
-          console.log(user);
           user.update({
             feedcoins: user.feedcoins + 1,
           });
