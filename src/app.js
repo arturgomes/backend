@@ -26,7 +26,8 @@ class App {
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
-    // Set up a whitelist and check against it:
+    // this.server.use(cors());
+
     const whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co'];
     const corsOptions = {
       origin(origin, callback) {
@@ -37,7 +38,6 @@ class App {
         }
       },
     };
-    d;
     this.server.use(cors(corsOptions));
     this.server.use(
       '/files',
@@ -46,6 +46,12 @@ class App {
   }
 
   routes() {
+    this.server.all('/', (req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+      next();
+    });
+
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }
