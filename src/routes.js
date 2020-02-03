@@ -27,20 +27,20 @@ const upload = multer(multerConfig);
 //   return res.json(user);
 // });
 
-routes.get('/', (req, res) => res.send('CouponFeed na AWS!!! =D'));
+routes.get('/', (req, res) => res.redirect('http://www.couponfeed.co'));
 routes.post('/users', UserController.store);
-// routes.post('/users/i', ManFeedController.store);
-// routes.post('/users/s', ManFeedController.index);
-// routes.post('/retails', RetailController.store);
-// routes.post('/feed/:shop_id/f', FeedbackController.index);
-// routes.post('/feed/:shop_id/c', FeedbackController.store);
+routes.post('/users/i', ManFeedController.store);
+routes.post('/users/s', ManFeedController.index);
+routes.post('/retails', RetailController.store);
+routes.post('/feed/:shop_id/f', FeedbackController.index);
+routes.post('/feed/:shop_id/c', FeedbackController.store);
 
-// routes.post('/sessions', SessionController.store);
+routes.post('/sessions', SessionController.store);
 
-// routes.use(authMiddleware);
-// routes.post('/list', authMiddleware, DisplayFeedbackController.index);
-// routes.post('/shops', authMiddleware, ShopController.store);
-// routes.post('/qr', authMiddleware, QrController.index);
+routes.use(authMiddleware);
+routes.post('/list', authMiddleware, DisplayFeedbackController.index);
+routes.post('/shops', authMiddleware, ShopController.store);
+routes.post('/qr', authMiddleware, QrController.index);
 
 // routes.put('/users', UserController.update);
 // routes.put('/shops', ShopController.update);
