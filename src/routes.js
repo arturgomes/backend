@@ -9,6 +9,7 @@ import ShopController from './app/controllers/ShopController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import FeedbackController from './app/controllers/FeedbackController';
+import DashboardController from './app/controllers/DashboardController';
 import DisplayFeedbackController from './app/controllers/DisplayFeedbackController';
 import RetailController from './app/controllers/RetailController';
 import QrController from './app/controllers/QrController';
@@ -38,6 +39,7 @@ routes.post('/feed/:shop_id/c', FeedbackController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
+routes.post('/dashboardData', authMiddleware, DashboardController.index);
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
 routes.post('/shops', authMiddleware, ShopController.store);
 routes.post('/qr', authMiddleware, QrController.index);
