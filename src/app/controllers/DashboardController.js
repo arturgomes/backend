@@ -45,68 +45,6 @@ function _listItems(fb) {
   return flatten(tmp);
 }
 
-// async function filterFeedBy(shops) {
-
-//       const fb = await Promise.all(
-//         shops.map(async s => {
-//           const { id } = s;
-//           // console.log(id);
-//           const f = await Feedback.findAll(
-//             {
-//               attributes: ['date', 'shop_id', 'nps_value', 'comment_optional',
-//               [Sequelize.fn('DATE','created_at'), 'date'],
-//               [sequelize.fn('COUNT', '*'), 'count']
-//             ]
-//             },
-//             { where: { shop_id: id } }
-
-//           )
-//             .map(el => el.get({ plain: false }));
-//           // console.log(f);
-
-//           return { shop_name: s.name, f };
-//         })
-//       );
-//       console.log(fb);
-
-//     //   await Feedback.findAll({
-//     //     where: {
-//     //           shop_id: id,
-//     //       //     date: {
-//     //       //       $gte: moment().subtract(7, 'days').toDate()
-//     //       //     }
-//     //         },
-//     //     attributes: [
-//     //         [Sequelize.literal(`DATE("created_at")`), 'date'],
-//     //         [Sequelize.literal(`COUNT(*)`), 'count']
-//     //     ],
-//     //     group: ['date'],
-//     // })
-//       // const { count } = await Feedback.findAndCountAll({
-//       //   where: {
-//       //     shop_id: id,
-//       //     date: {
-//       //       $gte: moment().subtract(7, 'days').toDate()
-//       //     }
-//       //   },
-//       // });
-
-
-//       console.log("count:", t1)
-
-//       console.log("t1: ", t1,
-//       t2,
-//       t3)
-//       const perweek = t1;
-//       const permonth = t2;
-//       const sixmonths = t3;
-//       return fb;
-//   return { perweek, permonth, sixmonths }
-
-
-
-//   // var listItemsWeek = listItems.filter(function (date) { return date >= d });
-// }
 
 class DashboardController {
 
@@ -205,19 +143,17 @@ class DashboardController {
     } = filterNPSResults(fb);
 
 
-if (fb) {
-    //   return res.json(fbs);
-    return res.json({
-      posFeedbacks,
-      negFeedbacks,
-      neutralFeedbacks,
-      totalFeedbacks,
-      average,
-      dados:fc
+    if (fb) {
+      return res.json({
+        posFeedbacks,
+        negFeedbacks,
+        neutralFeedbacks,
+        totalFeedbacks,
+        average,
+        dados:fc
 
-    });
+      });
     }
-    //
     return res.json({ error: 'Shop not found' });
   }
 }
