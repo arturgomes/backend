@@ -42,6 +42,7 @@ routes.use(authMiddleware);
 routes.post('/dashboardData', authMiddleware, DashboardController.index);
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
 routes.post('/shops', authMiddleware, ShopController.store);
+routes.post('/shops/:id', authMiddleware, ShopController.index);
 routes.post('/qr', authMiddleware, QrController.index);
 
 // routes.put('/users', UserController.update);

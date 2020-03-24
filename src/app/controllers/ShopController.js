@@ -2,7 +2,17 @@ import * as Yup from 'yup';
 import Shop from '../models/Shop';
 import Error from '../errors/errors';
 
+
 class ShopController {
+  async index(req, res) {
+    const { shop_id } = req.params;
+
+    const shop = await Shop.findOne({ where: { id: shop_id } });
+    if (shop) {
+      return res.json(shop.name);
+    }
+    return res.json({ error: 'Shop not found' });
+  }
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
