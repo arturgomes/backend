@@ -16,6 +16,7 @@ class ShopController {
       // address_country: Yup.string().required(),
       manager: Yup.string().required(),
       phone: Yup.string().required(),
+      short_url: Yup.string().required(),
     });
     console.log(req.body);
     if (
@@ -23,6 +24,7 @@ class ShopController {
         name: req.body.name,
         phone: req.body.phone,
         manager: req.body.manager,
+        short_url: req.body.short_url,
       }))
     ) {
       console.log('bad schema for ShopController');
@@ -45,6 +47,7 @@ class ShopController {
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
+      short_rl: req.body.short_url
     });
 
     return res.json({ id, name, manager, phone });
