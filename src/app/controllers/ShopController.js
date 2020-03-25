@@ -57,7 +57,7 @@ class ShopController {
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
-      short_rl: req.body.short_url
+      short_url: req.body.short_url
     });
 
     return res.json({ id, name, manager, phone });
