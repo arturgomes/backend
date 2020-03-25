@@ -49,23 +49,23 @@ class ShopController {
       return res.status(400).json({ error: Error.validation_failed });
     }
 
-    let valid_url = true;
-    let ur;
-    while (valid_url !== false){
-      ur = this.getrandom();
-      const shop_ur = await Shop.findOne({ where: { short_url: ur } });
-      if(!shop_ur){
-        valid_url = false;
-      }
-    }
-    console.log(ur);
+    // let valid_url = true;
+    // let ur;
+    // while (valid_url !== false){
+    //   ur = this.getrandom();
+    //   const shop_ur = await Shop.findOne({ where: { short_url: ur } });
+    //   if(!shop_ur){
+    //     valid_url = false;
+    //   }
+    // }
+    // console.log(ur);
 
     const { id, name, manager, phone } = await Shop.create({
       name: req.body.name,
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
-      short_url:ur
+      // short_url:ur
     });
 
     return res.json({ id, name, manager, phone });
