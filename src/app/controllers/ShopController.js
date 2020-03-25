@@ -4,6 +4,16 @@ import Error from '../errors/errors';
 
 
 class ShopController {
+
+  getrandom() {
+    let text = "";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+  }
+
   async index(req, res) {
     const { shop_id } = req.params;
 
@@ -39,22 +49,23 @@ class ShopController {
       return res.status(400).json({ error: Error.validation_failed });
     }
 
-    // const shopExists = await Shop.findOne({
-    //   where: { cnpj: req.body.cnpj },
-    // });
+    let valid_url = true;
+    let ur;
+    while (valid_url !== false){
+      ur = this.getrandom();
+      const shop_ur = await Shop.findOne({ where: { short_url: ur } });
+      if(!shop_ur){
+        valid_url = false;
+      }
+    }
+    console.log(ur);
 
-    // if (shopExists) {
-    //   return res.status(400).json({ error: Error.shop_exists });
-    // }
-    // const usr = await User.findOne({ where: { id: req.userId } });
-    // if (usr) {
-    //   return res.status(400).json({ error: Error.user_cannot_create_shop });
-    // }
     const { id, name, manager, phone } = await Shop.create({
       name: req.body.name,
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
+      short_url:ur
     });
 
     return res.json({ id, name, manager, phone });

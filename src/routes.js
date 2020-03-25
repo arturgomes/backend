@@ -19,14 +19,6 @@ import authMiddleware from './app/middlewares/auth';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-// routes.get('/', async (req, res) => {
-//   const user = await User.create({
-//     name: 'Soafia',
-//     email: 'saofia@sofia.com',
-//     password_hash: '123455',
-//   });
-//   return res.json(user);
-// });
 
 routes.get('/', (req, res) => res.redirect('http://www.couponfeed.co'));
 routes.post('/users', UserController.store);
@@ -45,19 +37,5 @@ routes.post('/shops', authMiddleware, ShopController.store);
 routes.post('/shops/:id', authMiddleware, ShopController.index);
 routes.post('/qr', authMiddleware, QrController.index);
 
-// routes.put('/users', UserController.update);
-// routes.put('/shops', ShopController.update);
-
-// routes.get('/providers', ProviderController.index);
-// routes.get('/providers/:providerId/available', AvailableController.index);
-
-// routes.get('/appointments', AppointmentController.index);
-// routes.post('/appointments', AppointmentController.store);
-// routes.delete('/appointments/:id', AppointmentController.delete);
-
-// routes.get('/schedule', ScheduleController.index);
-
-// routes.get('/notifications/', NotificationController.index);
-// routes.put('/notifications/:id', NotificationController.update);
 routes.post('/files', upload.single('file'), FileController.store);
 export default routes;

@@ -13,6 +13,7 @@ class Shop extends Model {
         address_state: Sequelize.STRING,
         address_zip: Sequelize.STRING,
         address_country: Sequelize.STRING,
+        short_url: Sequelize.STRING,
         manager: Sequelize.STRING,
         phone: Sequelize.STRING,
       },
