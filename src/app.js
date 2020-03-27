@@ -23,10 +23,10 @@ class App {
   }
 
   middlewares() {
+    this.server.use(cors());
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
-    this.server.use(cors());
     this.server.use(
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
@@ -34,7 +34,7 @@ class App {
   }
 
   routes() {
-    this.server.options('*', cors()); // include before other routes
+    // this.server.options('*', cors()); // include before other routes
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }

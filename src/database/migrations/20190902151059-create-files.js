@@ -14,10 +14,17 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
-          path: {
+          size: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+          },
+          key: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
+          },
+          url: {
+            type: Sequelize.STRING,
+            allowNull: false,
           },
           created_at: {
             type: Sequelize.DATE,
