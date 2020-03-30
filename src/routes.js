@@ -7,13 +7,13 @@ import ManFeedController from './app/controllers/ManFeedController';
 import UserController from './app/controllers/UserController';
 import ShopController from './app/controllers/ShopController';
 import SessionController from './app/controllers/SessionController';
-import File from './app/models/File';
 import FileController from './app/controllers/FileController';
 import FeedbackController from './app/controllers/FeedbackController';
 import DashboardController from './app/controllers/DashboardController';
 import DisplayFeedbackController from './app/controllers/DisplayFeedbackController';
 import RetailController from './app/controllers/RetailController';
 import QrController from './app/controllers/QrController';
+import ShortnerController from './app/controllers/ShortnerController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -31,19 +31,20 @@ routes.post('/retails', RetailController.store);
 
 routes.post('/feed/:shop_id/f', FeedbackController.index);
 routes.post('/feed/:shop_id/c', FeedbackController.store);
+routes.post('/surl/:short_url', ShortnerController.index);
 
 routes.post('/sessions', SessionController.store);
 
-routes.post('/files', multer(multerConfig).single('file'), FileController.store);
-routes.get('/files', FileController.index);
-routes.delete('/files/:id', FileController.delete);
-
 
 routes.use(authMiddleware);
+
+routes.post('/files', upload.single('file'), FileController.store);
+routes.post('/files/:retail_id', FileController.index);
+routes.delete('/files/:id', FileController.delete);
 routes.post('/dashboardData', authMiddleware, DashboardController.index);
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
 routes.post('/shops', authMiddleware, ShopController.store);
-routes.post('/shops/:id', authMiddleware, ShopController.index);
+routes.post('/shopsl', authMiddleware, ShopController.index);
 
 routes.post('/qr', authMiddleware, QrController.index);
 

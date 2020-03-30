@@ -2,17 +2,18 @@ import * as Yup from 'yup';
 import Shop from '../models/Shop';
 import Error from '../errors/errors';
 
-class ShopController {
+class ShortnerController {
   async index(req, res) {
-    const { shop_id } = req.body;
+    const { short_url } = req.body;
 
-    const shop = await Shop.findByPk(shop_id);
+    const shop = await Shop.findOne({where:{shop_id}});
     if (shop) {
-      const {retail_id,name,manager,phone,short_url} = shop;
-      return res.json({retail_id,name,manager,phone,short_url});
+      const {id} = shop;
+      return res.json({id});
     }
     return res.json({ error: 'Shop not found' });
   }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -104,4 +105,4 @@ class ShopController {
   // }
 }
 
-export default new ShopController();
+export default new ShortnerController();

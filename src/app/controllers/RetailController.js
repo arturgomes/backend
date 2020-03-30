@@ -3,6 +3,12 @@ import Retail from '../models/Retail';
 import Error from '../errors/errors';
 
 class RetailController {
+  async index(req,res){
+    const { retail_id } = req.params;
+    const retail = await Retail.findByPk({retail_id})
+    return res.json(retail);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
