@@ -5,6 +5,7 @@ import multerConfig from './config/multer';
 
 import ManFeedController from './app/controllers/ManFeedController';
 import UserController from './app/controllers/UserController';
+import CouponController from './app/controllers/CouponController';
 import ShopController from './app/controllers/ShopController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
@@ -43,6 +44,9 @@ routes.post('/files/:retail_id', FileController.index);
 routes.delete('/files/:id', FileController.delete);
 routes.post('/dashboardData', authMiddleware, DashboardController.index);
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
+routes.post('/coupons-l/:retail_id', authMiddleware, CouponController.index);
+routes.post('/coupons-s', authMiddleware, CouponController.store);
+// routes.delete('/coupons-d/:id', authMiddleware, CouponController.delete);
 routes.post('/shops', authMiddleware, ShopController.store);
 routes.post('/shopsl', authMiddleware, ShopController.index);
 

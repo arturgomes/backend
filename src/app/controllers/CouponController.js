@@ -2,7 +2,17 @@ import * as Yup from 'yup';
 import Coupon from '../models/Coupon';
 import Error from '../errors/errors';
 
-class RetailController {
+class CouponController {
+  async index(req,res){
+    const {retail_id} = req.params;
+
+
+    const coupons = await Coupon.findAll({where:{retail_id}});
+    if(!coupons){
+      return res.status(400).json({ error: "no coupons found for this retail" });
+    }
+    return res.json(coupons);
+  }
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -62,4 +72,4 @@ class RetailController {
   }
 }
 
-export default new RetailController();
+export default new CouponController();
