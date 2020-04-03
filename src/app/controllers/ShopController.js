@@ -34,6 +34,7 @@ class ShopController {
       // address_country: Yup.string().required(),
       manager: Yup.string().required(),
       phone: Yup.string().required(),
+      short_url: Yup.string().required(),
       // short_url: Yup.string().required(),
     });
     console.log(req.body);
@@ -42,6 +43,7 @@ class ShopController {
         name: req.body.name,
         phone: req.body.phone,
         manager: req.body.manager,
+        short_url: req.body.short_url,
         // short_url: get,
       }))
     ) {
@@ -60,13 +62,13 @@ class ShopController {
     // if (usr) {
     //   return res.status(400).json({ error: Error.user_cannot_create_shop });
     // }
-    const short_url = this.getrandom();
+    // const short_url = this.getrandom();
     const { id, name, manager, phone } = await Shop.create({
       name: req.body.name,
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
-      short_url
+      short_url: req.body.short_url,
     });
 
     return res.json({ id, name, manager, phone, short_url });

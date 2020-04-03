@@ -5,8 +5,6 @@ import Error from '../errors/errors';
 class CouponController {
   async index(req,res){
     const {retail_id} = req.params;
-
-
     const coupons = await Coupon.findAll({where:{retail_id}});
     if(!coupons){
       return res.status(400).json({ error: "no coupons found for this retail" });
