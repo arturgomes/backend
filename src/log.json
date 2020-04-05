@@ -1,0 +1,72 @@
+{
+  "error": {
+    "message": "Cannot convert undefined or null to object",
+    "name": "TypeError",
+    "frames": [
+      {
+        "file": "src/app/controllers/DashboardController.js",
+        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/src/app/controllers/DashboardController.js",
+        "method": "Object.keys.map.key",
+        "line": 37,
+        "column": 24,
+        "context": {
+          "start": 32,
+          "pre": "  let listShops;\n  // const fb1 = fb.flat(1);\n  const tmp = Object.keys(fb).map(key => {\n    const shop = fb[key];\n    const { f } = shop;",
+          "line": "    listShops = Object.keys(f).map(g => {",
+          "post": "      const { nps_value, date } = f[g];\n      let date1 = new Date(date).toLocaleDateString(\"pt-BR\");\n      return { nps_value, date1 };\n    });\n    return listShops;"
+        },
+        "isModule": false,
+        "isNative": false,
+        "isApp": true
+      },
+      {
+        "file": "src/app/controllers/DashboardController.js",
+        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/src/app/controllers/DashboardController.js",
+        "method": "_listItems",
+        "line": 34,
+        "column": 31,
+        "context": {
+          "start": 29,
+          "pre": "}\n\nfunction _listItems(fb) {\n  let listShops;\n  // const fb1 = fb.flat(1);",
+          "line": "  const tmp = Object.keys(fb).map(key => {",
+          "post": "    const shop = fb[key];\n    const { f } = shop;\n    listShops = Object.keys(f).map(g => {\n      const { nps_value, date } = f[g];\n      let date1 = new Date(date).toLocaleDateString(\"pt-BR\");"
+        },
+        "isModule": false,
+        "isNative": false,
+        "isApp": true
+      },
+      {
+        "file": "src/app/controllers/DashboardController.js",
+        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/src/app/controllers/DashboardController.js",
+        "method": "filterNPSResults",
+        "line": 9,
+        "column": 19,
+        "context": {
+          "start": 4,
+          "pre": "import Retail from '../models/Retail';\n\n\nfunction filterNPSResults(fb) {\n",
+          "line": "  var listItems = _listItems(fb);",
+          "post": "  let media = listItems.map(f => { return parseInt(f.nps_value) });\n  var total = media.reduce((result, number) => result + number);\n  let nf = listItems.filter(f => f.nps_value < 7);\n  let ne = listItems.filter(f => f.nps_value >= 7 && f.nps_value < 9);\n  let po = listItems.filter(f => f.nps_value >= 9);"
+        },
+        "isModule": false,
+        "isNative": false,
+        "isApp": true
+      },
+      {
+        "file": "src/app/controllers/DashboardController.js",
+        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/src/app/controllers/DashboardController.js",
+        "method": "index",
+        "line": 181,
+        "column": 9,
+        "context": {
+          "start": 176,
+          "pre": "      posFeedbacks,\n      negFeedbacks,\n      neutralFeedbacks,\n      totalFeedbacks,\n      average",
+          "line": "    } = filterNPSResults(fb);",
+          "post": "\n\n    if (fb) {\n      return res.json({\n        posFeedbacks,"
+        },
+        "isModule": false,
+        "isNative": false,
+        "isApp": true
+      }
+    ]
+  }
+}

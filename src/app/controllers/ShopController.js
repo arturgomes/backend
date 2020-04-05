@@ -37,7 +37,7 @@ class ShopController {
       short_url: Yup.string().required(),
       // short_url: Yup.string().required(),
     });
-    console.log(req.body);
+    // console.log(req.body);
     if (
       !(await schema.isValid({
         name: req.body.name,
@@ -47,7 +47,7 @@ class ShopController {
         // short_url: get,
       }))
     ) {
-      console.log('bad schema for ShopController');
+      // console.log('bad schema for ShopController');
       return res.status(400).json({ error: Error.validation_failed });
     }
 
@@ -63,7 +63,7 @@ class ShopController {
     //   return res.status(400).json({ error: Error.user_cannot_create_shop });
     // }
     // const short_url = this.getrandom();
-    const { id, name, manager, phone } = await Shop.create({
+    const { id, name, manager, phone,short_url } = await Shop.create({
       name: req.body.name,
       phone: req.body.phone,
       manager: req.body.manager,

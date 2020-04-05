@@ -31,7 +31,7 @@ class DisplayFeedbackController {
         return { shop_name: s.name, f };
       })
     );
-    console.log(fb);
+    // console.log(fb);
 
     if (fb !== null) return res.json(fb);
     // if (fbs) {

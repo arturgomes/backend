@@ -9,7 +9,7 @@ class QrController {
       // .map(el => el.get({ plain: true }))
       // .filter(s => s.retail_id === req.body.retail_id);
 
-      console.log(shops);
+      // console.log(shops);
       if (shops !== null) return res.json(shops);
     // if (fbs) {
     //   return res.json(fbs);

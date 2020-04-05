@@ -23,7 +23,8 @@ class File extends Model {
     return this;
   }
   static associate(models) {
-    this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retails' });
+    this.belongsTo(models.Retail, { foreignKey: 'retail_id'});
+    // this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retails' });
   }
 }
 

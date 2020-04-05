@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import Retail from './Retail';
 
 class Shop extends Model {
   static init(sequelize) {
@@ -25,7 +26,11 @@ class Shop extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retails' });
+
+    this.belongsTo(models.Retail, { foreignKey: 'retail_id'});
+    Retail.hasMany(this, { foreignKey: 'retail_id'});
+    // this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retails' });
+    // Retail.hasMany(this, { foreignKey: 'retail_id', as: 'retails' });
   }
 }
 

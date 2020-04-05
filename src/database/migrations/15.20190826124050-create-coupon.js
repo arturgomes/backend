@@ -26,7 +26,13 @@ module.exports = {
             allowNull: false,
             type: Sequelize.DATE,
           },
-
+          shop_id: {
+            type: Sequelize.UUID,
+            references: { model: 'shops', key: 'id' },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+            allowNull: false,
+          },
           created_at: {
             type: Sequelize.DATE,
             allowNull: false,

@@ -55,11 +55,11 @@ class UserController {
 
     const { fid } = req.body;
     if (fid && Valid.isUUID(fid)) {
-      await Feedback.findOne({
-        id: fid,
-      })
+      console.log(fid)
+      await Feedback.findByPk(fid)
         .then(feed => {
-          if (!feed.user_id) {
+          console.log(feed);
+          if (feed.user_id===null) {
             return res
               .status(400)
               .json({ error: Error.feedback_already_stored });

@@ -21,10 +21,15 @@ class Feedback extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
-    User.hasMany(this, { foreignKey: 'user_id', as: 'users' });
-    this.belongsTo(models.Shop, { foreignKey: 'shop_id', as: 'shops' });
-    Shop.hasMany(this, { foreignKey: 'shop_id', as: 'shops' });
+
+    this.belongsTo(models.User, { foreignKey: 'user_id'});
+    User.hasMany(this, { foreignKey: 'user_id'});
+    this.belongsTo(models.Shop, { foreignKey: 'shop_id'});
+    Shop.hasMany(this, { foreignKey: 'shop_id'});
+    // this.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
+    // User.hasMany(this, { foreignKey: 'user_id', as: 'users' });
+    // this.belongsTo(models.Shop, { foreignKey: 'shop_id', as: 'shops' });
+    // Shop.hasMany(this, { foreignKey: 'shop_id', as: 'shops' });
   }
 }
 

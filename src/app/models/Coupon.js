@@ -18,8 +18,10 @@ class Retail extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retail' });
-    Shop.hasMany(this, { foreignKey: 'retail_id', as: 'retail' });
+    this.belongsTo(models.Retail, { foreignKey: 'retail_id' });
+    Shop.hasMany(this, { foreignKey: 'retail_id' });
+    // this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retail' });
+    // Shop.hasMany(this, { foreignKey: 'retail_id', as: 'retail' });
   }
 }
 

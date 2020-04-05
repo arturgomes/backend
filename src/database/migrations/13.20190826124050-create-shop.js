@@ -55,6 +55,18 @@ module.exports = {
             defaultValue: false,
             allowNull: false,
           },
+          short_url: {
+            type: Sequelize.STRING,
+            defaultValue: false,
+            allowNull: false,
+          },
+          retail_id: {
+            type: Sequelize.UUID,
+            references: { model: 'retails', key: 'id' },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+            allowNull: false,
+          },
           created_at: {
             type: Sequelize.DATE,
             allowNull: false,

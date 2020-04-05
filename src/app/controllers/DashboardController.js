@@ -1,9 +1,7 @@
 import Sequelize from 'sequelize'; //e aqui tbm
-import sequelize from '../../database/' //tava tentando ver se isso influencia
 import Feedback from '../models/Feedback';
 import Shop from '../models/Shop';
 import Retail from '../models/Retail';
-import moment from "moment";
 
 
 function filterNPSResults(fb) {
@@ -50,32 +48,54 @@ function _listItems(fb) {
 class DashboardController {
 
   async index(req, res) {
-    // console.log("req.body.retail_id: ", req.body.retail_id)
-    // const shops = await Shop.findAll(
-    //   { attributes: ['id'] },
-    //   { where: { retail_id: req.body.retail_id } }
-    // )
-    //   .map(el => el.get({ plain: true }));
-    // .filter(s => s.retail_id === req.body.retail_id);
-    // console.log("Shops: ", shops)
-    const fb = await Feedback.findAll(
-          {
-            include: [{
-              model: Shop,
-              required: true,
-              include:[{
-                model: Retail,
-                required: true
-               }]
-             }],
-            attributes: ['created_at', 'nps_value', 'shop_id','retail_id'],
-          },
-          { where: { retail_id: req.body.retail_id } }
-        )
-          .filter(s => s.shop_id === id);
 
-          console.log(fb);
+    console.log("linha 52: index dashboard, retail_id: ", req.body.retail_id);
 
+
+    const fb = await Feedback.findAll({
+      attributes: ['created_at', 'nps_value', 'shop_id'],
+      include: [{
+        model: Shop,
+        attributes: [['id', 'shops']],
+        as: 'shops'
+      },
+      ],
+      where: {
+        shop_id: shops
+      }
+    });
+
+
+    // const fb = await Feedback.findAll(
+    //       {
+    //         include: [{model: models.Shop, as: 'retail_id'}],
+    //         // include: [{
+    //         //   model: Shop,
+    //         //   required: true,
+    //         //   include:[{
+    //         //     model: Retail,
+    //         //     required: true
+    //         //    }]
+    //         //  }],
+    //         attributes: ['created_at', 'nps_value', 'shop_id' ,'retail_id'
+    //       ],
+    //       },
+    //       // { where: { retail_id: req.body.retail_id } }
+    //     );
+    //       // .filter(s => s.shop_id === id);
+
+    console.log("imprimindo fb: ", fb[0]);
+    if (!fb) {
+      return res.json({
+        posFeedbacks: 0,
+        negFeedbacks: 0,
+        neutralFeedbacks: 0,
+        totalFeedbacks: 0,
+        average: 0,
+        dados: []
+
+      });
+    }
 
 
     const now = new Date();
@@ -83,78 +103,72 @@ class DashboardController {
     var sixMonthsAgo = new Date();
     var aMonthsAgo = new Date();
     sixMonthsAgo.setFullYear(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() - 6);
-    aMonthsAgo.setFullYear(aMonthsAgo.getFullYear(), aMonthsAgo.getMonth() -1);
+    aMonthsAgo.setFullYear(aMonthsAgo.getFullYear(), aMonthsAgo.getMonth() - 1);
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-    const Op = Sequelize.Op //incluí isso pela internet
+    // const Op = Sequelize.Op //incluí isso pela internet
 
 
-    const mes = await Feedback.findAll(
-          {
-            where: { retail_id: req.body.retail_id,
-                      created_at: {[Op.between]: [ oneYearAgo,now]}
-                    },
-            include: [{
-                      model: Shop,
-                      required: true,
-                      include:[{
-                        model: Retail,
-                        required: true
-                       }]
-                     }],
-            attributes: [
-                        // 'created_at',
-                        [ Sequelize.fn('date_trunc', 'month', Sequelize.col('updated_at')), 'dt'],
-                        [ Sequelize.fn('count', '*'), 'count']
-                    ],
-            order: [[Sequelize.fn('date_trunc', 'month', Sequelize.col('updated_at'))]],
-            group: 'dt',
-            }
-          ) ;
-    const dia = await Feedback.findAll(
-            {
-            attributes: [//'shop_id',
-                        [ Sequelize.fn('date_trunc', 'day', Sequelize.col('updated_at')), 'dt'],
-                        [Sequelize.literal(`COUNT(*)`), 'count']
-                        ],
-             where: { retail_id: req.body.retail_id,
-                      created_at: {[Op.between]: [ aMonthsAgo,now]}
-                    },
-            include: [{
-                      model: Shop,
-                      required: true,
-                      include:[{
-                        model: Retail,
-                        required: true
-                       }]
-                     }],
-            order: [[Sequelize.fn('date_trunc', 'day', Sequelize.col('updated_at'))]],
-            group: ['dt'],
-            // sort: ['dia', descending]
+    //  const mes = await Feedback.findAll(
+    //         {
+    //           where: { retail_id: req.body.retail_id,
+    //                     created_at: {[Op.between]: [ oneYearAgo,now]}
+    //                   },
+    //           include: [{
+    //                     model: Shop,
+    //                     attributes: [['id','shops']],
+    //                     as: 'shops'
+    //                   },
+    //                 ],
+    //           attributes: [
+    //                       // 'created_at',
+    //                       [ Sequelize.fn('date_trunc', 'month', Sequelize.col('feedbacks.updated_at')), 'dt'],
+    //                       [ Sequelize.fn('count', '*'), 'count']
+    //                   ],
+    //           order: [[Sequelize.fn('date_trunc', 'month', Sequelize.col('feedbacks.updated_at'))]],
+    //           group: 'dt',
+    //           }
+    //         ) ;
+    //   const dia = await Feedback.findAll(
+    //           {
+    //           attributes: [//'shop_id',
+    //                       [ Sequelize.fn('date_trunc', 'day', Sequelize.col('feedbacks.updated_at')), 'dt'],
+    //                       [Sequelize.literal(`COUNT(*)`), 'count']
+    //                       ],
+    //            where: { retail_id: req.body.retail_id,
+    //                     created_at: {[Op.between]: [ aMonthsAgo,now]}
+    //                   },
+    //           include: [{
+    //                     model: Shop,
+    //                     attributes: [['id','shops']],
+    //                     as: 'shops'
+    //                   },
+    //                 ],
+    //           order: [[Sequelize.fn('date_trunc', 'day', Sequelize.col('feedbacks.updated_at'))]],
+    //           group: ['dt'],
+    //           // sort: ['dia', descending]
 
-            }
-          );
-    const semana = await Feedback.findAll(
-            {
-            attributes: [//'shop_id',
-              [Sequelize.literal(`COUNT(*)`), 'count'],
-              [ Sequelize.fn('date_trunc', 'week', Sequelize.col('updated_at')), 'dt'],
-                        ],
-             where: { retail_id: req.body.retail_id,
-                      created_at: {[Op.between]: [ sixMonthsAgo,now]}
-                    } ,
-            include: [{
-                      model: Shop,
-                      required: true,
-                      include:[{
-                        model: Retail,
-                        required: true
-                       }]
-                     }],
-            order: [[Sequelize.fn('date_trunc', 'week', Sequelize.col('updated_at'))]],
-            group: ['dt'],
-            }
-          );
+    //           }
+    //         );
+    //   const semana = await Feedback.findAll(
+    //           {
+    //           attributes: [//'shop_id',
+    //             [Sequelize.literal(`COUNT(*)`), 'count'],
+    //             [ Sequelize.fn('date_trunc', 'week', Sequelize.col('feedbacks.updated_at')), 'dt'],
+    //                       ],
+    //            where: { retail_id: req.body.retail_id,
+    //                     created_at: {[Op.between]: [ sixMonthsAgo,now]}
+    //                   } ,
+    //           include: [{
+    //                     model: Shop,
+    //                     attributes: [['id','shops']],
+    //                     as: 'shops'
+    //                   },
+    //                 ],
+    //           order: [[Sequelize.fn('date_trunc', 'week', Sequelize.col('feedbacks.updated_at'))]],
+    //           group: ['dt'],
+    //           }
+    //         );
 
 
 
@@ -174,7 +188,7 @@ class DashboardController {
         neutralFeedbacks,
         totalFeedbacks,
         average,
-        dados:fc
+        dados: fc
 
       });
     }
