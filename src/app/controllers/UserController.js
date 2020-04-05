@@ -53,13 +53,13 @@ class UserController {
       cpf: req.body.cpf,
     });
 
-    const { fid } = req.body;
+    const { fid } = req.params;
     if (fid && Valid.isUUID(fid)) {
       console.log(fid)
       await Feedback.findByPk(fid)
         .then(feed => {
           console.log(feed);
-          if (feed.user_id===null) {
+          if (feed.user_id!==null) {
             return res
               .status(400)
               .json({ error: Error.feedback_already_stored });
