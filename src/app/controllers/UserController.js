@@ -44,6 +44,9 @@ class UserController {
     if (cpfEx) {
       return res.status(400).json({ error: Error.cpf_already_used });
     }
+    const { fid } = req.body;
+    console.log("UserController.47 fid: ",fid);
+    const fc = fid ? 1 : 0
 
     const { id, name, email, phone } = await User.create({
       name: req.body.name,
@@ -51,15 +54,17 @@ class UserController {
       password: req.body.password,
       phone: req.body.phone,
       cpf: req.body.cpf,
+      feedcoins:fc
     });
 
-    const { fid } = req.params;
     if (fid && Valid.isUUID(fid)) {
-      console.log(fid)
-      await Feedback.findByPk(fid)
+      // console.log(`fid = ${fid}`);
+      await Feedback.findOne({
+        id: fid,
+      })
         .then(feed => {
-          console.log(feed);
-          if (feed.user_id!==null) {
+          // console.log(feed);
+          if (feed.user_id) {
             return res
               .status(400)
               .json({ error: Error.feedback_already_stored });
@@ -69,17 +74,16 @@ class UserController {
           });
           return res.json({ message: 'OK' });
         })
-        .catch(() => {
-          console.log('error');
-        });
+        // .catch(error => console.log(error));
+        .catch(() => { });
 
-      await User.findOne({ id })
-        .then(user => {
-          user.update({
-            feedcoins: user.feedcoins + 1,
-          });
-        })
-        .catch(error => console.log(error));
+      // await User.findOne({ id })
+      //   .then(user => {
+      //     user.update({
+      //       feedcoins: user.feedcoins + 1,
+      //     });
+      //   })
+      //   .catch(error => console.log(error));
 
       // await User.update({ feedcoins: 1 }, { where: id })
       //   .then(message => {

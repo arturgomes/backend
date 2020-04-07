@@ -46,7 +46,6 @@ routes.post('/dashboardData', authMiddleware, DashboardController.index);
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
 routes.post('/coupons-l/:retail_id', authMiddleware, CouponController.index);
 routes.post('/coupons-s', authMiddleware, CouponController.store);
-// routes.delete('/coupons-d/:id', authMiddleware, CouponController.delete);
 routes.post('/shops', authMiddleware, ShopController.store);
 routes.post('/shopsl', authMiddleware, ShopController.index);
 

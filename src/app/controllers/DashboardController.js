@@ -49,9 +49,7 @@ class DashboardController {
 
   async index(req, res) {
 
-    console.log("linha 52: index dashboard, retail_id: ", req.body.retail_id);
-
-
+    // console.log("linha 52: index dashboard, retail_id: ", req.body.retail_id);
     const fb = await Feedback.findAll({
       attributes: ['created_at', 'nps_value', 'shop_id'],
       include: [{
