@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 // import mongoose from 'mongoose';
 
+import Coupon from '../app/models/Coupon';
 import User from '../app/models/User';
 import Shop from '../app/models/Shop';
 import Retail from '../app/models/Retail';
@@ -8,7 +9,7 @@ import File from '../app/models/File';
 import Feedback from '../app/models/Feedback';
 import databaseConfig from '../config/database';
 
-const models = [User, Retail, File, Feedback, Shop];
+const models = [User, Retail, File, Feedback,Coupon, Shop];
 class Database {
   constructor() {
     this.init();

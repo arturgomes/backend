@@ -1,14 +1,17 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcrypt';
+import Retail from './retail.js';
 
-class Retail extends Model {
+class Coupon extends Model {
   static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
         description: Sequelize.STRING,
+        feedcoins: Sequelize.INTEGER,
+        loyalty: Sequelize.BOOLEAN,
         discount: Sequelize.STRING,
-        expireDate: Sequelize.DATE,
+        expire_date: Sequelize.DATE,
       },
       {
         sequelize,
@@ -19,10 +22,10 @@ class Retail extends Model {
 
   static associate(models) {
     this.belongsTo(models.Retail, { foreignKey: 'retail_id' });
-    Shop.hasMany(this, { foreignKey: 'retail_id' });
+    // Retail.hasMany(this, { foreignKey: 'retail_id' });
     // this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retail' });
     // Shop.hasMany(this, { foreignKey: 'retail_id', as: 'retail' });
   }
 }
 
-export default Retail;
+export default Coupon;

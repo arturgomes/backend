@@ -2,12 +2,14 @@ import Shop from '../models/Shop';
 
 class QrController {
   async index(req, res) {
+    // console.log("retail_id: ",req.body.retail_id)
     const shops = await Shop.findAll(
+
       { attributes: ['id', 'retail_id', 'name', 'short_url'] },
       { where: { retail_id: req.body.retail_id } }
-      );
+      )
       // .map(el => el.get({ plain: true }))
-      // .filter(s => s.retail_id === req.body.retail_id);
+      .filter(s => s.retail_id === req.body.retail_id);
 
       // console.log(shops);
       if (shops !== null) return res.json(shops);

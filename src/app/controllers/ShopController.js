@@ -21,6 +21,7 @@ class ShopController {
     }
     return res.json({ error: 'Shop not found' });
   }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

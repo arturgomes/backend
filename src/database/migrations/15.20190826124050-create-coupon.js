@@ -3,7 +3,7 @@ module.exports = {
     return queryInterface.sequelize
       .query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
       .then(() => {
-        return queryInterface.createTable('coupon', {
+        return queryInterface.createTable('coupons', {
           id: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.literal('uuid_generate_v4()'),
@@ -22,13 +22,13 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
-          expireDate: {
+          expire_date: {
             allowNull: false,
             type: Sequelize.DATE,
           },
-          shop_id: {
+          retail_id: {
             type: Sequelize.UUID,
-            references: { model: 'shops', key: 'id' },
+            references: { model: 'retails', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
             allowNull: false,
@@ -45,6 +45,6 @@ module.exports = {
       });
   },
   down: queryInterface => {
-    return queryInterface.dropTable('retails');
+    return queryInterface.dropTable('coupons');
   },
 };

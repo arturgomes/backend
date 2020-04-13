@@ -7,6 +7,7 @@ import ManFeedController from './app/controllers/ManFeedController';
 import UserController from './app/controllers/UserController';
 import CouponController from './app/controllers/CouponController';
 import ShopController from './app/controllers/ShopController';
+import AllShopsController from './app/controllers/AllShopsController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import FeedbackController from './app/controllers/FeedbackController';
@@ -46,6 +47,7 @@ routes.post('/dashboardData', authMiddleware, DashboardController.index);
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
 routes.post('/coupons-l/:retail_id', authMiddleware, CouponController.index);
 routes.post('/coupons-s', authMiddleware, CouponController.store);
+routes.post('/allshops', authMiddleware, AllShopsController.index);
 routes.post('/shops', authMiddleware, ShopController.store);
 routes.post('/shopsl', authMiddleware, ShopController.index);
 
