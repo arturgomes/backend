@@ -23,15 +23,12 @@ class App {
   }
 
   middlewares() {
-    this.server.use(cors());
-    this.server.use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
-      next();
-    });
+    this.server.use(
+      cors({
+        origin: "https://couponfeed.co", // restrict calls to those this address
+        methods: ['GET', 'PUT', 'POST', 'DELETE'] // only allow GET requests
+      })
+    );
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
