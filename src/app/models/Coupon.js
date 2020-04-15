@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcrypt';
-import Retail from './retail.js';
+import Retail from './Retail.js';
 
 class Coupon extends Model {
   static init(sequelize) {
