@@ -22,7 +22,7 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-
+routes.options('*', cors())
 routes.get('/', (req, res) => res.redirect('http://www.couponfeed.co'));
 
 routes.post('/users', UserController.store);
