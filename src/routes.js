@@ -27,7 +27,6 @@ routes.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-routes.options('*', cors())
 routes.get('/', (req, res) => res.redirect('http://www.couponfeed.co'));
 
 routes.post('/users', UserController.store);
