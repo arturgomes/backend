@@ -1,5 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcrypt';
+import Shop from './Shop';
+import Retail from './Retail';
 
 export default class User extends Model {
   static init(sequelize) {
@@ -23,6 +25,18 @@ export default class User extends Model {
       }
     });
     return this;
+  }
+
+  static associate(models) {
+    this.hasMany(models.Feedback, {
+      foreignKey: 'user_id',
+      // as: 'fbs'
+    })
+
+    this.hasOne(models.FileUser, {
+      foreignKey: 'user_id',
+      // as: 'fbs'
+    })
   }
 
   checkPassword(password) {

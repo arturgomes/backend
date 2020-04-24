@@ -3,31 +3,44 @@ import Retail from '../models/Retail';
 import Error from '../errors/errors';
 
 class RetailController {
-  async index(req,res){
+  async index(req, res) {
     const { retail_id } = req.params;
-    const retail = await Retail.findByPk({retail_id})
+    const retail = await Retail.findByPk({ retail_id })
     return res.json(retail);
   }
 
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string().required(),
-      // .min(6),
+      email: Yup.string().email().required(),
+      password: Yup.string().required().min(6),
       cnpj: Yup.string().required(),
       phone: Yup.string().required(),
+      address_street: Yup.string().required(),
+      address_number: Yup.string().required(),
+      address_neighb: Yup.string(),
+      address_city: Yup.string().required(),
+      address_state: Yup.string().required(),
+      address_zip: Yup.string().required(),
+      address_comp: Yup.string(),
+      // address_country: Yup.string().required(),
     });
 
     if (
       !(await schema.isValid({
         name: req.body.name,
         email: req.body.email,
+        phone: req.body.phone,
         password: req.body.password,
         cnpj: req.body.cnpj,
-        phone: req.body.phone,
+        address_street: req.body.address_street,
+        address_number: req.body.address_number,
+        address_city: req.body.address_city,
+        address_state: req.body.address_state,
+        address_zip: req.body.address_zip,
+        address_neighb: req.body.address_neighb,
+        address_comp: req.body.address_comp,
+        // address_country: req.body.address_country,
       }))
     ) {
       return res.status(400).json({ error: Error.validation_failed });
@@ -52,8 +65,16 @@ class RetailController {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      phone: req.body.phone,
       cnpj: req.body.cnpj,
+      phone: req.body.phone,
+      address_street: req.body.address_street,
+      address_number: req.body.address_number,
+      address_city: req.body.address_city,
+      address_state: req.body.address_state,
+      address_zip: req.body.address_zip,
+      address_neighb: req.body.address_neighb,
+      address_comp: req.body.address_comp,
+      // address_country: req.body.address_country,
     });
 
     return res.json({ id, name, email, cnpj });

@@ -3,13 +3,13 @@ import Coupon from '../models/Coupon';
 import Error from '../errors/errors';
 
 class CouponController {
-  async index(req,res){
-    const {retail_id} = req.params;
-    const coupons = await Coupon.findAll({where:{retail_id}})
+  async index(req, res) {
+    const { retail_id } = req.params;
+    const coupons = await Coupon.findAll({ where: { retail_id } })
       .filter(s => s.retail_id === req.params.retail_id);
     // console.log("Cupons: ",coupons)
 
-    if(!coupons){
+    if (!coupons) {
       return res.status(400).json({ error: "no coupons found for this retail" });
     }
     return res.json(coupons);
@@ -44,11 +44,11 @@ class CouponController {
     // }
 
     // console.log("passou no yup");
-   await Coupon.create(validation)
-      .then(response => {console.log(response)})
-      .catch(error => {console.log(error)});
-    if(!coupon){
-      return res.status(400).json({error: "Cupom não criado"})
+    await Coupon.create(validation)
+      .then(response => { console.log(response) })
+      .catch(error => { console.log(error) });
+    if (!coupon) {
+      return res.status(400).json({ error: "Cupom não criado" })
     }
     console.log("id: ", coupon);
     return res.json(coupon);

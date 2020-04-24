@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import Shop from './Shop';
 import bcrypt from 'bcrypt';
 
 class Retail extends Model {
@@ -32,6 +33,14 @@ class Retail extends Model {
     return this;
   }
 
+  static associate(models){
+    this.hasMany(models.Feedback, {foreignKey:'retail_id',
+    // as: 'shops'
+  })
+    this.hasMany(models.Shop, {foreignKey:'retail_id',
+    // as: 'shops'
+  })
+  }
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }

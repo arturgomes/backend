@@ -5,21 +5,21 @@ import Retail from '../models/Retail';
 
 
 function filterNPSResults(fb) {
-
-  var listItems = _listItems(fb);
-  let media = listItems.map(f => { return parseInt(f.nps_value) });
+  console.log("linha 8");
+  let media = fb.map(f => { return parseInt(f.nps_value) });
   var total = media.reduce((result, number) => result + number);
-  let nf = listItems.filter(f => f.nps_value < 7);
-  let ne = listItems.filter(f => f.nps_value >= 7 && f.nps_value < 9);
-  let po = listItems.filter(f => f.nps_value >= 9);
+  let nf = fb.filter(f => f.nps_value < 7);
+  let ne = fb.filter(f => f.nps_value >= 7 && f.nps_value < 9);
+  let po = fb.filter(f => f.nps_value >= 9);
   const negf = nf.length;
-  // console.log(po.length, negf, ne.length, listItems.length)
+  console.log("linha 15");
+  console.log(nf, po, ne)
   return {
     posFeedbacks: po.length,
     negFeedbacks: negf,
     neutralFeedbacks: ne.length,
-    totalFeedbacks: listItems.length,
-    average: (total / media.length),
+    totalFeedbacks: fb.length,
+    average: (total / fb.length),
   };
 }
 function flatten(arr) {
@@ -49,20 +49,14 @@ class DashboardController {
 
   async index(req, res) {
 
-    // console.log("linha 52: index dashboard, retail_id: ", req.body.retail_id);
     const fb = await Feedback.findAll({
-      attributes: ['created_at', 'nps_value', 'shop_id'],
-      include: [{
-        model: Shop,
-        attributes: [['id', 'shops']],
-        as: 'shops'
-      },
-      ],
+      attributes: ['created_at', 'nps_value', 'shop_id','retail_id'],
       where: {
-        shop_id: shops
+        retail_id: req.body.retail_id
       }
     });
 
+    console.log("linha 66: index dashboard, fb: ", fb);
 
     // const fb = await Feedback.findAll(
     //       {
@@ -82,7 +76,7 @@ class DashboardController {
     //     );
     //       // .filter(s => s.shop_id === id);
 
-    console.log("imprimindo fb: ", fb[0]);
+    // console.log("imprimindo fb: ", fb[0]);
     if (!fb) {
       return res.json({
         posFeedbacks: 0,
@@ -94,6 +88,7 @@ class DashboardController {
 
       });
     }
+    console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
 
 
     const now = new Date();
@@ -177,6 +172,13 @@ class DashboardController {
       totalFeedbacks,
       average
     } = filterNPSResults(fb);
+    console.log("linha 93: index dashboard, retail_id: ", {
+      posFeedbacks,
+      negFeedbacks,
+      neutralFeedbacks,
+      totalFeedbacks,
+      average
+    });
 
 
     if (fb) {
@@ -186,7 +188,7 @@ class DashboardController {
         neutralFeedbacks,
         totalFeedbacks,
         average,
-        dados: fc
+        dados: fb
 
       });
     }

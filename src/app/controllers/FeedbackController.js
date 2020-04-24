@@ -31,6 +31,7 @@ class FeedbackController {
       user_id: null, // userExists.id,
       shop_id: shop.id,
       nps_value: nps,
+      retail_id:shop.retail_id,
       comment_optional: com,
     });
     const fid = response.id;

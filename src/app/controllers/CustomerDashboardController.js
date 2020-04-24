@@ -1,191 +1,69 @@
-import Sequelize from 'sequelize'; //e aqui tbm
+import { Op, Sequelize } from 'sequelize'; //e aqui tbm
 import Feedback from '../models/Feedback';
 import Shop from '../models/Shop';
 import Retail from '../models/Retail';
-
-
-function filterNPSResults(fb) {
-
-  var listItems = _listItems(fb);
-  let media = listItems.map(f => { return parseInt(f.nps_value) });
-  var total = media.reduce((result, number) => result + number);
-  let nf = listItems.filter(f => f.nps_value < 7);
-  let ne = listItems.filter(f => f.nps_value >= 7 && f.nps_value < 9);
-  let po = listItems.filter(f => f.nps_value >= 9);
-  const negf = nf.length;
-  // console.log(po.length, negf, ne.length, listItems.length)
-  return {
-    posFeedbacks: po.length,
-    negFeedbacks: negf,
-    neutralFeedbacks: ne.length,
-    totalFeedbacks: listItems.length,
-    average: (total / media.length),
-  };
-}
-function flatten(arr) {
-  return arr.reduce(function (flat, toFlatten) {
-    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-  }, []);
-}
-
-function _listItems(fb) {
-  let listShops;
-  // const fb1 = fb.flat(1);
-  const tmp = Object.keys(fb).map(key => {
-    const shop = fb[key];
-    const { f } = shop;
-    listShops = Object.keys(f).map(g => {
-      const { nps_value, date } = f[g];
-      let date1 = new Date(date).toLocaleDateString("pt-BR");
-      return { nps_value, date1 };
-    });
-    return listShops;
-  })
-  return flatten(tmp);
-}
+import User from '../models/User';
+import Coupon from '../models/Coupon';
 
 
 class CustomerDashboardController {
 
   async index(req, res) {
+    const { user_id } = req.body;
 
-    const fb = await Feedback.findAll({
-      attributes: ['user_id', 'shop_id','createdAt'],
-      include: [{
-        model: Shop,
-        attributes: [['id', 'shop']],
-        as: 'shop'
-      },
-      {
-        model: Shop,
-        attributes: [['name', 'shop_name']],
-        as: 'shop_name'
-      },
-      ],
+    //retrieve all feedbacks from that user_id
+    const feedbacks = await Feedback.findAll({
+      group: ['Feedback.retail_id', 'Retail.id'],
+      where: { user_id },
+      attributes: ['retail_id', [Sequelize.fn('count', Sequelize.col('retail_id')), 'feedbacks_count']],
+      include: [{ attributes: [['name', 'retail_name']], model: Retail }],
+    })
+
+    // console.log(feedbacks);
+    //count all feedbacks
+    const total_feedbacks = await Feedback.count({ where: { user_id } });
+
+    //make a list of retail_ids form the feedback list
+    const retail_ids = feedbacks.map(f => f.retail_id)
+
+    //get all the coupons available from the retail_ids list
+    const loyalties = await Coupon.findAll({
+      attributes: ['feedcoins', 'name', 'description','discount','retail_id',],
       where: {
-        user_id: req.body.user_id
-      }
+        retail_id: {
+          [Op.in]: retail_ids
+        }
+      },
+      include: [{ attributes: [['name', 'retail_name']], model: Retail }],
+
+    });
+    // console.log("loyalty_set: ",loyalties)
+
+
+    // get the last feedback
+    const last_feedback = await Feedback.findOne({
+      where: {
+        user_id,
+      },
+      order: [['createdAt', 'DESC']],
     });
 
+    //get all the user data
+    const user = await User.findByPk(user_id);
 
-    //       // .filter(s => s.shop_id === id);
-console.log("customer dashboard fb:", fb)
+    return res.json({
+      user,
+      last_feedback,
+      total_feedbacks,
+      fb: feedbacks,
+      loyalties,
+    });
 
-    return res.json({ message: fb });
+    // return res.json(feedbacks);
   }
 
 
 
-
-
-  // async index(req, res) {
-  //   // console.log("req.body.retail_id: ", req.body.retail_id)
-  //   const shops = await Shop.findAll(
-  //     { attributes: ['id'] },
-  //     { where: { retail_id: req.body.retail_id } }
-  //   )
-  //     .map(el => el.get({ plain: true }));
-  //   // .filter(s => s.retail_id === req.body.retail_id);
-  //   // console.log("Shops: ", shops)
-  //   const fb = await Promise.all(
-  //     shops.map(async s => {
-  //       const { id } = s;
-  //       const f = await Feedback.findAll(
-  //         {
-  //           attributes: ['created_at', 'nps_value', 'shop_id'],
-  //         },
-  //         { where: { shop_id: id } }
-  //       )
-  //         .filter(s => s.shop_id === id);
-
-  //       return { f };
-
-  //     })
-  //   );
-  //   const now = new Date();
-  //   var oneYearAgo = new Date();
-  //   var sixMonthsAgo = new Date();
-  //   var aMonthsAgo = new Date();
-  //   sixMonthsAgo.setFullYear(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() - 6);
-  //   aMonthsAgo.setFullYear(aMonthsAgo.getFullYear(), aMonthsAgo.getMonth() -1);
-  //   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-
-  //   const Op = Sequelize.Op //incluí isso pela internet
-
-  //   const fc = await Promise.all(
-  //     shops.map(async s => {
-  //       const { id } = s;
-  //       const mes = await Feedback.findAll(
-  //         {
-  //           where: { shop_id: id,
-  //                     created_at: {[Op.between]: [ oneYearAgo,now]}
-  //                   },
-  //           attributes: [
-  //                       // 'created_at',
-  //                       [ Sequelize.fn('date_trunc', 'month', Sequelize.col('updated_at')), 'dt'],
-  //                       [ Sequelize.fn('count', '*'), 'count']
-  //                   ],
-  //           order: [[Sequelize.fn('date_trunc', 'month', Sequelize.col('updated_at'))]],
-  //           group: 'dt',
-  //           }
-  //         ) ;
-  //       const dia = await Feedback.findAll(
-  //           {
-  //           attributes: [//'shop_id',
-  //                       [ Sequelize.fn('date_trunc', 'day', Sequelize.col('updated_at')), 'dt'],
-  //                       [Sequelize.literal(`COUNT(*)`), 'count']
-  //                       ],
-  //            where: { shop_id: id,
-  //                     created_at: {[Op.between]: [ aMonthsAgo,now]}
-  //                   },
-  //           order: [[Sequelize.fn('date_trunc', 'day', Sequelize.col('updated_at'))]],
-  //           group: ['dt'],
-  //           // sort: ['dia', descending]
-
-  //           }
-  //         );
-  //       const semana = await Feedback.findAll(
-  //           {
-  //           attributes: [//'shop_id',
-  //             [Sequelize.literal(`COUNT(*)`), 'count'],
-  //             [ Sequelize.fn('date_trunc', 'week', Sequelize.col('updated_at')), 'dt'],
-  //                       ],
-  //            where: { shop_id: id,
-  //                     created_at: {[Op.between]: [ sixMonthsAgo,now]}
-  //                   },
-  //           order: [[Sequelize.fn('date_trunc', 'week', Sequelize.col('updated_at'))]],
-  //           group: ['dt'],
-  //           }
-  //         );
-
-
-  //       return {id,mes,semana,dia} ;
-
-  //     })
-  //   );
-
-  //   const {
-  //     posFeedbacks,
-  //     negFeedbacks,
-  //     neutralFeedbacks,
-  //     totalFeedbacks,
-  //     average
-  //   } = filterNPSResults(fb);
-
-
-  //   if (fb) {
-  //     return res.json({
-  //       posFeedbacks,
-  //       negFeedbacks,
-  //       neutralFeedbacks,
-  //       totalFeedbacks,
-  //       average,
-  //       dados:fc
-
-  //     });
-  //   }
-  //   return res.json({ error: 'Shop not found' });
-  // }
 }
 
 export default new CustomerDashboardController();
