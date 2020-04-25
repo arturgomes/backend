@@ -1,19 +1,19 @@
 {
   "error": {
-    "message": "Cannot read property 'address_neighb' of undefined",
-    "name": "TypeError",
+    "message": "shops is not defined",
+    "name": "ReferenceError",
     "frames": [
       {
-        "file": "src/app/controllers/RetailController.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/src/app/controllers/RetailController.js",
-        "method": "store",
-        "line": 39,
-        "column": 32,
+        "file": "src/app/controllers/DashboardController.js",
+        "filePath": "/var/app/backend/src/app/controllers/DashboardController.js",
+        "method": "index",
+        "line": 62,
+        "column": 18,
         "context": {
-          "start": 34,
-          "pre": "      cnpj: req.body.cnpj,\n      phone: req.body.phone,\n      address_street: req.body.address_country,\n      address_number: req.body.address_country,\n      // address_comp: req.body.address_country,",
-          "line": "      address_neighb: Yup.body.address_neighb,",
-          "post": "      address_city: req.body.address_country,\n      address_state: req.body.address_country,\n      address_zip: req.body.address_country,\n      // address_country: req.body.address_country,\n    })"
+          "start": 57,
+          "pre": "        attributes: [['id', 'shops']],\n        as: 'shops'\n      },\n      ],\n      where: {",
+          "line": "        shop_id: shops",
+          "post": "      }\n    });\n\n\n    // const fb = await Feedback.findAll("
         },
         "isModule": false,
         "isNative": false,
@@ -21,7 +21,7 @@
       },
       {
         "file": "node_modules/express-async-errors/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express-async-errors/index.js",
+        "filePath": "/var/app/backend/node_modules/express-async-errors/index.js",
         "method": "newFn",
         "line": 16,
         "column": 20,
@@ -37,7 +37,7 @@
       },
       {
         "file": "node_modules/express/lib/router/layer.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/layer.js",
+        "filePath": "/var/app/backend/node_modules/express/lib/router/layer.js",
         "method": "Layer.handle [as handle_request]",
         "line": 95,
         "column": 5,
@@ -53,7 +53,7 @@
       },
       {
         "file": "node_modules/express/lib/router/route.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/route.js",
+        "filePath": "/var/app/backend/node_modules/express/lib/router/route.js",
         "method": "next",
         "line": 137,
         "column": 13,
@@ -68,332 +68,27 @@
         "isApp": false
       },
       {
-        "file": "node_modules/express/lib/router/route.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/route.js",
-        "method": "Route.dispatch",
-        "line": 112,
-        "column": 3,
-        "context": {
-          "start": 107,
-          "pre": "    method = 'get';\n  }\n\n  req.route = this;\n",
-          "line": "  next();",
-          "post": "\n  function next(err) {\n    // signal to exit route\n    if (err && err === 'route') {\n      return done();"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express-async-errors/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express-async-errors/index.js",
-        "method": "newFn",
-        "line": 16,
-        "column": 20,
-        "context": {
-          "start": 11,
-          "pre": "  return newFn;\n}\n\nfunction wrap(fn) {\n  const newFn = function newFn(...args) {",
-          "line": "    const ret = fn.apply(this, args);",
-          "post": "    const next = (args.length === 5 ? args[2] : last(args)) || noop;\n    if (ret && ret.catch) ret.catch(err => next(err));\n    return ret;\n  };\n  Object.defineProperty(newFn, 'length', {"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/layer.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/layer.js",
-        "method": "Layer.handle [as handle_request]",
-        "line": 95,
-        "column": 5,
-        "context": {
-          "start": 90,
-          "pre": "    // not a standard request handler\n    return next();\n  }\n\n  try {",
-          "line": "    fn(req, res, next);",
-          "post": "  } catch (err) {\n    next(err);\n  }\n};\n"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": null,
-        "line": 281,
-        "column": 22,
-        "context": {
-          "start": 276,
-          "pre": "      if (err) {\n        return next(layerError || err);\n      }\n\n      if (route) {",
-          "line": "        return layer.handle_request(req, res, next);",
-          "post": "      }\n\n      trim_prefix(layer, layerError, layerPath, path);\n    });\n  }"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "Function.process_params",
-        "line": 335,
+        "file": "src/app/middlewares/auth.js",
+        "filePath": "/var/app/backend/src/app/middlewares/auth.js",
+        "method": "exports.default",
+        "line": 18,
         "column": 12,
         "context": {
-          "start": 330,
-          "pre": "  // captured parameters from the layer, keys and values\n  var keys = layer.keys;\n\n  // fast track\n  if (!keys || keys.length === 0) {",
-          "line": "    return done();",
-          "post": "  }\n\n  var i = 0;\n  var name;\n  var paramIndex = 0;"
+          "start": 13,
+          "pre": "\n  try {\n    const decoded = await promisify(jwt.verify)(token, authConfig.secret);\n    req.userId = decoded.id;\n",
+          "line": "    return next();",
+          "post": "  } catch (err) {\n    return res.status(401).json({ error: 'token invalid' });\n  }\n};\n"
         },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "next",
-        "line": 275,
-        "column": 10,
-        "context": {
-          "start": 270,
-          "pre": "      ? mergeParams(layer.params, parentParams)\n      : layer.params;\n    var layerPath = layer.path;\n\n    // this should be done for the layer",
-          "line": "    self.process_params(layer, paramcalled, req, res, function (err) {",
-          "post": "      if (err) {\n        return next(layerError || err);\n      }\n\n      if (route) {"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "Function.handle",
-        "line": 174,
-        "column": 3,
-        "context": {
-          "start": 169,
-          "pre": "\n  // setup basic req values\n  req.baseUrl = parentUrl;\n  req.originalUrl = req.originalUrl || req.url;\n",
-          "line": "  next();",
-          "post": "\n  function next(err) {\n    var layerError = err === 'route'\n      ? null\n      : err;"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "router",
-        "line": 47,
-        "column": 12,
-        "context": {
-          "start": 42,
-          "pre": "\nvar proto = module.exports = function(options) {\n  var opts = options || {};\n\n  function router(req, res, next) {",
-          "line": "    router.handle(req, res, next);",
-          "post": "  }\n\n  // mixin Router class functions\n  setPrototypeOf(router, proto)\n"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express-async-errors/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express-async-errors/index.js",
-        "method": "newFn",
-        "line": 16,
-        "column": 20,
-        "context": {
-          "start": 11,
-          "pre": "  return newFn;\n}\n\nfunction wrap(fn) {\n  const newFn = function newFn(...args) {",
-          "line": "    const ret = fn.apply(this, args);",
-          "post": "    const next = (args.length === 5 ? args[2] : last(args)) || noop;\n    if (ret && ret.catch) ret.catch(err => next(err));\n    return ret;\n  };\n  Object.defineProperty(newFn, 'length', {"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/layer.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/layer.js",
-        "method": "Layer.handle [as handle_request]",
-        "line": 95,
-        "column": 5,
-        "context": {
-          "start": 90,
-          "pre": "    // not a standard request handler\n    return next();\n  }\n\n  try {",
-          "line": "    fn(req, res, next);",
-          "post": "  } catch (err) {\n    next(err);\n  }\n};\n"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "trim_prefix",
-        "line": 317,
-        "column": 13,
-        "context": {
-          "start": 312,
-          "pre": "    debug('%s %s : %s', layer.name, layerPath, req.originalUrl);\n\n    if (layerError) {\n      layer.handle_error(layerError, req, res, next);\n    } else {",
-          "line": "      layer.handle_request(req, res, next);",
-          "post": "    }\n  }\n};\n\n/**"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": null,
-        "line": 284,
-        "column": 7,
-        "context": {
-          "start": 279,
-          "pre": "\n      if (route) {\n        return layer.handle_request(req, res, next);\n      }\n",
-          "line": "      trim_prefix(layer, layerError, layerPath, path);",
-          "post": "    });\n  }\n\n  function trim_prefix(layer, layerError, layerPath, path) {\n    if (layerPath.length !== 0) {"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "Function.process_params",
-        "line": 335,
-        "column": 12,
-        "context": {
-          "start": 330,
-          "pre": "  // captured parameters from the layer, keys and values\n  var keys = layer.keys;\n\n  // fast track\n  if (!keys || keys.length === 0) {",
-          "line": "    return done();",
-          "post": "  }\n\n  var i = 0;\n  var name;\n  var paramIndex = 0;"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/express/lib/router/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/express/lib/router/index.js",
-        "method": "next",
-        "line": 275,
-        "column": 10,
-        "context": {
-          "start": 270,
-          "pre": "      ? mergeParams(layer.params, parentParams)\n      : layer.params;\n    var layerPath = layer.path;\n\n    // this should be done for the layer",
-          "line": "    self.process_params(layer, paramcalled, req, res, function (err) {",
-          "post": "      if (err) {\n        return next(layerError || err);\n      }\n\n      if (route) {"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/body-parser/lib/read.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/body-parser/lib/read.js",
-        "method": null,
-        "line": 130,
-        "column": 5,
-        "context": {
-          "start": 125,
-          "pre": "        type: err.type || 'entity.parse.failed'\n      }))\n      return\n    }\n",
-          "line": "    next()",
-          "post": "  })\n}\n\n/**\n * Get the content stream of the request."
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/raw-body/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/raw-body/index.js",
-        "method": "invokeCallback",
-        "line": 224,
-        "column": 16,
-        "context": {
-          "start": 219,
-          "pre": "      if (args[0]) {\n        // halt the stream on error\n        halt(stream)\n      }\n",
-          "line": "      callback.apply(null, args)",
-          "post": "    }\n  }\n\n  function onAborted () {\n    if (complete) return"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/raw-body/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/raw-body/index.js",
-        "method": "done",
-        "line": 213,
-        "column": 7,
-        "context": {
-          "start": 208,
-          "pre": "    complete = true\n\n    if (sync) {\n      process.nextTick(invokeCallback)\n    } else {",
-          "line": "      invokeCallback()",
-          "post": "    }\n\n    function invokeCallback () {\n      cleanup()\n"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "node_modules/raw-body/index.js",
-        "filePath": "/Users/artur/Dropbox/Workspace/couponfeed/backend/node_modules/raw-body/index.js",
-        "method": "IncomingMessage.onEnd",
-        "line": 273,
-        "column": 7,
-        "context": {
-          "start": 268,
-          "pre": "      }))\n    } else {\n      var string = decoder\n        ? buffer + (decoder.end() || '')\n        : Buffer.concat(buffer)",
-          "line": "      done(null, string)",
-          "post": "    }\n  }\n\n  function cleanup () {\n    buffer = null"
-        },
-        "isModule": true,
-        "isNative": false,
-        "isApp": false
-      },
-      {
-        "file": "events.js",
-        "filePath": "events.js",
-        "method": "IncomingMessage.emit",
-        "line": 194,
-        "column": 15,
-        "context": {},
         "isModule": false,
-        "isNative": true,
-        "isApp": false
-      },
-      {
-        "file": "domain.js",
-        "filePath": "domain.js",
-        "method": "IncomingMessage.EventEmitter.emit",
-        "line": 459,
-        "column": 23,
-        "context": {},
-        "isModule": false,
-        "isNative": true,
-        "isApp": false
-      },
-      {
-        "file": "_stream_readable.js",
-        "filePath": "_stream_readable.js",
-        "method": "endReadableNT",
-        "line": 1125,
-        "column": 12,
-        "context": {},
-        "isModule": false,
-        "isNative": true,
-        "isApp": false
+        "isNative": false,
+        "isApp": true
       },
       {
         "file": "internal/process/next_tick.js",
         "filePath": "internal/process/next_tick.js",
         "method": "process._tickCallback",
-        "line": 63,
-        "column": 19,
+        "line": 68,
+        "column": 7,
         "context": {},
         "isModule": false,
         "isNative": true,
