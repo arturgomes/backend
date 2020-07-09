@@ -33,6 +33,8 @@ passport.use(
 
     function(accessToken, refreshToken, profile, done) {
       //Check the DB to find a User with the profile.id
+
+      console.log(profile);
       User.findOne({ user_id: profile.id }, function(err, user) {//See if a User already exists with the Facebook ID
         if(err) {
           console.log(err);  // handle errors!

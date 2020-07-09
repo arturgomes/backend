@@ -59,8 +59,8 @@ routes.get("/login/failed", (req, res) => {
   });
 });
 
-routes.get("/facebook", passport.authenticate("facebook"));
-routes.get(
+routes.post("/a/facebook", passport.authenticate("facebook"));
+routes.post(
   "/facebook/redirect",
   passport.authenticate("facebook", {
     successRedirect: "/",
