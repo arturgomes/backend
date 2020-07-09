@@ -31,33 +31,36 @@ passport.use(
   new FacebookStrategy(
     ids.facebook,
 
-    function(accessToken, refreshToken, profile, done) {
+    function (accessToken, refreshToken, profile, done) {
       //Check the DB to find a User with the profile.id
 
       console.log(profile);
-      User.findOne({ user_id: profile.id }, function(err, user) {//See if a User already exists with the Facebook ID
-        if(err) {
-          console.log(err);  // handle errors!
-        }
+      User.findOne({ where: { user_id: profile.id } })
+        .then(user => {
+          if (user) {
+            done(null, user); //If User already exists login as stated on line 10 return User
+          } else { //else create a new User
+            user = new User({
+              user_id: profile.id, //pass in the id and displayName params from Facebook
+              name: profile.displayName,
+              provider_type:'facebook'
+            });
+            user.save(function (err) { //Save User if there are no errors else redirect to login route
+              if (err) {
+                console.log(err);  // handle errors!
+              } else {
+                console.log("saving user ...");
+                done(null, user);
+              }
+            });
+          }
+        })
+        .catch(err => {
+          if (err) {
+            console.log(err);  // handle errors!
+          }
+        })//See if a User already exists with the Facebook ID
 
-        if (user) {
-          done(null, user); //If User already exists login as stated on line 10 return User
-        } else { //else create a new User
-          user = new User({
-            user_id: profile.id, //pass in the id and displayName params from Facebook
-            name: profile.displayName
-          });
-          user.save(function(err) { //Save User if there are no errors else redirect to login route
-            if(err) {
-              console.log(err);  // handle errors!
-            } else {
-              console.log("saving user ...");
-              done(null, user);
-            }
-          });
-        }
-      });
-    }
 
     // function(accessToken, refreshToken, profile, done) {
     //   const { email, first_name, last_name } = profile._json;
@@ -70,7 +73,7 @@ passport.use(
     //   // new User(userData).save();
     //   done(null, profile);
     // }
-  )
-);
+      }
+));
 
 export default passport;

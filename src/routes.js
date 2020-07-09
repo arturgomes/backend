@@ -29,7 +29,7 @@ const upload = multer(multerConfig);
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
-routes.get('/', (req, res) => res.redirect('http://www.couponfeed.co'));
+routes.get('/', (req, res) => res.redirect('https://www.couponfeed.co'));
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
@@ -59,9 +59,8 @@ routes.get("/login/failed", (req, res) => {
   });
 });
 
-routes.post("/a/facebook", passport.authenticate("facebook"));
-routes.post(
-  "/facebook/redirect",
+routes.get("/facebook", passport.authenticate("facebook"));
+routes.get("/facebook/redirect",
   passport.authenticate("facebook", {
     successRedirect: "/",
     failureRedirect: "/login/failed"
@@ -72,9 +71,9 @@ routes.get("/fail", (req, res) => {
   res.json({resposta:"Failed attempt"});
 });
 
-routes.get("/", (req, res) => {
-  res.json({resposta:"success"});
-});
+// routes.get("/", (req, res) => {
+//   res.json({resposta:"success"});
+// });
 
 routes.post('/sessions', SessionController.store);
 

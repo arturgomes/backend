@@ -5,8 +5,8 @@ var ids = {
   facebook: {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
-    profileFields: ["email", "name"]
+    callbackURL: '/facebook/redirect',
+    profileFields: ["emails", "name"]
 
   },
   // twitter: {
