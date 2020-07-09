@@ -41,13 +41,30 @@ routes.post('/feed/:shop_id/f', FeedbackController.index);
 routes.post('/feed/:shop_id/c', FeedbackController.store);
 routes.post('/surl/:short_url', ShortnerController.index);
 
-routes.get("/auth/facebook", passport.authenticate("facebook"));
 
+routes.get("/login/success", (req, res) => {
+  if (req.user) {
+    res.json({
+      success: true,
+      message: "user has successfully authenticated",
+      user: req.user,
+      cookies: req.cookies
+    });
+  }
+});
+routes.get("/login/failed", (req, res) => {
+  res.status(401).json({
+    success: false,
+    message: "user failed to authenticate."
+  });
+});
+
+routes.get("/facebook", passport.authenticate("facebook"));
 routes.get(
-  "/cb/facebook",
+  "/facebook/redirect",
   passport.authenticate("facebook", {
     successRedirect: "/",
-    failureRedirect: "/fail"
+    failureRedirect: "/login/failed"
   })
 );
 
