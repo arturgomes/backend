@@ -35,6 +35,8 @@ class App {
     );
     // passport.use(fbstrat());
     this.server.use(passport.initialize());
+    this.server.use(passport.session());
+    this.server.use(passport.use(fbstrat));
 
   }
 
