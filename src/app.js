@@ -34,6 +34,8 @@ class App {
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
     // passport.use(fbstrat());
+    this.server.use(passport.initialize());
+
   }
 
   routes() {
