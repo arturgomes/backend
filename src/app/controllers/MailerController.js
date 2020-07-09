@@ -21,7 +21,7 @@ transporter.verify((error, success) => {
   }
 });
 
-router.post('/send', (req, res, next) => )
+// router.post('/send', (req, res, next) => )
 
 
 class MailerController {
