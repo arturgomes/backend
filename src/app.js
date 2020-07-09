@@ -10,7 +10,7 @@ import 'express-async-errors';
 
 import routes from './routes';
 import sentryConfig from './config/sentry';
-import {fbstrat} from './app/middlewares/middlewareFacebook'
+import passport from './app/middlewares/middlewareFacebook'
 import './database';
 
 class App {
@@ -36,7 +36,7 @@ class App {
     // passport.use(fbstrat());
     this.server.use(passport.initialize());
     this.server.use(passport.session());
-    this.server.use(passport.use(fbstrat));
+    // this.server.use(fbstrat);
 
   }
 
