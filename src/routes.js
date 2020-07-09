@@ -44,7 +44,7 @@ routes.post('/surl/:short_url', ShortnerController.index);
 routes.get("/auth/facebook", passport.authenticate("facebook"));
 
 routes.get(
-  "/auth/facebook/callback",
+  "/cb/facebook",
   passport.authenticate("facebook", {
     successRedirect: "/",
     failureRedirect: "/fail"
@@ -52,11 +52,11 @@ routes.get(
 );
 
 routes.get("/fail", (req, res) => {
-  res.send("Failed attempt");
+  res.json({resposta:"Failed attempt"});
 });
 
 routes.get("/", (req, res) => {
-  res.send("Success");
+  res.json({resposta:"success"});
 });
 
 routes.post('/sessions', SessionController.store);
