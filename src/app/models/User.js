@@ -7,6 +7,9 @@ export default class User extends Model {
   static init(sequelize) {
     super.init(
       {
+        provider_key: Sequelize.STRING,
+        user_id: Sequelize.INTEGER,
+        provider_type: Sequelize.ENUM('facebook','twitter', 'google','instagram'),
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,

@@ -8,6 +8,7 @@ import Retail from '../app/models/Retail';
 import File from '../app/models/File';
 import FileUser from '../app/models/FileUser';
 import Feedback from '../app/models/Feedback';
+// import AuthProvider from '../app/models/AuthProvider';
 import databaseConfig from '../config/database';
 
 const models = [
@@ -17,6 +18,7 @@ const models = [
   FileUser,
   Shop,
   Feedback,
+  // AuthProvider,
   Coupon,
 ];
 class Database {
