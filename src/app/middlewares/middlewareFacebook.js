@@ -56,7 +56,8 @@ passport.use(
         firstName: first_name,
         lastName: last_name
       };
-      new User(userData).save();
+      console.log(userData);
+      // new User(userData).save();
       done(null, profile);
     }
   )
