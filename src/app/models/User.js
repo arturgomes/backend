@@ -8,7 +8,7 @@ export default class User extends Model {
     super.init(
       {
         provider_key: Sequelize.STRING,
-        user_id: Sequelize.INTEGER,
+        user_id: Sequelize.BIGINT,
         provider_type: Sequelize.ENUM('facebook','twitter', 'google','instagram'),
         name: Sequelize.STRING,
         email: Sequelize.STRING,
