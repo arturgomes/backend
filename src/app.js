@@ -3,12 +3,14 @@ import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import passport from 'passport';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 
 import routes from './routes';
 import sentryConfig from './config/sentry';
+import {fbstrat} from './app/middlewares/middlewareFacebook'
 import './database';
 
 class App {
@@ -24,7 +26,6 @@ class App {
 
   middlewares() {
     this.server.use(cors());
-
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
@@ -32,6 +33,7 @@ class App {
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
+    // passport.use(fbstrat());
   }
 
   routes() {

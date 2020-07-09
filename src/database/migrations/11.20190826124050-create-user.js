@@ -10,6 +10,19 @@ module.exports = {
             primaryKey: true,
             allowNull: false,
           },
+          provider_key: {
+            type: Sequelize.STRING,
+            // primaryKey: true,
+            allowNull: true,
+          },
+          user_id: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+          },
+          provider_type: {
+            type:  Sequelize.ENUM('facebook','twitter', 'google','instagram'),
+            allowNull: true,
+          },
           name: {
             type: Sequelize.STRING,
             allowNull: true,
@@ -31,7 +44,7 @@ module.exports = {
           phone: {
             type: Sequelize.STRING,
             defaultValue: false,
-            allowNull: false,
+            allowNull: true,
             unique: true,
           },
           feedcoins: {

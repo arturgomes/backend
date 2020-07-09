@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
+import passport from "passport";
 
 import multerConfig from './config/multer';
 
@@ -39,6 +40,24 @@ routes.post('/retails', RetailController.store);
 routes.post('/feed/:shop_id/f', FeedbackController.index);
 routes.post('/feed/:shop_id/c', FeedbackController.store);
 routes.post('/surl/:short_url', ShortnerController.index);
+
+routes.get("/auth/facebook", passport.authenticate("facebook"));
+
+routes.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/fail"
+  })
+);
+
+routes.get("/fail", (req, res) => {
+  res.send("Failed attempt");
+});
+
+routes.get("/", (req, res) => {
+  res.send("Success");
+});
 
 routes.post('/sessions', SessionController.store);
 
