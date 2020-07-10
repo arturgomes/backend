@@ -35,13 +35,7 @@ class App {
     //     }
     //   }
     // }
-    this.server.use(cors({
-      origin: 'https://www.couponfeed.co',
-      // credentials: false,
-      methods: 'GET,PUT,POST,OPTIONS',
-      preflightContinue: false,
-      // allowedHeaders: 'Access-Control-Allow-Origin,Content-Type,Authorization'
-    }));
+    this.server.use(cors({credentials: true, origin: true}));
 
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
