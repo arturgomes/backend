@@ -16,7 +16,7 @@ module.exports = {
             allowNull: true,
           },
           user_id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.BIGINT,
             allowNull: true,
           },
           provider_type: {

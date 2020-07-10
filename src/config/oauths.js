@@ -6,7 +6,7 @@ var ids = {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: '/facebook/redirect',
-    profileFields: ["emails", "name"]
+    profileFields: ['id', 'displayName','emails']
 
   },
   // twitter: {
