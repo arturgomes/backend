@@ -22,7 +22,7 @@ routes.get("/login/success", (req, res) => {
   }
 });
 routes.get("/login/failed", (req, res) => {
-  res.status(401).json({
+  res.status(200).json({
     success: false,
     message: "user failed to authenticate."
   });
