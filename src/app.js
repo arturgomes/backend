@@ -25,15 +25,17 @@ class App {
   }
 
   middlewares() {
-    this.server.use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      next();
-    });
-    // this.server.use(cors({
-    //   credentials: true,
-    //   origin: "https://couponfeed.co"
-    // }));
+    var whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co']
+    var corsOptions = {
+      origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
+    }
+    this.server.use(cors(corsOptions));
 
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
