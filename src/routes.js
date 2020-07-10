@@ -22,6 +22,7 @@ import QrController from './app/controllers/QrController';
 import ShortnerController from './app/controllers/ShortnerController';
 
 import authMiddleware from './app/middlewares/auth';
+// import enableCors from './app/middlewares/enableCors';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -30,11 +31,7 @@ const upload = multer(multerConfig);
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
-routes.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "couponfeed.co"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// routes.use(enableCors);
 routes.get('/', (req, res) => res.redirect('https://www.couponfeed.co'));
 
 routes.post('/users', UserController.store);
