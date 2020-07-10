@@ -28,7 +28,7 @@ const routes = new Router();
 const upload = multer(multerConfig);
 const authCheck = (req, res, next) => {
   if (!req.user) {
-    res.status(401).json({
+    res.status(200).json({
       authenticated: false,
       message: "user has not been authenticated"
     });
