@@ -70,7 +70,7 @@ routes.get("/login/failed", (req, res) => {
 routes.get("/facebook", passport.authenticate("facebook", { scope: ['email'] }));
 routes.get("/facebook/redirect",
   passport.authenticate("facebook", {
-    successRedirect: "/login/success",
+    successRedirect: "https://couponfeed.co/login",
     failureRedirect: "/login/failed"
   })
 );
