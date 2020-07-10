@@ -25,17 +25,8 @@ class App {
   }
 
   middlewares() {
-    // var whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co']
-    // var corsOptions = {
-    //   origin: function (origin, callback) {
-    //     if (whitelist.indexOf(origin) !== -1) {
-    //       callback(null, true)
-    //     } else {
-    //       callback(new Error('Not allowed by CORS'))
-    //     }
-    //   }
-    // }
-    this.server.use(cors({credentials: true, origin: true}));
+    this.server.use(cors());
+    // this.server.use(cors({credentials: true, origin: true}));
 
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
@@ -47,7 +38,6 @@ class App {
     // passport.use(fbstrat());
     this.server.use(passport.initialize());
     this.server.use(passport.session());
-    // this.server.use(fbstrat);
 
   }
 
