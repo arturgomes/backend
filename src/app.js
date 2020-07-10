@@ -25,16 +25,23 @@ class App {
   }
 
   middlewares() {
-    var whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co']
-    var corsOptions = {
-      origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      }
-    }
+    // var whitelist = ['https://couponfeed.co', 'https://www.couponfeed.co']
+    // var corsOptions = {
+    //   origin: function (origin, callback) {
+    //     if (whitelist.indexOf(origin) !== -1) {
+    //       callback(null, true)
+    //     } else {
+    //       callback(new Error('Not allowed by CORS'))
+    //     }
+    //   }
+    // }
+    this.server.use(cors({
+      origin: 'https://www.couponfeed.co',
+      credentials: true,
+      methods: 'GET,PUT,POST,OPTIONS',
+      allowedHeaders: 'Content-Type,Authorization'
+    }));
+
     this.server.use(cors(corsOptions));
 
     this.server.use(Sentry.Handlers.requestHandler());
