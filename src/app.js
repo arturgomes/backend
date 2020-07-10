@@ -37,9 +37,9 @@ class App {
     // }
     this.server.use(cors({
       origin: 'https://www.couponfeed.co',
-      credentials: false,
-      methods: 'GET,PUT,POST,OPTIONS',
-      allowedHeaders: 'Content-Type,Authorization'
+      // credentials: false,
+      // methods: 'GET,PUT,POST,OPTIONS',
+      // allowedHeaders: 'Access-Control-Allow-Origin,Content-Type,Authorization'
     }));
 
     this.server.use(Sentry.Handlers.requestHandler());
