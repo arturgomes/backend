@@ -25,7 +25,10 @@ class App {
   }
 
   middlewares() {
-    this.server.use(cors());
+    this.server.use(cors({
+      credentials: true,
+      origin: "https://couponfeed.co"
+    }));
 
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
