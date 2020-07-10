@@ -18,7 +18,7 @@ passport.serializeUser((user, done) => {
 
 // deserialize the cookieUserId to user in the database
 passport.deserializeUser((id, done) => {
-  User.findById(id)
+  User.findOne({ where: { user_id: id } })
     .then(user => {
       done(null, user);
     })
@@ -27,12 +27,14 @@ passport.deserializeUser((id, done) => {
     });
 });
 
+
 passport.use(
   new FacebookStrategy(
     ids.facebook,
     async (accessToken, refreshToken, profile, done) => {
       //Check the DB to find a User with the profile.id
-      const currentUser = await User.findOne({ where: { user_id: profile.id } })
+      // console.log(accessToken);
+      const currentUser = await User.findOne({ where: { user_id: profile._json.id } });
       if (!currentUser) {
         const newUser = new User({
           user_id: profile._json.id, //pass in the id and displayName params from Facebook

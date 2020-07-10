@@ -26,8 +26,32 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
+const authCheck = (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json({
+      authenticated: false,
+      message: "user has not been authenticated"
+    });
+  } else {
+    next();
+  }
+};
 
-routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
+
+// routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
+routes.get('/', authCheck, (req, res) => {
+  res.status(200).json({
+    authenticated: true,
+    message: "user successfully authenticated",
+    login: {
+      user_id: req.user.user_id, //pass in the id and displayName params from Facebook
+      name: req.user.name,
+      email: req.user.email,
+      tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
+    },
+    cookies: req.cookies
+  });
+});
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
@@ -39,43 +63,6 @@ routes.post('/feed/:shop_id/f', FeedbackController.index);
 routes.post('/feed/:shop_id/c', FeedbackController.store);
 routes.post('/surl/:short_url', ShortnerController.index);
 
-
-routes.get("/login/success", (req, res) => {
-  if (req.user) {
-    return res.json({
-      success: true,
-      message: "user has successfully authenticated",
-      login: {
-        user_id: req.user.user_id, //pass in the id and displayName params from Facebook
-        name: req.user.name,
-        email: req.user.email,
-        tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
-      },
-      token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
-    });
-  }
-});
-routes.get("/login/failed", (req, res) => {
-  res.status(401).json({
-    success: false,
-    message: "user failed to authenticate."
-  });
-});
-
-routes.get("/facebook", passport.authenticate("facebook", { scope: ['email'] }));
-routes.get("/facebook/redirect",
-  passport.authenticate("facebook", {
-    successRedirect: "/",
-    failureRedirect: "/login/failed"
-  })
-);
-
-
-// routes.get("/", (req, res) => {
-//   res.json({resposta:"success"});
-// });
 
 routes.post('/sessions', SessionController.store);
 
