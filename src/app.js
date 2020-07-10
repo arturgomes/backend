@@ -25,10 +25,15 @@ class App {
   }
 
   middlewares() {
-    this.server.use(cors({
-      credentials: true,
-      origin: "https://couponfeed.co"
-    }));
+    this.server.use(function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
+    // this.server.use(cors({
+    //   credentials: true,
+    //   origin: "https://couponfeed.co"
+    // }));
 
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());

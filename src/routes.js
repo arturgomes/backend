@@ -26,13 +26,8 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-// routes.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-// routes.use(enableCors);
-routes.get('/', (req, res) => res.redirect('https://www.couponfeed.co'));
+
+routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
