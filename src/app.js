@@ -38,7 +38,8 @@ class App {
     this.server.use(cors({
       origin: 'https://www.couponfeed.co',
       // credentials: false,
-      // methods: 'GET,PUT,POST,OPTIONS',
+      methods: 'GET,PUT,POST,OPTIONS',
+      preflightContinue: false,
       // allowedHeaders: 'Access-Control-Allow-Origin,Content-Type,Authorization'
     }));
 
