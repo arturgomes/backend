@@ -42,8 +42,6 @@ class App {
       allowedHeaders: 'Content-Type,Authorization'
     }));
 
-    this.server.use(cors(corsOptions));
-
     this.server.use(Sentry.Handlers.requestHandler());
     // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
