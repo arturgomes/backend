@@ -5,7 +5,7 @@ var ids = {
   facebook: {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: '/facebook/redirect',
+    callbackURL: 'https://api.couponfeed.co/facebook/redirect',
     profileFields: ['id', 'displayName','emails']
 
   },

@@ -75,9 +75,6 @@ routes.get("/facebook/redirect",
   })
 );
 
-routes.get("/fail", (req, res) => {
-  res.json({ resposta: "Failed attempt" });
-});
 
 // routes.get("/", (req, res) => {
 //   res.json({resposta:"success"});
