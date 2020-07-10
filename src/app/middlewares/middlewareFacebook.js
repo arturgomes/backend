@@ -30,50 +30,23 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new FacebookStrategy(
     ids.facebook,
-
-    function (accessToken, refreshToken, profile, done) {
+    async (accessToken, refreshToken, profile, done) => {
       //Check the DB to find a User with the profile.id
+      const currentUser = await User.findOne({ where: { user_id: profile.id } })
+      if (!currentUser) {
+        const newUser = new User({
+          user_id: profile._json.id, //pass in the id and displayName params from Facebook
+          name: profile._json.name,
+          email: profile._json.email,
+          provider_type: profile.provider
+        }).save();
 
-      console.log(profile);
-      User.findOne({ where: { user_id: profile.id } })
-        .then(user => {
-          if (user) {
-            done(null, user); //If User already exists login as stated on line 10 return User
-          } else { //else create a new User
-            user = new User({
-              user_id: profile.id, //pass in the id and displayName params from Facebook
-              name: profile.displayName,
-              provider_type:'facebook'
-            });
-            user.save(function (err) { //Save User if there are no errors else redirect to login route
-              if (err) {
-                console.log(err);  // handle errors!
-              } else {
-                console.log("saving user ...");
-                done(null, user);
-              }
-            });
-          }
-        })
-        .catch(err => {
-          if (err) {
-            console.log(err);  // handle errors!
-          }
-        })//See if a User already exists with the Facebook ID
-
-
-    // function(accessToken, refreshToken, profile, done) {
-    //   const { email, first_name, last_name } = profile._json;
-    //   const userData = {
-    //     email,
-    //     firstName: first_name,
-    //     lastName: last_name
-    //   };
-    //   console.log(userData);
-    //   // new User(userData).save();
-    //   done(null, profile);
-    // }
+        if (newUser) {
+          done(null, newUser);
+        }
       }
-));
+      done(null, currentUser); //If User already exists login as stated on line 10 return User
+    }
+  ));
 
 export default passport;

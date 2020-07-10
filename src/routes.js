@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import passport from "passport";
+import jwt from 'jsonwebtoken';
 
 import multerConfig from './config/multer';
 
@@ -44,11 +45,18 @@ routes.post('/surl/:short_url', ShortnerController.index);
 
 routes.get("/login/success", (req, res) => {
   if (req.user) {
-    res.json({
+    return res.json({
       success: true,
       message: "user has successfully authenticated",
-      user: req.user,
-      cookies: req.cookies
+      login: {
+        user_id: req.user.user_id, //pass in the id and displayName params from Facebook
+        name: req.user.name,
+        email: req.user.email,
+        tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
+      },
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
     });
   }
 });
@@ -59,16 +67,16 @@ routes.get("/login/failed", (req, res) => {
   });
 });
 
-routes.get("/facebook", passport.authenticate("facebook"));
+routes.get("/facebook", passport.authenticate("facebook", { scope: ['email'] }));
 routes.get("/facebook/redirect",
   passport.authenticate("facebook", {
-    successRedirect: "/",
+    successRedirect: "/login/success",
     failureRedirect: "/login/failed"
   })
 );
 
 routes.get("/fail", (req, res) => {
-  res.json({resposta:"Failed attempt"});
+  res.json({ resposta: "Failed attempt" });
 });
 
 // routes.get("/", (req, res) => {
