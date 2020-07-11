@@ -4,18 +4,23 @@ import express from 'express';
 // import session from 'express-session';
 import path from 'path';
 import cors from 'cors';
-// import passport from 'passport';
+import passport from 'passport';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
+import strategy from "passport-facebook";
 
+
+const FacebookStrategy = strategy.Strategy;
 // import cookieSession from 'cookie-session';
 // import cookieParser from 'cookie-parser';
 
 import routes from './routes';
-import authRoutes from './authRoutes';
+import authRoutes from './authRoutes'
+// import authRoutes from './authRoutes';
 import sentryConfig from './config/sentry';
-import passport from './app/middlewares/middlewareFacebook'
+// import passport from './app/middlewares/middlewareFacebook'
+import ids from './config/oauths';
 import './database';
 
 class App {
@@ -47,24 +52,20 @@ class App {
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
-    // passport.use(fbstrat());
-    // this.server.use(
-    //   cookieSession({
-    //     name: "session",
-    //     keys: ["thisappisawesome"],
-    //     maxAge: 24 * 60 * 60 * 100
-    //   })
-    // );
 
-    // parse cookies
-    // this.server.use(cookieParser());
     this.server.use(passport.initialize());
-    // this.server.use(passport.authenticate('session'))
     this.server.use(passport.session());
-    this.server.use("/auth", authRoutes);
-
-
-  }
+    passport.serializeUser((user,cb) =>{ cb(null,user) })
+    passport.deserializeUser((obj,cb) =>{ cb(null,obj) })
+    passport.use(new FacebookStrategy(ids.facebook,
+      function(accessToken, refreshToken, profile, cb)
+      {
+        return cb(null,profile)
+      }
+      )
+    );
+    this.server.use('/auth',authRoutes);
+    }
 
   routes() {
     this.server.use(routes);
