@@ -36,7 +36,7 @@ const upload = multer(multerConfig);
 //     next();
 //   }
 // };
-
+routes.use('/auth',authRoutes);
 
 routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
 // routes.get('/', authCheck, (req, res) => {

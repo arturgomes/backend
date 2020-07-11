@@ -16,7 +16,6 @@ const FacebookStrategy = strategy.Strategy;
 // import cookieParser from 'cookie-parser';
 
 import routes from './routes';
-import authRoutes from './authRoutes'
 // import authRoutes from './authRoutes';
 import sentryConfig from './config/sentry';
 // import passport from './app/middlewares/middlewareFacebook'
@@ -67,7 +66,6 @@ class App {
     }
 
   routes() {
-    this.server.use('/auth',authRoutes);
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }

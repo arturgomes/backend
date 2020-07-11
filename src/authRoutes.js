@@ -8,8 +8,8 @@ routes.get('/success', (req,res) => res.status(200).json({message:"successifully
 routes.get('/error', (req,res) => res.status(401).json({message:"error logging in"}));
 routes.get('/facebook',passport.authenticate('facebook'));
 routes.get('/facebook/redirect',
-            passport.authenticate('facebook',{ successRedirect: '/success',
-            failureRedirect: '/error' }));
+            passport.authenticate('facebook',{ successRedirect: '/auth/success',
+            failureRedirect: '/auth/error' }));
 // routes.get('/', (req, res, next) => {
 //   const { user } = req;
 //   res.render('home', { user });
