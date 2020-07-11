@@ -64,10 +64,10 @@ class App {
       }
       )
     );
-    this.server.use('/auth',authRoutes);
     }
 
   routes() {
+    this.server.use('/auth',authRoutes);
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }
