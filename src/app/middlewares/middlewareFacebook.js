@@ -19,7 +19,7 @@ passport.serializeUser((user, done) => {
 // deserialize the cookieUserId to user in the database
 passport.deserializeUser((id, done) => {
   User.findOne({ where: { user_id: id } })
-    .then(user => {
+    .then(user => {  
       done(null, user);
     })
     .catch(e => {
