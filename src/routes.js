@@ -23,6 +23,7 @@ import ShortnerController from './app/controllers/ShortnerController';
 
 import authMiddleware from './app/middlewares/auth';
 // import enableCors from './app/middlewares/enableCors';
+import authRoutes from './authRoutes'
 
 const routes = new Router();
 const upload = multer(multerConfig);
