@@ -26,32 +26,32 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-const authCheck = (req, res, next) => {
-  if (!req.user) {
-    res.status(200).json({
-      authenticated: false,
-      message: "user has not been authenticated"
-    });
-  } else {
-    next();
-  }
-};
+// const authCheck = (req, res, next) => {
+//   if (!req.user) {
+//     res.status(200).json({
+//       authenticated: false,
+//       message: "user has not been authenticated"
+//     });
+//   } else {
+//     next();
+//   }
+// };
 
 
-// routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
-routes.get('/', authCheck, (req, res) => {
-  res.status(200).json({
-    authenticated: true,
-    message: "user successfully authenticated",
-    login: {
-      user_id: req.user.user_id, //pass in the id and displayName params from Facebook
-      name: req.user.name,
-      email: req.user.email,
-      tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
-    },
-    cookies: req.cookies
-  });
-});
+routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
+// routes.get('/', authCheck, (req, res) => {
+//   res.status(200).json({
+//     authenticated: true,
+//     message: "user successfully authenticated",
+//     login: {
+//       user_id: req.user.user_id, //pass in the id and displayName params from Facebook
+//       name: req.user.name,
+//       email: req.user.email,
+//       tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
+//     },
+//     cookies: req.cookies
+//   });
+// });
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
