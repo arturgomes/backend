@@ -8,8 +8,8 @@ routes.get('/success', (req,res) => res.send("successifully logged in"));
 routes.get('/error', (req,res) => res.send("error loggin in"));
 routes.get('/facebook',passport.authenticate('facebook'));
 routes.get('/facebook/redirect',
-            passport.authenticate('facebook',{ successRedirect: '/',
-            failureRedirect: '/login' }));
+            passport.authenticate('facebook',{ successRedirect: '/success',
+            failureRedirect: '/error' }));
 // routes.get('/', (req, res, next) => {
 //   const { user } = req;
 //   res.render('home', { user });
