@@ -1,10 +1,10 @@
 import 'dotenv/config';
 
 import express from 'express';
-import session from 'express-session';
+// import session from 'express-session';
 import path from 'path';
 import cors from 'cors';
-import passport from 'passport';
+// import passport from 'passport';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
@@ -58,13 +58,8 @@ class App {
 
     // parse cookies
     // this.server.use(cookieParser());
-    this.server.use(session({
-      secret: 'keyboard cat',
-      resave: false,
-      saveUninitialized: true,
-      cookie: { secure: true }
-    }))
     this.server.use(passport.initialize());
+    // this.server.use(passport.authenticate('session'))
     this.server.use(passport.session());
     this.server.use("/auth", authRoutes);
 

@@ -20,6 +20,10 @@ routes.get("/login/success", (req, res) => {
       }),
     });
   }
+  res.status(200).json({
+    success: false,
+    message: "user failed to authenticate."
+  });
 });
 routes.get("/login/failed", (req, res) => {
   res.status(200).json({
