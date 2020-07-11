@@ -4,7 +4,9 @@ import passport from "passport";
 const routes = new Router();
 
 
-routes.get('/success', (req,res) => res.status(200).json({name:req.user.name, message:"successifully logged in"}));
+routes.get('/success', (req,res) => {
+  console.log(req);
+  res.status(200).json({message:"successifully logged in"})});
 routes.get('/error', (req,res) => res.status(401).json({message:"error logging in"}));
 routes.get('/facebook',passport.authenticate('facebook'));
 routes.get('/facebook/redirect',
