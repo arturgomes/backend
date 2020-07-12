@@ -5,14 +5,14 @@ const routes = new Router();
 
 
 routes.get('/success', (req,res) => {
-  console.log(req);
+  console.log(req.body);
   res.status(200).json({message:"successifully logged in"})});
 routes.get('/error', (req,res) => res.status(401).json({message:"error logging in"}));
 routes.get('/facebook',passport.authenticate('facebook'));
 routes.get('/facebook/redirect',
             passport.authenticate('facebook',
-                { successRedirect: '/auth/success',
-                  failureRedirect: '/auth/error' }));
+                { successRedirect: '/auth/success'}),
+                (req,res) => {console.log(req.user)} );
 
 // routes.get('/', (req, res, next) => {
 //   const { user } = req;
