@@ -8,7 +8,7 @@ routes.get('/success', (req,res) => {
   console.log(req.body);
   res.status(200).json({message:"successifully logged in"})});
 routes.get('/error', (req,res) => res.status(401).json({message:"error logging in"}));
-routes.get('/facebook',passport.authenticate('facebook'));
+routes.get('/facebook',passport.authenticate('facebook', { scope: ['email'] }));
 routes.get('/facebook/redirect',
             passport.authenticate('facebook',
                 { failureRedirect: '/auth/error'}),
