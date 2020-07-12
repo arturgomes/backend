@@ -11,8 +11,8 @@ routes.get('/error', (req,res) => res.status(401).json({message:"error logging i
 routes.get('/facebook',passport.authenticate('facebook'));
 routes.get('/facebook/redirect',
             passport.authenticate('facebook',
-                { successRedirect: '/auth/success'}),
-                (req,res) => {console.log(req.user)} );
+                { failureRedirect: '/auth/error'}),
+                (req,res) => {res.status(200).json(req.user)} );
 
 // routes.get('/', (req, res, next) => {
 //   const { user } = req;
