@@ -19,7 +19,7 @@ passport.serializeUser((user, done) => {
 // deserialize the cookieUserId to user in the database
 passport.deserializeUser((id, done) => {
   User.findOne({ where: { user_id: id } })
-    .then(user => {  
+    .then(user => {
       done(null, user);
     })
     .catch(e => {
@@ -34,20 +34,27 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       //Check the DB to find a User with the profile.id
       // console.log(accessToken);
-      const currentUser = await User.findOne({ where: { user_id: profile._json.id } });
-      if (!currentUser) {
-        const newUser = new User({
-          user_id: profile._json.id, //pass in the id and displayName params from Facebook
+      await User.findOrCreate({
+        where: {
           name: profile._json.name,
           email: profile._json.email,
-          provider_type: profile.provider
-        }).save();
-
-        if (newUser) {
-          done(null, newUser);
+          provider_type: 'facebook',
+          user_id: profile._json.id
         }
-      }
-      done(null, currentUser); //If User already exists login as stated on line 10 return User
+      }).then(currentUser => done(null,currentUser));
+      // if (!currentUser) {
+      //   const newUser = new User({
+      //     user_id: profile._json.id, //pass in the id and displayName params from Facebook
+      //     name: profile._json.name,
+      //     email: profile._json.email,
+      //     provider_type: profile.provider
+      //   }).save();
+
+      //   if (newUser) {
+      //     done(null, newUser);
+      //   }
+      // }
+      // done(null, currentUser); //If User already exists login as stated on line 10 return User
     }
   ));
 
