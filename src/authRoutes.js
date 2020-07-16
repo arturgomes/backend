@@ -19,7 +19,7 @@ routes.get('/error', (req, res) => res.status(401).json({ message: "error loggin
 //   (req,res) => res.json({message:"auth ok"})
 // );
 routes.get('/instagram',
-  passport.authenticate('instagram',{scope:['instagram_graph_user_profile']}));
+  passport.authenticate('instagram',{scope:['basic','likes']}));
 
 routes.get('/instagram/redirect',
   passport.authenticate('instagram', { failureRedirect: '/login' }),
