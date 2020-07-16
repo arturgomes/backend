@@ -33,28 +33,29 @@ passport.use(
     ids.facebook,
     async (accessToken, refreshToken, profile, done) => {
       //Check the DB to find a User with the profile.id
-      // console.log(accessToken);
-      await User.findOrCreate({
+      console.log(accessToken);
+      console.log(profile)
+      const currentuser = await User.findOne({
         where: {
           name: profile._json.name,
           email: profile._json.email,
           provider_type: 'facebook',
           user_id: profile._json.id
         }
-      }).then(currentUser => done(null,currentUser));
-      // if (!currentUser) {
-      //   const newUser = new User({
-      //     user_id: profile._json.id, //pass in the id and displayName params from Facebook
-      //     name: profile._json.name,
-      //     email: profile._json.email,
-      //     provider_type: profile.provider
-      //   }).save();
+      });
+      if (!currentuser) {
+        const newUser = new User({
+          user_id: profile._json.id, //pass in the id and displayName params from Facebook
+          name: profile._json.name,
+          email: profile._json.email,
+          provider_type: profile.provider
+        })
 
-      //   if (newUser) {
-      //     done(null, newUser);
-      //   }
-      // }
-      // done(null, currentUser); //If User already exists login as stated on line 10 return User
+        if (newUser) {
+          done(null, newUser);
+        }
+      }
+      done(null, currentUser); //If User already exists login as stated on line 10 return User
     }
   ));
 
