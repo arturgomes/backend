@@ -1,0 +1,99 @@
+{
+  "error": {
+    "message": "shops is not defined",
+    "name": "ReferenceError",
+    "frames": [
+      {
+        "file": "src/app/controllers/DashboardController.js",
+        "filePath": "/var/app/backend/src/app/controllers/DashboardController.js",
+        "method": "index",
+        "line": 62,
+        "column": 18,
+        "context": {
+          "start": 57,
+          "pre": "        attributes: [['id', 'shops']],\n        as: 'shops'\n      },\n      ],\n      where: {",
+          "line": "        shop_id: shops",
+          "post": "      }\n    });\n\n\n    // const fb = await Feedback.findAll("
+        },
+        "isModule": false,
+        "isNative": false,
+        "isApp": true
+      },
+      {
+        "file": "node_modules/express-async-errors/index.js",
+        "filePath": "/var/app/backend/node_modules/express-async-errors/index.js",
+        "method": "newFn",
+        "line": 16,
+        "column": 20,
+        "context": {
+          "start": 11,
+          "pre": "  return newFn;\n}\n\nfunction wrap(fn) {\n  const newFn = function newFn(...args) {",
+          "line": "    const ret = fn.apply(this, args);",
+          "post": "    const next = (args.length === 5 ? args[2] : last(args)) || noop;\n    if (ret && ret.catch) ret.catch(err => next(err));\n    return ret;\n  };\n  Object.defineProperty(newFn, 'length', {"
+        },
+        "isModule": true,
+        "isNative": false,
+        "isApp": false
+      },
+      {
+        "file": "node_modules/express/lib/router/layer.js",
+        "filePath": "/var/app/backend/node_modules/express/lib/router/layer.js",
+        "method": "Layer.handle [as handle_request]",
+        "line": 95,
+        "column": 5,
+        "context": {
+          "start": 90,
+          "pre": "    // not a standard request handler\n    return next();\n  }\n\n  try {",
+          "line": "    fn(req, res, next);",
+          "post": "  } catch (err) {\n    next(err);\n  }\n};\n"
+        },
+        "isModule": true,
+        "isNative": false,
+        "isApp": false
+      },
+      {
+        "file": "node_modules/express/lib/router/route.js",
+        "filePath": "/var/app/backend/node_modules/express/lib/router/route.js",
+        "method": "next",
+        "line": 137,
+        "column": 13,
+        "context": {
+          "start": 132,
+          "pre": "    }\n\n    if (err) {\n      layer.handle_error(err, req, res, next);\n    } else {",
+          "line": "      layer.handle_request(req, res, next);",
+          "post": "    }\n  }\n};\n\n/**"
+        },
+        "isModule": true,
+        "isNative": false,
+        "isApp": false
+      },
+      {
+        "file": "src/app/middlewares/auth.js",
+        "filePath": "/var/app/backend/src/app/middlewares/auth.js",
+        "method": "exports.default",
+        "line": 18,
+        "column": 12,
+        "context": {
+          "start": 13,
+          "pre": "\n  try {\n    const decoded = await promisify(jwt.verify)(token, authConfig.secret);\n    req.userId = decoded.id;\n",
+          "line": "    return next();",
+          "post": "  } catch (err) {\n    return res.status(401).json({ error: 'token invalid' });\n  }\n};\n"
+        },
+        "isModule": false,
+        "isNative": false,
+        "isApp": true
+      },
+      {
+        "file": "internal/process/next_tick.js",
+        "filePath": "internal/process/next_tick.js",
+        "method": "process._tickCallback",
+        "line": 68,
+        "column": 7,
+        "context": {},
+        "isModule": false,
+        "isNative": true,
+        "isApp": false
+      }
+    ]
+  }
+}
