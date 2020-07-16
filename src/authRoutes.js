@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from "passport";
-import SocialUserController from './app/controllers/SocialUserController'
-import SocialSessionController from './app/controllers/SocialSessionController'
+// import SocialUserController from './app/controllers/SocialUserController'
+// import SocialSessionController from './app/controllers/SocialSessionController'
 const routes = new Router();
 
 routes.get('/success', (req, res) => {
@@ -10,6 +10,25 @@ routes.get('/success', (req, res) => {
 }
 );
 routes.get('/error', (req, res) => res.status(401).json({ message: "error logging in" }));
+
+//instagram auth
+// routes.get('/instagram', passport.authenticate('instagram'));
+// routes.get('/instagram/redirect',
+//   passport.authenticate('instagram', { failureRedirect: '/auth/error' }),
+//   // (req,res) => SocialSessionController.store()
+//   (req,res) => res.json({message:"auth ok"})
+// );
+routes.get('/instagram',
+  passport.authenticate('instagram'));
+
+routes.get('/instagram/redirect',
+  passport.authenticate('instagram', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+//facebook auth
 routes.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'name'] }));
 routes.get('/facebook/redirect',
   passport.authenticate('facebook', { failureRedirect: '/auth/error' }),

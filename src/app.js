@@ -9,9 +9,11 @@ import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 import strategy from "passport-facebook";
-
+import Instagram from 'passport-instagram';
 
 const FacebookStrategy = strategy.Strategy;
+const InstagramStrategy = Instagram.Strategy;
+
 // import cookieSession from 'cookie-session';
 // import cookieParser from 'cookie-parser';
 
@@ -54,46 +56,80 @@ class App {
 
     this.server.use(passport.initialize());
     this.server.use(passport.session());
-    passport.serializeUser((user,cb) =>{ cb(null,user) })
-    passport.deserializeUser((obj,cb) =>{ cb(null,obj) })
+    passport.serializeUser((user, cb) => { cb(null, user) })
+    passport.deserializeUser((obj, cb) => { cb(null, obj) })
 
-passport.use(
-  new FacebookStrategy(
-    ids.facebook,
-    async (accessToken, refreshToken, profile, done) => {
-      //Check the DB to find a User with the profile.id
-      // console.log(accessToken);
-      await User.findOrCreate({
-        where: {
-          name: profile._json.name,
-          email: profile._json.email,
-          provider_type: 'facebook',
-          user_id: profile._json.id
+    passport.use(
+      new FacebookStrategy(
+        ids.facebook,
+        async (accessToken, refreshToken, profile, done) => {
+          //Check the DB to find a User with the profile.id
+          // console.log(accessToken);
+          await User.findOrCreate({
+            where: {
+              name: profile._json.name,
+              email: profile._json.email,
+              provider_type: 'facebook',
+              user_id: profile._json.id
+            }
+          }).then(currentUser => done(null, currentUser));
+          // if (!currentUser) {
+          //   const newUser = new User({
+          //     user_id: profile._json.id, //pass in the id and displayName params from Facebook
+          //     name: profile._json.name,
+          //     email: profile._json.email,
+          //     provider_type: profile.provider
+          //   }).save();
+
+          //   if (newUser) {
+          //     done(null, newUser);
+          //   }
+          // }
+          // done(null, currentUser); //If User already exists login as stated on line 10 return User
         }
-      }).then(currentUser => done(null,currentUser));
-      // if (!currentUser) {
-      //   const newUser = new User({
-      //     user_id: profile._json.id, //pass in the id and displayName params from Facebook
-      //     name: profile._json.name,
-      //     email: profile._json.email,
-      //     provider_type: profile.provider
-      //   }).save();
+      ));
 
-      //   if (newUser) {
-      //     done(null, newUser);
-      //   }
-      // }
-      // done(null, currentUser); //If User already exists login as stated on line 10 return User
-    }
-  ));
-    // passport.use(new FacebookStrategy(ids.facebook,
-    //   function(accessToken, refreshToken, profile, cb)
-    //   {
-    //     return cb(null,profile)
+    passport.use(
+      new InstagramStrategy(
+        ids.instagram,
+        async (accessToken, refreshToken, profile, done) => {
+          process.nextTick(function () {
+
+            // To keep the example simple, the user's Instagram profile is returned to
+            // represent the logged-in user.  In a typical application, you would want
+            // to associate the Instagram account with a user record in your database,
+            // and return that user instead.
+            return done(null, profile);
+          });
+        }
+      )
+    );
+    //Check the DB to find a User with the profile.id
+    // console.log(accessToken);
+    // console.log(profile)
+    // const currentuser = await User.findOne({
+    //   where: {
+    //     name: profile._json.name,
+    //     email: profile._json.email,
+    //     provider_type: 'facebook',
+    //     user_id: profile._json.id
     //   }
-    //   )
-    // );
-    }
+    // });
+    // if (!currentuser) {
+    //   const newUser = new User({
+    //     user_id: profile._json.id, //pass in the id and displayName params from Facebook
+    //     name: profile._json.name,
+    //     email: profile._json.email,
+    //     provider_type: profile.provider
+    //   })
+
+    //   if (newUser) {
+    //     done(null, newUser);
+    //   }
+    // }
+    // done(null, currentUser); //If User already exists login as stated on line 10 return User
+  }
+
 
   routes() {
     this.server.use(routes);
