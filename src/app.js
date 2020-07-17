@@ -150,7 +150,7 @@ class App {
           if (created) {
             return done(null, newuser)
           }
-          return res.status(401).json({ message: "usuario com email já cadastrado" })
+          return done(null,false,{message:"nao deu pra autenticar"})
 
           //  const {err, currentUser} = await User.findOne({ user_id: profile.id })
           //   // .then((err, user) => {
