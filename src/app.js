@@ -8,11 +8,19 @@ import passport from 'passport';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
-import strategy from "passport-facebook";
-import Instagram from 'passport-instagram';
+// import strategy from "passport-facebook";
+// import Instagram from 'passport-instagram';
+// import Google from 'passport-google';
 
-const FacebookStrategy = strategy.Strategy;
-const InstagramStrategy = Instagram.Strategy;
+// const FacebookStrategy = strategy.Strategy;
+// const InstagramStrategy = Instagram.Strategy;
+// const GoogleStrategy = Google.Strategy;
+
+const FacebookStrategy = require('passport-facebook').Strategy;
+// const TwitterStrategy = require('passport-twitter').Strategy;
+// const GithubStrategy = require('passport-github2').Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const InstagramStrategy = require('passport-instagram').Strategy;
 
 // import cookieSession from 'cookie-session';
 // import cookieParser from 'cookie-parser';
@@ -104,6 +112,19 @@ class App {
         }
       )
     );
+    passport.use(
+      new GoogleStrategy(
+        ids.google,
+        function(request, accessToken, refreshToken, profile, done) {
+          process.nextTick(function () {
+            return done(null, profile);
+          });
+        }
+      )
+    );
+
+
+
     //Check the DB to find a User with the profile.id
     // console.log(accessToken);
     // console.log(profile)
