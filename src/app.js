@@ -101,8 +101,8 @@ class App {
     passport.use(
       new InstagramStrategy(
         ids.instagram,
-         (accessToken, refreshToken, profile, done) => {
-           process.nextTick(async () => {
+        (accessToken, refreshToken, profile, done) => {
+          process.nextTick(async () => {
             const currentUser = await User.findOne({
               where: {
                 name: profile._json.name,
@@ -133,9 +133,11 @@ class App {
     passport.use(
       new GoogleStrategy(
         ids.google,
-         async function(accessToken, refreshToken, profile, done) {
-           const user = await User.findOne({email:profile.emails})
-           if(user) return done(null,user)
+        async function (accessToken, refreshToken, profile, done) {
+          const user = await User.findOne({ email: profile.emails })
+          if (user) {
+            return done(null, user)
+          }
 
           const [newuser, created] = await User.create({
             name: profile.displayName,
@@ -145,8 +147,10 @@ class App {
             // cpf: req.body.cpf,
             // feedcoins:fc
           });
-          if(created)
-            return done(null,newuser)
+          if (created) {
+            return done(null, newuser)
+          }
+          return res.status(401).json({ message: "usuario com email já cadastrado" })
 
           //  const {err, currentUser} = await User.findOne({ user_id: profile.id })
           //   // .then((err, user) => {
