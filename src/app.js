@@ -16,11 +16,7 @@ import 'express-async-errors';
 // const InstagramStrategy = Instagram.Strategy;
 // const GoogleStrategy = Google.Strategy;
 
-const FacebookStrategy = require('passport-facebook').Strategy;
-// const TwitterStrategy = require('passport-twitter').Strategy;
-// const GithubStrategy = require('passport-github2').Strategy;
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const InstagramStrategy = require('passport-instagram').Strategy;
+
 
 // import cookieSession from 'cookie-session';
 // import cookieParser from 'cookie-parser';

@@ -2,11 +2,13 @@
 import ids from '../../config/oauths.js'
 import passport from "passport";
 import dotenv from "dotenv";
-import strategy from "passport-facebook";
-import Instagram from 'passport-instagram';
-const InstagramStrategy = Instagram.Strategy;
 
-const FacebookStrategy = strategy.Strategy;
+
+const FacebookStrategy = require('passport-facebook').Strategy;
+// const TwitterStrategy = require('passport-twitter').Strategy;
+// const GithubStrategy = require('passport-github2').Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const InstagramStrategy = require('passport-instagram').Strategy;
 
 
 import User from '../models/User';
