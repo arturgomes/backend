@@ -134,32 +134,33 @@ class App {
       new GoogleStrategy(
         ids.google,
          async function(request, accessToken, refreshToken, profile, done) {
-           const {err, currentUser} = await User.findOne({ user_id: profile.id })
-            // .then((err, user) => {
-            if(err) {
-              console.log(err);  // handle errors!
-            }
-            if (!err && currentUser !== null) {
-              done(null, currentUser);
-            } else {
-              const newUser = await User.create({
-                name: profile._json.name,
-                email: profile._json.email,
-                provider_type: 'instagram',
-                user_id: profile._json.id
-              });
+            done(null,profile)
+          //  const {err, currentUser} = await User.findOne({ user_id: profile.id })
+          //   // .then((err, user) => {
+          //   if(err) {
+          //     console.log(err);  // handle errors!
+          //   }
+          //   if (!err && currentUser !== null) {
+          //     done(null, currentUser);
+          //   } else {
+          //     const newUser = await User.create({
+          //       name: profile._json.name,
+          //       email: profile._json.email,
+          //       provider_type: 'instagram',
+          //       user_id: profile._json.id
+          //     });
 
-              // user.save(function(err) {
-              //   if(err) {
-              //     console.log(err);  // handle errors!
-              //   } else {
-                  console.log("saving user ...");
-                  done(null, newUser);
-              //   }
-              // });
-            }
-          // }
-          // )
+          //     // user.save(function(err) {
+          //     //   if(err) {
+          //     //     console.log(err);  // handle errors!
+          //     //   } else {
+          //         console.log("saving user ...");
+          //         done(null, newUser);
+          //     //   }
+          //     // });
+          //   }
+          // // }
+          // // )
         }
       ));
 
