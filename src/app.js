@@ -134,16 +134,19 @@ class App {
       new GoogleStrategy(
         ids.google,
          async function(accessToken, refreshToken, profile, done) {
-          const [user, created] = await User.findOrCreate({ where: {
+           const user = await User.findOne({email:profile.emails})
+           if(user) return done(null,user)
+
+          const [newuser, created] = await User.create({
             name: profile.displayName,
             email: profile.emails,
             provider_type: 'google',
             // phone: req.body.phone,
             // cpf: req.body.cpf,
             // feedcoins:fc
-          } });
-
-            return done(null,user)
+          });
+          if(created)
+            return done(null,newuser)
 
           //  const {err, currentUser} = await User.findOne({ user_id: profile.id })
           //   // .then((err, user) => {
