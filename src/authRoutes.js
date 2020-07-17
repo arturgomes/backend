@@ -20,13 +20,13 @@ routes.get('/error', (req, res) => res.status(401).json({ message: "error loggin
 //   // (req,res) => SocialSessionController.store()
 //   (req,res) => res.json({message:"auth ok"})
 // );
-app.get('/google',
+routes.get('/google',
   passport.authenticate('google', { scope: [
     'https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.profile.emails.read'
   ] }
 ));
-app.get('/google/redirect',
+routes.get('/google/redirect',
   passport.authenticate('google', { failureRedirect: '/auth/error' }),
   function(req, res) {
     res.redirect('/auth/success');
