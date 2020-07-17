@@ -100,28 +100,67 @@ class App {
     passport.use(
       new InstagramStrategy(
         ids.instagram,
-        async (accessToken, refreshToken, profile, done) => {
-          process.nextTick(function () {
+         (accessToken, refreshToken, profile, done) => {
+           process.nextTick(async () => {
+            const currentUser = await User.findOne({
+              where: {
+                name: profile._json.name,
+                email: profile._json.email,
+                provider_type: 'instagram',
+                user_id: profile._json.id
+              }
+            })
+            if (currentUser) { done(null, currentUser) }
+            const newUser = await User.create({
+              name: profile._json.name,
+              email: profile._json.email,
+              provider_type: 'instagram',
+              user_id: profile._json.id
+            })
+          }
+          );
 
-            // To keep the example simple, the user's Instagram profile is returned to
-            // represent the logged-in user.  In a typical application, you would want
-            // to associate the Instagram account with a user record in your database,
-            // and return that user instead.
-            return done(null, profile);
-          });
-        }
-      )
-    );
+          // To keep the example simple, the user's Instagram profile is returned to
+          // represent the logged-in user.  In a typical application, you would want
+          // to associate the Instagram account with a user record in your database,
+          // and return that user instead.
+          console.log(profile)
+
+          return done(null, profile);
+        }));
+
     passport.use(
       new GoogleStrategy(
         ids.google,
-        function(request, accessToken, refreshToken, profile, done) {
-          process.nextTick(function () {
-            return done(null, profile);
-          });
+         async function(request, accessToken, refreshToken, profile, done) {
+           const {err, currentUser} = await User.findOne({ user_id: profile.id })
+            // .then((err, user) => {
+            if(err) {
+              console.log(err);  // handle errors!
+            }
+            if (!err && currentUser !== null) {
+              done(null, currentUser);
+            } else {
+              const newUser = await User.create({
+                name: profile._json.name,
+                email: profile._json.email,
+                provider_type: 'instagram',
+                user_id: profile._json.id
+              });
+
+              // user.save(function(err) {
+              //   if(err) {
+              //     console.log(err);  // handle errors!
+              //   } else {
+                  console.log("saving user ...");
+                  done(null, newUser);
+              //   }
+              // });
+            }
+          // }
+          // )
         }
-      )
-    );
+      ));
 
 
 
