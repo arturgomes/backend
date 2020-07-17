@@ -13,13 +13,7 @@ routes.get('/error', (req, res) => res.status(401).json({ message: "error loggin
 
 
 
-//instagram auth
-// routes.get('/instagram', passport.authenticate('instagram'));
-// routes.get('/instagram/redirect',
-//   passport.authenticate('instagram', { failureRedirect: '/auth/error' }),
-//   // (req,res) => SocialSessionController.store()
-//   (req,res) => res.json({message:"auth ok"})
-// );
+//Google auth
 routes.get('/google',
   passport.authenticate('google', { scope: [
     'https://www.googleapis.com/auth/plus.login',

@@ -6,8 +6,6 @@ var ids = {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: 'https://api.couponfeed.co/auth/facebook/redirect',
-    // callbackURL: 'http://localhost:3000/auth/facebook/redirect',
-    // callbackURL: '/auth/facebook/redirect',
     profileFields: ['id', 'displayName', 'emails']
 
   },
