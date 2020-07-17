@@ -24,6 +24,7 @@ const InstagramStrategy = require('passport-instagram').Strategy;
 
 // import cookieSession from 'cookie-session';
 // import cookieParser from 'cookie-parser';
+import User from './app/models/User';
 
 import routes from './routes';
 // import authRoutes from './authRoutes';
