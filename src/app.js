@@ -57,7 +57,7 @@ class App {
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
-    this.server.use(passport);
+    this.server.use(() => passport);
 
 
   }
