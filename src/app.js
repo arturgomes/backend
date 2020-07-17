@@ -133,20 +133,18 @@ class App {
     passport.use(
       new GoogleStrategy(
         ids.google,
-         async function(request, accessToken, refreshToken, profile, done) {
-          const currentProfile = await User.findOne({ where: { user_id: profile.id } });
-          if(currentProfile)
-            return done(null,currentProfile)
-          await User.create({
+         async function(accessToken, refreshToken, profile, done) {
+          const [user, created] = await User.findOrCreate({ where: {
             name: profile.displayName,
             email: profile.emails,
             provider_type: 'google',
             // phone: req.body.phone,
             // cpf: req.body.cpf,
             // feedcoins:fc
-          })
-          .then(newProfile => done(null,newProfile))
-          .catch(error => done(null,error));
+          } });
+
+            return done(null,user)
+
           //  const {err, currentUser} = await User.findOne({ user_id: profile.id })
           //   // .then((err, user) => {
           //   if(err) {
