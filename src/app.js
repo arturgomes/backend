@@ -86,7 +86,8 @@ class App {
         {
           clientID: process.env.FACEBOOK_APP_ID,
           clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-          callbackURL: 'http://localhost:3000/auth/facebook/redirect',
+          callbackURL: 'https://api.couponfeed.co/auth/facebook/redirect',
+          // callbackURL: 'http://localhost:3000/auth/facebook/redirect',
           profileFields: ['id', 'displayName', 'emails']
 
         },
@@ -198,7 +199,8 @@ class App {
         {
           clientID: '972483590198-nmsj5n1demg8r3t971b1b0og11j54vf4.apps.googleusercontent.com',
           clientSecret: '-_bNa8UMX5EBtr9aNFa604Mt',
-          callbackURL: 'http://localhost:3000/auth/google/redirect',
+          callbackURL: 'https://api.couponfeed.co/auth/google/redirect',
+          // callbackURL: 'http://localhost:3000/auth/google/redirect',
         },
         async (accessToken, refreshToken, profile, done) => {
           // console.log(profile);
