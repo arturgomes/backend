@@ -17,8 +17,9 @@ var ids = {
   google: {
     clientID: '972483590198-nmsj5n1demg8r3t971b1b0og11j54vf4.apps.googleusercontent.com',
     clientSecret: '-_bNa8UMX5EBtr9aNFa604Mt',
-    callbackURL: 'https://api.couponfeed.co/auth/google/redirect',
-    passReqToCallback: true,
+    callbackURL: 'http://localhost:3000/auth/google/redirect',
+    // callbackURL: 'https://api.couponfeed.co/auth/google/redirect',
+    // passReqToCallback: true,
   },
   // twitter: {
   //   consumerKey: 'get_your_own',
