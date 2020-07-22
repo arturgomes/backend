@@ -11,13 +11,13 @@ const routes = new Router();
 
 routes.get('/success', (req, res) => {
   console.log(req.user);
+  const {id,name} = req.user;
   return res.status(200).json({
     success: true,
     message: "user has successfully authenticated",
     login: {
-      id: req.user.id, //pass in the id and displayName params from Facebook
-      name: req.user.name,
-      // email: req.user.email,
+      id, //pass in the id and displayName params from Facebook
+      name,
       tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
     },
     token: jwt.sign({ id:req.user.user_id }, authConfig.secret, {
