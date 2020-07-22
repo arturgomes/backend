@@ -38,7 +38,7 @@ routes.get('/google/redirect',
   (req,res) => {
     // console.log(req.user.dataValues.email);
     // SocialSessionController.store();
-    res.redirect('https://couponfeed.co/login')
+    res.redirect('https://couponfeed.co/validate')
     // res.redirect('/auth/success')
   }
   );
@@ -51,7 +51,9 @@ routes.get('/facebook/redirect',
   passport.authenticate('facebook', { failureRedirect: '/auth/error' }),
   (req,res) => {
     // SocialSessionController.store();
-    res.redirect('/auth/success')
+    // res.redirect('/auth/success')
+    res.redirect('https://couponfeed.co/validate')
+
 
   }
   );
