@@ -15,7 +15,7 @@ routes.get('/success', (req, res) => {
     success: true,
     message: "user has successfully authenticated",
     login: {
-      user_id: req.user.user_id, //pass in the id and displayName params from Facebook
+      id: req.user.id, //pass in the id and displayName params from Facebook
       name: req.user.name,
       // email: req.user.email,
       tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
