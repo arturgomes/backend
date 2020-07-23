@@ -18,8 +18,9 @@ routes.get('/success', (req, res) => {
     login: {
       id, //pass in the id and displayName params from Facebook
       name,
-      tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
+      tu: 'b026s324c6904b2a9cb4b88d6d61c81d1',
     },
+    cookies: req.cookies,
     token: jwt.sign({ id:req.user.user_id }, authConfig.secret, {
       expiresIn: authConfig.expiresIn,
     }),
