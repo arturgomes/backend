@@ -67,7 +67,10 @@ class App {
       secret: 'keyboard cat',
       resave: false,
       saveUninitialized: false,
-    }))
+    }));
+
+    // parse cookies
+    this.server.use(cookieParser());
     this.server.use(
       cookieSession({
         name: "session",
@@ -76,8 +79,6 @@ class App {
       })
     );
 
-    // parse cookies
-    this.server.use(cookieParser());
 
     this.server.use(passport.initialize());
     this.server.use(passport.session());
