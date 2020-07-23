@@ -23,8 +23,8 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const InstagramStrategy = require('passport-instagram').Strategy;
 
-// import cookieSession from 'cookie-session';
-// import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
 import User from './app/models/User';
 
 import routes from './routes';
@@ -68,6 +68,17 @@ class App {
       resave: false,
       saveUninitialized: false,
     }))
+    this.server.use(
+      cookieSession({
+        name: "session",
+        keys: ["thisappisawesome"],
+        maxAge: 24 * 60 * 60 * 100
+      })
+    );
+
+    // parse cookies
+    this.server.use(cookieParser());
+
     this.server.use(passport.initialize());
     this.server.use(passport.session());
     passport.serializeUser((user, cb) => { cb(null, user) })
