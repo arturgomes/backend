@@ -49,7 +49,7 @@ class App {
     // set up cors to allow us to accept requests from our client
     this.server.use(
       cors({
-        origin: "/couponfeed\.co/", // allow to server to accept request from different origin
+        origin: "https://couponfeed.co", // allow to server to accept request from different origin
         // origin: "https://localhost:3001", // allow to server to accept request from different origin
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true // allow session cookie from browser to pass through
