@@ -53,6 +53,7 @@ class App {
         origin: "https://couponfeed.co", // allow to server to accept request from different origin
         // origin: "https://localhost:3001", // allow to server to accept request from different origin
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true // allow session cookie from browser to pass through
       })
     );
