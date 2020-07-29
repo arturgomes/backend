@@ -9,7 +9,7 @@ import authConfig from './config/auth';
 
 const routes = new Router();
 routes.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "https://couponfeed.co");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
