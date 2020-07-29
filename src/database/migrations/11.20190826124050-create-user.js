@@ -45,7 +45,7 @@ module.exports = {
             type: Sequelize.STRING,
             defaultValue: false,
             allowNull: true,
-            unique: true,
+            // unique: true,
           },
           feedcoins: {
             type: Sequelize.INTEGER,

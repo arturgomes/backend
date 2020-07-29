@@ -17,6 +17,7 @@ export default class User extends Model {
         cpf: Sequelize.STRING,
         phone: Sequelize.STRING,
         feedcoins: Sequelize.INTEGER,
+        thumbnail: Sequelize.STRING,
       },
       {
         sequelize,

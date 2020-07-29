@@ -9,11 +9,11 @@ var ids = {
     profileFields: ['id', 'displayName', 'emails']
 
   },
-  instagram: {
-    clientID: '569000340445384',
-    clientSecret: '81fa2e7e6dad9a481d6c4ffddd6e8122',
-    callbackURL: 'https://api.couponfeed.co/auth/instagram/redirect',
-  },
+  // instagram: {
+  //   clientID: '569000340445384',
+  //   clientSecret: '81fa2e7e6dad9a481d6c4ffddd6e8122',
+  //   callbackURL: 'https://api.couponfeed.co/auth/instagram/redirect',
+  // },
   google: {
     clientID: '972483590198-nmsj5n1demg8r3t971b1b0og11j54vf4.apps.googleusercontent.com',
     clientSecret: '-_bNa8UMX5EBtr9aNFa604Mt',
