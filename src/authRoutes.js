@@ -76,7 +76,7 @@ routes.get('/facebook/redirect',
 // When logout, redirect to client
 routes.get("/logout", (req, res) => {
   req.logout();
-  req.session.destroy();
+  req.session = null;
   res.redirect(process.env.CLIENT_HOME_PAGE_URL);
 });
 
