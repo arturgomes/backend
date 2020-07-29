@@ -37,6 +37,13 @@ const upload = multer(multerConfig);
 //     next();
 //   }
 // };
+
+routes.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://couponfeed.co");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 routes.use('/auth',authRoutes);
 
 const authCheck = (req, res, next) => {
