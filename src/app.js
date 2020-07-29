@@ -48,16 +48,11 @@ class App {
     this.server.use(passport.session());
     // set up cors to allow us to accept requests from our client
     this.server.use(
-<<<<<<< HEAD
-      cors({
-         origin: "couponfeed.co", // allow to server to accept request from different origin
-        //origin: true, // allow to server to accept request from different origin
-        origin: "couponfeed.co", // allow to server to accept request from different origin
-=======
       cors(
+//{
+        //origin: true, // allow to server to accept request from different origin
         // {
         // origin: "couponfeed.co", // allow to server to accept request from different origin
->>>>>>> 740331ff7cb37b0334198cee85560cc76ac6694e
         // origin: true, // allow to server to accept request from different origin
         // origin: "https://localhost:3001", // allow to server to accept request from different origin
         // methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTION",
