@@ -48,13 +48,15 @@ class App {
     this.server.use(passport.session());
     // set up cors to allow us to accept requests from our client
     this.server.use(
-      cors({
-        origin: "couponfeed.co", // allow to server to accept request from different origin
+      cors(
+        // {
+        // origin: "couponfeed.co", // allow to server to accept request from different origin
         // origin: true, // allow to server to accept request from different origin
         // origin: "https://localhost:3001", // allow to server to accept request from different origin
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTION",
-        credentials: true // allow session cookie from browser to pass through
-      })
+        // methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTION",
+        // credentials: true // allow session cookie from browser to pass through
+      // }
+      )
     );
 
     this.server.use(Sentry.Handlers.requestHandler());
