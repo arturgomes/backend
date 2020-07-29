@@ -39,7 +39,22 @@ const upload = multer(multerConfig);
 // };
 routes.use('/auth',authRoutes);
 
-routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
+const authCheck = (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json({
+      authenticated: false,
+      message: "user has not been authenticated"
+    });
+  } else {
+    next();
+  }
+};
+
+// if it's already login, send the profile response,
+// otherwise, send a 401 response that the user is not authenticated
+// authCheck before navigating to home page
+
+routes.get('/', authCheck,(req, res) => res.redirect('https://couponfeed.co'));
 // routes.get('/', authCheck, (req, res) => {
 //   res.status(200).json({
 //     authenticated: true,
