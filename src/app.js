@@ -18,7 +18,7 @@ import routes from './routes';
 import sentryConfig from './config/sentry';
 import './config/passport-setup';
 import './database';
-const allowedOrigins = ['http://localhost:3000', 'https://couponfeed.co'];
+const allowedOrigins = ['http://localhost:3000', 'http://yourapp.com'];
 
 class App {
   constructor() {
@@ -32,27 +32,7 @@ class App {
   }
 
   middlewares() {
-    this.server.use(cors());
-    // this.server.use(
-    //   cors(
-    //     {
-    //     // origin: "https://couponfeed.co/", // allow to server to accept request from different origin
-    //     origin: function(origin, callback){
-    //       // allow requests with no origin
-    //       // (like mobile apps or curl requests)
-    //       if(!origin) return callback(null, true);
-    //       if(allowedOrigins.indexOf(origin) === -1){
-    //         var msg = 'The CORS policy for this site does not ' +
-    //                   'allow access from the specified Origin.';
-    //         return callback(new Error(msg), false);
-    //       }
-    //       return callback(null, true);
-    //     },
-    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    //     credentials: true // allow session cookie from browser to pass through
-    //   }
-    //   )
-    // );
+
     // parse cookies
     this.server.use(cookieParser());
     this.server.use(
@@ -62,7 +42,15 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
-
+    this.server.use(
+      cors(
+        {
+        origin: "https://couponfeed.co/", // allow to server to accept request from different origin
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        credentials: true // allow session cookie from browser to pass through
+      }
+      )
+    );
     // initalize passport
     this.server.use(passport.initialize());
     // deserialize cookie from the browser
