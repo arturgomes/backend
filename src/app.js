@@ -32,22 +32,6 @@ class App {
   }
 
   middlewares() {
-
-    // parse cookies
-    this.server.use(cookieParser());
-    this.server.use(
-      cookieSession({
-        name: "session",
-        keys: [process.env.COOKIE_KEY],
-        maxAge: 24 * 60 * 60 * 100
-      })
-    );
-
-    // initalize passport
-    this.server.use(passport.initialize());
-    // deserialize cookie from the browser
-    this.server.use(passport.session());
-    // set up cors to allow us to accept requests from our client
     this.server.use(
       cors(
         {
@@ -68,6 +52,22 @@ class App {
       }
       )
     );
+    // parse cookies
+    this.server.use(cookieParser());
+    this.server.use(
+      cookieSession({
+        name: "session",
+        keys: [process.env.COOKIE_KEY],
+        maxAge: 24 * 60 * 60 * 100
+      })
+    );
+
+    // initalize passport
+    this.server.use(passport.initialize());
+    // deserialize cookie from the browser
+    this.server.use(passport.session());
+    // set up cors to allow us to accept requests from our client
+
 
 
 
