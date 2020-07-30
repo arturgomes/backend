@@ -18,7 +18,7 @@ import routes from './routes';
 import sentryConfig from './config/sentry';
 import './config/passport-setup';
 import './database';
-const allowedOrigins = ['http://localhost:3000', 'http://yourapp.com'];
+const allowedOrigins = ['http://localhost:3000', 'https://couponfeed.co'];
 
 class App {
   constructor() {
