@@ -7,12 +7,6 @@ import jwt from 'jsonwebtoken';
 import authConfig from './config/auth';
 // import User from '../models/User';
 
-const routes = new Router();
-routes.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://couponfeed.co");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 routes.get('/success', (req, res) => {
   if (req.user) {
     console.log(req.user);
