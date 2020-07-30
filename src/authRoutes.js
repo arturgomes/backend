@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 
 import authConfig from './config/auth';
 // import User from '../models/User';
+const routes = new Router();
 
 routes.get('/success', (req, res) => {
   if (req.user) {
