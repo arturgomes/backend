@@ -48,7 +48,11 @@ class App {
       target: 'https://api.couponfeed.co',
       secure: false
   }));
-    // this.server.use(cors()
+  this.server.use(cors({
+    origin: 'https://couponfeed.co',
+    credentials: true
+  }));
+    // this.server.use(
       // cors(
       //   {
       //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
