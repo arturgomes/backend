@@ -8,7 +8,7 @@ import passport from 'passport';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
-
+import proxy from 'express-http-proxy';
 import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
 import User from './app/models/User';
@@ -41,6 +41,7 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
+    this.server.use(proxy('api.couponfeed.co'))
     this.server.use(
       // cors(
       //   {
