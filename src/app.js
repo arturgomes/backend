@@ -62,7 +62,8 @@ class App {
         // }
         console.log(req.headers)
         if(req.method === 'OPTIONS'){
-          res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
+          res.header('Access-Control-Allow-Origin', '*');
+          // res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
           res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
           res.header('Access-Control-Expose-Headers','Access-Control-Allow-Origin');
           // #
