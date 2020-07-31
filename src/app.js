@@ -50,14 +50,33 @@ class App {
       //   }
       // )
       (req,res,next) =>{
-        res.header("Access-Control-Allow-Origin","*");
-        res.header("Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        // res.header("Access-Control-Allow-Origin","http://localhost:3001/");
+
+        // res.header("Access-Control-Allow-Headers",
+        // "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        // console.log(res.headers);
+        // if(req.method === 'OPTIONS'){
+        //   res.header('Access-Control-Allow-Credentials','true');
+        //   res.header('Access-Control-Allow-Methods', "PUT, POST, PATCH, DELETE, GET");
+        //   return res.status(200).json({});
+        // }
         if(req.method === 'OPTIONS'){
-          res.header('Access-Control-Allow-Credentials','true');
-          res.header('Access-Control-Allow-Methods', "PUT, POST, PATCH, DELETE, GET");
-          return res.status(200).json({});
+
+        // res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        // #
+        // # Custom headers and headers various browsers *should* be OK with but aren't
+        // #
+        res.header('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
+        // #
+        // # Tell client that this pre-flight info is valid for 20 days
+        // #
+        res.header('Access-Control-Max-Age', 1728000);
+        res.header('Content-Type', 'text/plain; charset=utf-8');
+        res.header('Content-Length', 0);
         }
+        next();
       }
     );
     // initalize passport
