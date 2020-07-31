@@ -43,54 +43,56 @@ class App {
     );
     this.server.use('/proxy', proxy({
       pathRewrite: {
-         '^/proxy/': '/'
+        '^/proxy/': '/'
       },
       target: 'https://api.couponfeed.co',
       secure: false
-  }));
-  this.server.use(cors({
-    origin: 'https://couponfeed.co',
-    credentials: true
-  }));
-    // this.server.use(
-      // cors(
-      //   {
-      //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
-      //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      //     credentials: true // allow session cookie from browser to pass through
-      //   }
-      // )
-      // (req,res,next) =>{
-      //   // res.header("Access-Control-Allow-Origin","http://localhost:3001/");
+    }));
+    this.server.use(cors({
+      origin: 'https://couponfeed.co',
+      credentials: true
+    }));
+    this.server.use(
+    // cors(
+    //   {
+    //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
+    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    //     credentials: true // allow session cookie from browser to pass through
+    //   }
+    // )
+    (req,res,next) =>{
+    //   // res.header("Access-Control-Allow-Origin","http://localhost:3001/");
 
-      //   // res.header("Access-Control-Allow-Headers",
-      //   // "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-      //   // console.log(res.headers);
-      //   // if(req.method === 'OPTIONS'){
-      //   //   res.header('Access-Control-Allow-Credentials','true');
-      //   //   res.header('Access-Control-Allow-Methods', "PUT, POST, PATCH, DELETE, GET");
-      //   //   return res.status(200).json({});
-      //   // }
-      //   console.log(req.headers)
-      //   if(req.method === 'OPTIONS'){
-      //     res.header('Access-Control-Allow-Origin', '*');
-      //     // res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
-      //     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
-      //     res.header('Access-Control-Expose-Headers','Access-Control-Allow-Origin');
-      //     // #
-      //     // # Custom headers and headers various browsers *should* be OK with but aren't
-      //     // #
-      //     res.header('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
-      //     // #
-      //     // # Tell client that this pre-flight info is valid for 20 days
-      //     // #
-      //     res.header('Access-Control-Max-Age', 1728000);
-      //     res.header('Content-Type', 'text/plain; charset=utf-8');
-      //     res.header('Content-Length', 0);
-      //   }
-      //   next();
-      // }
-    // );
+    //   // res.header("Access-Control-Allow-Headers",
+    //   // "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    //   // console.log(res.headers);
+    //   // if(req.method === 'OPTIONS'){
+    //   //   res.header('Access-Control-Allow-Credentials','true');
+    //   //   res.header('Access-Control-Allow-Methods', "PUT, POST, PATCH, DELETE, GET");
+    //   //   return res.status(200).json({});
+    //   // }
+      // console.log(req.headers)
+      if(req.method === 'OPTIONS'){
+        res.header('Access-Control-Allow-Credentials', 'true');
+
+    //     res.header('Access-Control-Allow-Origin', '*');
+    //     // res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
+    //     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+    //     res.header('Access-Control-Expose-Headers','Access-Control-Allow-Origin');
+    //     // #
+    //     // # Custom headers and headers various browsers *should* be OK with but aren't
+    //     // #
+    //     res.header('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
+    //     // #
+    //     // # Tell client that this pre-flight info is valid for 20 days
+    //     // #
+    //     res.header('Access-Control-Max-Age', 1728000);
+    //     res.header('Content-Type', 'text/plain; charset=utf-8');
+    //     res.header('Content-Length', 0);
+      }
+      next();
+    }
+    );
     // initalize passport
     this.server.use(passport.initialize());
     // deserialize cookie from the browser
