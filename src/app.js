@@ -72,8 +72,9 @@ class App {
     //   //   return res.status(200).json({});
     //   // }
       // console.log(req.headers)
-      if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Credentials', 'true');
+      res.header('Access-Control-Allow-Credentials', 'true');
+
+      // if(req.method === 'OPTIONS'){
 
     //     res.header('Access-Control-Allow-Origin', '*');
     //     // res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
@@ -89,7 +90,7 @@ class App {
     //     res.header('Access-Control-Max-Age', 1728000);
     //     res.header('Content-Type', 'text/plain; charset=utf-8');
     //     res.header('Content-Length', 0);
-      }
+      // }
       next();
     }
     );
