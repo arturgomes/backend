@@ -61,20 +61,19 @@ class App {
         //   return res.status(200).json({});
         // }
         if(req.method === 'OPTIONS'){
-
-        // res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        // #
-        // # Custom headers and headers various browsers *should* be OK with but aren't
-        // #
-        res.header('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
-        // #
-        // # Tell client that this pre-flight info is valid for 20 days
-        // #
-        res.header('Access-Control-Max-Age', 1728000);
-        res.header('Content-Type', 'text/plain; charset=utf-8');
-        res.header('Content-Length', 0);
+          res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
+          res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+          res.header('Access-Control-Expose-Headers','Access-Control-Allow-Origin');
+          // #
+          // # Custom headers and headers various browsers *should* be OK with but aren't
+          // #
+          res.header('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
+          // #
+          // # Tell client that this pre-flight info is valid for 20 days
+          // #
+          res.header('Access-Control-Max-Age', 1728000);
+          res.header('Content-Type', 'text/plain; charset=utf-8');
+          res.header('Content-Length', 0);
         }
         next();
       }
