@@ -52,7 +52,7 @@ class App {
       origin: 'https://couponfeed.co',
       credentials: true
     }));
-    this.server.use(
+    // this.server.use(
     // cors(
     //   {
     //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
@@ -60,7 +60,7 @@ class App {
     //     credentials: true // allow session cookie from browser to pass through
     //   }
     // )
-    (req,res,next) =>{
+    // (req,res,next) =>{
     //   // res.header("Access-Control-Allow-Origin","http://localhost:3001/");
 
     //   // res.header("Access-Control-Allow-Headers",
@@ -72,7 +72,7 @@ class App {
     //   //   return res.status(200).json({});
     //   // }
       // console.log(req.headers)
-      res.header('Access-Control-Allow-Credentials', 'true');
+      // res.header('Access-Control-Allow-Credentials', 'true');
 
       // if(req.method === 'OPTIONS'){
 
@@ -91,9 +91,9 @@ class App {
     //     res.header('Content-Type', 'text/plain; charset=utf-8');
     //     res.header('Content-Length', 0);
       // }
-      next();
-    }
-    );
+      // next();
+    // }
+    // );
     // initalize passport
     this.server.use(passport.initialize());
     // deserialize cookie from the browser
