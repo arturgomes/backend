@@ -60,6 +60,7 @@ class App {
         //   res.header('Access-Control-Allow-Methods', "PUT, POST, PATCH, DELETE, GET");
         //   return res.status(200).json({});
         // }
+        console.log(req.headers)
         if(req.method === 'OPTIONS'){
           res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
           res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
