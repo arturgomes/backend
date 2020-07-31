@@ -41,8 +41,14 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
-    this.server.use(proxy('api.couponfeed.co'))
-    this.server.use(cors()
+    this.server.use('/proxy', proxy({
+      pathRewrite: {
+         '^/proxy/': '/'
+      },
+      target: 'https://api.couponfeed.co',
+      secure: false
+  }));
+    // this.server.use(cors()
       // cors(
       //   {
       //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
@@ -80,7 +86,7 @@ class App {
       //   }
       //   next();
       // }
-    );
+    // );
     // initalize passport
     this.server.use(passport.initialize());
     // deserialize cookie from the browser
