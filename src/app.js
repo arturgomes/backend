@@ -42,13 +42,23 @@ class App {
       })
     );
     this.server.use(
-      cors(
-        {
-        origin: "https://couponfeed.co", // allow to server to accept request from different origin
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        credentials: true // allow session cookie from browser to pass through
+      // cors(
+      //   {
+      //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
+      //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      //     credentials: true // allow session cookie from browser to pass through
+      //   }
+      // )
+      (req,res,next) =>{
+        res.header("Access-Control-Allow-Origin","*");
+        res.header("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        if(req.method === 'OPTIONS'){
+          res.header('Access-Control-Allow-Methods',
+          "PUT, POST, PATCH, DELETE, GET");
+          return res.status(200).json({});
+        }
       }
-      )
     );
     // initalize passport
     this.server.use(passport.initialize());
