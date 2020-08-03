@@ -18,7 +18,7 @@ import routes from './routes';
 import sentryConfig from './config/sentry';
 import './config/passport-setup';
 import './database';
-const permitidos = ['https://couponfeed.co','https://localhost:3001'];
+
 class App {
   constructor() {
     this.server = express();
@@ -49,13 +49,7 @@ class App {
       secure: false
     }));
     this.server.use(cors({
-      origin: (origin, callback) => {
-        if (permitidos.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      },
+      origin: ['https://couponfeed.co','https://localhost:3001'],
       baseURL: 'https://api.couponfeed.co/proxy',
       credentials: true
     }));
