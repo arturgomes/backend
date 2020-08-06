@@ -115,6 +115,11 @@ class App {
   }
 
   routes() {
+    this.server.use((req,res,next)=>{
+	console.log('request received');
+	console.log(req.headers);
+	next();
+    })
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }

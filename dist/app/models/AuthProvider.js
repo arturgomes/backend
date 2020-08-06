@@ -1,23 +1,40 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _sequelize = require('sequelize'); var _sequelize2 = _interopRequireDefault(_sequelize);
-var _bcrypt = require('bcrypt'); var _bcrypt2 = _interopRequireDefault(_bcrypt);
-var _User = require('./User'); var _User2 = _interopRequireDefault(_User);
+"use strict";
 
- class AuthProvider extends _sequelize.Model {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _sequelize = _interopRequireWildcard(require("sequelize"));
+
+var _bcrypt = _interopRequireDefault(require("bcrypt"));
+
+var _User = _interopRequireDefault(require("./User"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+class AuthProvider extends _sequelize.Model {
   static init(sequelize) {
-    super.init(
-      {
-        provider_key: _sequelize2.default.STRING,
-        user_id: _sequelize2.default.INTEGER,
-        provider_type: _sequelize2.default.ENUM('facebook','twitter', 'google','instagram'),
-      },
-      {
-        sequelize,
-      }
-    );
+    super.init({
+      provider_key: _sequelize.default.STRING,
+      user_id: _sequelize.default.INTEGER,
+      provider_type: _sequelize.default.ENUM('facebook', 'twitter', 'google', 'instagram')
+    }, {
+      sequelize
+    });
     return this;
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'cf_user_id'});
+    this.belongsTo(models.User, {
+      foreignKey: 'cf_user_id'
+    });
   }
-} exports.default = AuthProvider;
+
+}
+
+exports.default = AuthProvider;

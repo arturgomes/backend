@@ -1,22 +1,38 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _jsonwebtoken = require('jsonwebtoken'); var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
-var _util = require('util');
+"use strict";
 
-var _auth = require('../../config/auth'); var _auth2 = _interopRequireDefault(_auth);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-exports. default = async (req, res, next) => {
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+var _util = require("util");
+
+var _auth = _interopRequireDefault(require("../../config/auth"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: 'token not provided' });
+    return res.status(401).json({
+      error: 'token not provided'
+    });
   }
+
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = await _util.promisify.call(void 0, _jsonwebtoken2.default.verify)(token, _auth2.default.secret);
+    const decoded = await (0, _util.promisify)(_jsonwebtoken.default.verify)(token, _auth.default.secret);
     req.userId = decoded.id;
-
     return next();
   } catch (err) {
-    return res.status(401).json({ error: 'token invalid' });
+    return res.status(401).json({
+      error: 'token invalid'
+    });
   }
 };
+
+exports.default = _default;

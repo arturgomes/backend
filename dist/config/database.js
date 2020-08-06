@@ -1,4 +1,6 @@
-"use strict";require('dotenv/config');
+"use strict";
+
+require('dotenv/config');
 
 module.exports = {
   dialect: 'postgres',
@@ -12,6 +14,6 @@ module.exports = {
   define: {
     timestamps: true,
     underscored: true,
-    underscoredAll: true,
-  },
+    underscoredAll: true
+  }
 };

@@ -1,30 +1,23 @@
-"use strict";'use strict';
+'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn(
-      'coupons',
-      'feedcoins',
-      {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      }
-    )
+    return queryInterface.addColumn('coupons', 'feedcoins', {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    });
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
-
-      Example:
+       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
   },
-
   down: (queryInterface, Sequelize) => {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
-
-      Example:
+       Example:
       return queryInterface.dropTable('users');
     */
   }

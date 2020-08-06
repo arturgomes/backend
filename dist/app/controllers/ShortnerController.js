@@ -1,18 +1,49 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { newObj[key] = obj[key]; } } } newObj.default = obj; return newObj; } } function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _yup = require('yup'); var Yup = _interopRequireWildcard(_yup);
-var _Shop = require('../models/Shop'); var _Shop2 = _interopRequireDefault(_Shop);
-var _errors = require('../errors/errors'); var _errors2 = _interopRequireDefault(_errors);
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var Yup = _interopRequireWildcard(require("yup"));
+
+var _Shop = _interopRequireDefault(require("../models/Shop"));
+
+var _errors = _interopRequireDefault(require("../errors/errors"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 class ShortnerController {
   async index(req, res) {
-    const { short_url } = req.params;
+    const {
+      short_url
+    } = req.params;
+    const shop = await _Shop.default.findOne({
+      where: {
+        short_url
+      }
+    });
 
-    const shop = await _Shop2.default.findOne({where:{short_url}});
     if (shop) {
-      const {id} = shop;
-      return res.json({id});
+      const {
+        id
+      } = shop;
+      return res.json({
+        id
+      });
     }
-    return res.json({ error: 'Shop not found' });
+
+    return res.json({
+      error: 'Shop not found'
+    });
   }
+
 }
 
-exports. default = new ShortnerController();
+var _default = new ShortnerController();
+
+exports.default = _default;

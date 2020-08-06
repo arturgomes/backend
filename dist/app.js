@@ -1,65 +1,79 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { newObj[key] = obj[key]; } } } newObj.default = obj; return newObj; } } function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }require('dotenv/config');
+"use strict";
 
-var _express = require('express'); var _express2 = _interopRequireDefault(_express);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("dotenv/config");
+
+var _express = _interopRequireDefault(require("express"));
+
+var _path = _interopRequireDefault(require("path"));
+
+var _cors = _interopRequireDefault(require("cors"));
+
+var _passport = _interopRequireDefault(require("passport"));
+
+var _youch = _interopRequireDefault(require("youch"));
+
+var Sentry = _interopRequireWildcard(require("@sentry/node"));
+
+require("express-async-errors");
+
+var _expressHttpProxy = _interopRequireDefault(require("express-http-proxy"));
+
+var _cookieSession = _interopRequireDefault(require("cookie-session"));
+
+var _cookieParser = _interopRequireDefault(require("cookie-parser"));
+
+var _User = _interopRequireDefault(require("./app/models/User"));
+
+var _routes = _interopRequireDefault(require("./routes"));
+
+var _sentry = _interopRequireDefault(require("./config/sentry"));
+
+require("./config/passport-setup");
+
+require("./database");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // import session from 'express-session';
-var _path = require('path'); var _path2 = _interopRequireDefault(_path);
-var _cors = require('cors'); var _cors2 = _interopRequireDefault(_cors);
-var _passport = require('passport'); var _passport2 = _interopRequireDefault(_passport);
-var _youch = require('youch'); var _youch2 = _interopRequireDefault(_youch);
-var _node = require('@sentry/node'); var Sentry = _interopRequireWildcard(_node);
-require('express-async-errors');
-var _expresshttpproxy = require('express-http-proxy'); var _expresshttpproxy2 = _interopRequireDefault(_expresshttpproxy);
-var _cookiesession = require('cookie-session'); var _cookiesession2 = _interopRequireDefault(_cookiesession);
-var _cookieparser = require('cookie-parser'); var _cookieparser2 = _interopRequireDefault(_cookieparser);
-var _User = require('./app/models/User'); var _User2 = _interopRequireDefault(_User);
-
-var _routes = require('./routes'); var _routes2 = _interopRequireDefault(_routes);
 // import authRoutes from './authRoutes';
-var _sentry = require('./config/sentry'); var _sentry2 = _interopRequireDefault(_sentry);
-require('./config/passport-setup');
-require('./database');
-const permitidos = ['https://couponfeed.co','https://localhost:3001'];
 class App {
   constructor() {
-    this.server = _express2.default.call(void 0, );
-
-    Sentry.init(_sentry2.default);
-
+    this.server = (0, _express.default)();
+    Sentry.init(_sentry.default);
     this.middlewares();
     this.routes();
     this.exceptionHandler();
   }
 
   middlewares() {
-
     // parse cookies
-    this.server.use(_cookieparser2.default.call(void 0, ));
-    this.server.use(
-      _cookiesession2.default.call(void 0, {
-        name: "session",
-        keys: [process.env.COOKIE_KEY],
-        maxAge: 24 * 60 * 60 * 100
-      })
-    );
-    this.server.use('/proxy', _expresshttpproxy2.default.call(void 0, {
+    this.server.use((0, _cookieParser.default)());
+    this.server.use((0, _cookieSession.default)({
+      name: "session",
+      keys: [process.env.COOKIE_KEY],
+      maxAge: 24 * 60 * 60 * 100
+    }));
+    this.server.use('/proxy', (0, _expressHttpProxy.default)({
       pathRewrite: {
         '^/proxy/': '/'
       },
       target: 'https://api.couponfeed.co',
       secure: false
     }));
-    this.server.use(_cors2.default.call(void 0, {
-      origin: (origin, callback) => {
-        if (permitidos.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      },
+    this.server.use((0, _cors.default)({
+      origin: ['https://couponfeed.co', 'https://localhost:3001'],
       baseURL: 'https://api.couponfeed.co/proxy',
       credentials: true
-    }));
-    // this.server.use(
+    })); // this.server.use(
     // cors(
     //   {
     //     origin: "https://couponfeed.co", // allow to server to accept request from different origin
@@ -69,7 +83,6 @@ class App {
     // )
     // (req,res,next) =>{
     //   // res.header("Access-Control-Allow-Origin","http://localhost:3001/");
-
     //   // res.header("Access-Control-Allow-Headers",
     //   // "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     //   // console.log(res.headers);
@@ -78,11 +91,9 @@ class App {
     //   //   res.header('Access-Control-Allow-Methods', "PUT, POST, PATCH, DELETE, GET");
     //   //   return res.status(200).json({});
     //   // }
-      // console.log(req.headers)
-      // res.header('Access-Control-Allow-Credentials', 'true');
-
-      // if(req.method === 'OPTIONS'){
-
+    // console.log(req.headers)
+    // res.header('Access-Control-Allow-Credentials', 'true');
+    // if(req.method === 'OPTIONS'){
     //     res.header('Access-Control-Allow-Origin', '*');
     //     // res.header('Access-Control-Allow-Origin', 'https://couponfeed.co');
     //     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
@@ -97,31 +108,28 @@ class App {
     //     res.header('Access-Control-Max-Age', 1728000);
     //     res.header('Content-Type', 'text/plain; charset=utf-8');
     //     res.header('Content-Length', 0);
-      // }
-      // next();
+    // }
+    // next();
     // }
     // );
     // initalize passport
-    this.server.use(_passport2.default.initialize());
-    // deserialize cookie from the browser
-    this.server.use(_passport2.default.session());
-    // set up cors to allow us to accept requests from our client
 
+    this.server.use(_passport.default.initialize()); // deserialize cookie from the browser
 
-
+    this.server.use(_passport.default.session()); // set up cors to allow us to accept requests from our client
 
     this.server.use(Sentry.Handlers.requestHandler());
-
-    this.server.use(_express2.default.json());
-    this.server.use(
-      '/files',
-      _express2.default.static(_path2.default.resolve('..', 'tmp', 'uploads'))
-    );
-
+    this.server.use(_express.default.json());
+    this.server.use('/files', _express.default.static(_path.default.resolve('..', 'tmp', 'uploads')));
   }
 
   routes() {
-    this.server.use(_routes2.default);
+    this.server.use((req, res, next) => {
+      console.log('request received');
+      console.log(req.headers);
+      next();
+    });
+    this.server.use(_routes.default);
     this.server.use(Sentry.Handlers.errorHandler());
   }
 
@@ -129,12 +137,15 @@ class App {
     // middleware de tratamento de exceções
     this.server.use(async (err, req, res, next) => {
       if (process.env.NODE_ENV === 'development') {
-        const errors = await new (0, _youch2.default)(err, req).toJSON();
+        const errors = await new _youch.default(err, req).toJSON();
         return res.status(500).json(errors);
       }
+
       return res.status(500).json('Internal server error');
     });
   }
+
 }
 
-exports. default = new App().server;
+var _default = new App().server;
+exports.default = _default;
