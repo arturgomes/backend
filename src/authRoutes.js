@@ -77,8 +77,4 @@ routes.get("/logout", (req, res) => {
   req.session = null;
   res.redirect(process.env.CLIENT_HOME_PAGE_URL);
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> 4072732bf288e81e3a4ad464c82a71dee6276fd5
 export default routes;
