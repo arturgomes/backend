@@ -73,7 +73,7 @@ class App {
   		res.header('Access-Control-Allow-Origin', 'https://www.couponfeed.co');
       res.header("Access-Control-Allow-Credentials", 'true');
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
-  		console.log({resultHeaders: res.headers});
+  		console.log({resultHeaders: res});
 		next();
 	});
     this.server.use((req,res,next)=>{
