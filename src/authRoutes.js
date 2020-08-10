@@ -30,7 +30,7 @@ routes.get('/success', (req, res) => {
     })
   }
   console.log(res.headers);
-  return res.status(401).json({message:"not authenticated"});
+  return res.status(200).json({message:"not authenticated"});
 }
 );
 // when login is successful, retrieve user info
@@ -57,9 +57,7 @@ routes.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 routes.get(
   "/google/redirect",
   passport.authenticate("google", {
-    // successRedirect: process.env.CLIENT_HOME_PAGE_URL,
-    successRedirect: "https://couponfeed.co/login",
-    // successRedirect: "https://localhost:3001/login",
+    successRedirect: "https://www.couponfeed.co/login",
     failureRedirect: "/auth/error"
   })
 );
@@ -69,7 +67,7 @@ routes.get(
 routes.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 routes.get('/facebook/redirect',
   passport.authenticate('facebook', {
-    successRedirect: process.env.CLIENT_HOME_PAGE_URL,
+    successRedirect: "https://www.couponfeed.co/login",
     failureRedirect: "/auth/error"
   })
 );
