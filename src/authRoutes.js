@@ -9,11 +9,9 @@ import authConfig from './config/auth';
 const routes = new Router();
 
 routes.get('/success', (req, res) => {
-  console.log(res.headers);
   if (req.user) {
     console.log(req.user);
     const { id, name } = req.user;
-    console.log({resultHeaders: res});
 
     return res.status(200).json({
       success: true,
@@ -31,6 +29,7 @@ routes.get('/success', (req, res) => {
       }),
     })
   }
+  return res.status(401).json({message:"not authenticated"});
 }
 );
 // when login is successful, retrieve user info
