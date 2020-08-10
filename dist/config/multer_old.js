@@ -1,28 +1,16 @@
-"use strict";
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _multer = require('multer'); var _multer2 = _interopRequireDefault(_multer);
+var _crypto = require('crypto'); var _crypto2 = _interopRequireDefault(_crypto);
+var _path = require('path');
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _multer = _interopRequireDefault(require("multer"));
-
-var _crypto = _interopRequireDefault(require("crypto"));
-
-var _path = require("path");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-  storage: _multer.default.diskStorage({
-    destination: (0, _path.resolve)(__dirname, '..', '..', 'tmp', 'uploads'),
+exports. default = {
+  storage: _multer2.default.diskStorage({
+    destination: _path.resolve.call(void 0, __dirname, '..', '..', 'tmp', 'uploads'),
     filename: (req, file, cb) => {
-      _crypto.default.randomBytes(16, (err, res) => {
-        if (err) return cb(err); // null eh o erro, primeiro parametro
-
-        return cb(null, res.toString('hex') + (0, _path.extname)(file.originalname));
+      _crypto2.default.randomBytes(16, (err, res) => {
+        if (err) return cb(err);
+        // null eh o erro, primeiro parametro
+        return cb(null, res.toString('hex') + _path.extname.call(void 0, file.originalname));
       });
-    }
-  })
+    },
+  }),
 };
-exports.default = _default;

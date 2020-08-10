@@ -1,9 +1,4 @@
-"use strict";
+"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _Queue = require('./lib/Queue'); var _Queue2 = _interopRequireDefault(_Queue);
+require('dotenv/config');
 
-var _Queue = _interopRequireDefault(require("./lib/Queue"));
-
-require("dotenv/config");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_Queue.default.processQueue();
+_Queue2.default.processQueue();

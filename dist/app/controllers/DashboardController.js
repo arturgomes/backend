@@ -1,42 +1,27 @@
-"use strict";
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _sequelize = require('sequelize'); var _sequelize2 = _interopRequireDefault(_sequelize); //e aqui tbm
+var _Feedback = require('../models/Feedback'); var _Feedback2 = _interopRequireDefault(_Feedback);
+var _Shop = require('../models/Shop'); var _Shop2 = _interopRequireDefault(_Shop);
+var _Retail = require('../models/Retail'); var _Retail2 = _interopRequireDefault(_Retail);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
 
-var _sequelize = _interopRequireDefault(require("sequelize"));
-
-var _Feedback = _interopRequireDefault(require("../models/Feedback"));
-
-var _Shop = _interopRequireDefault(require("../models/Shop"));
-
-var _Retail = _interopRequireDefault(require("../models/Retail"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//e aqui tbm
 function filterNPSResults(fb) {
   console.log("linha 8");
-  let media = fb.map(f => {
-    return parseInt(f.nps_value);
-  });
+  let media = fb.map(f => { return parseInt(f.nps_value) });
   var total = media.reduce((result, number) => result + number);
   let nf = fb.filter(f => f.nps_value < 7);
   let ne = fb.filter(f => f.nps_value >= 7 && f.nps_value < 9);
   let po = fb.filter(f => f.nps_value >= 9);
   const negf = nf.length;
   console.log("linha 15");
-  console.log(nf, po, ne);
+  console.log(nf, po, ne)
   return {
     posFeedbacks: po.length,
     negFeedbacks: negf,
     neutralFeedbacks: ne.length,
     totalFeedbacks: fb.length,
-    average: total / fb.length
+    average: (total / fb.length),
   };
 }
-
 function flatten(arr) {
   return arr.reduce(function (flat, toFlatten) {
     return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
@@ -44,37 +29,33 @@ function flatten(arr) {
 }
 
 function _listItems(fb) {
-  let listShops; // const fb1 = fb.flat(1);
-
+  let listShops;
+  // const fb1 = fb.flat(1);
   const tmp = Object.keys(fb).map(key => {
     const shop = fb[key];
-    const {
-      f
-    } = shop;
+    const { f } = shop;
     listShops = Object.keys(f).map(g => {
-      const {
-        nps_value,
-        date
-      } = f[g];
+      const { nps_value, date } = f[g];
       let date1 = new Date(date).toLocaleDateString("pt-BR");
-      return {
-        nps_value,
-        date1
-      };
+      return { nps_value, date1 };
     });
     return listShops;
-  });
+  })
   return flatten(tmp);
 }
 
+
 class DashboardController {
+
   async index(req, res) {
-    const fb = await _Feedback.default.findAll({
-      attributes: ['created_at', 'nps_value', 'shop_id', 'retail_id'],
+
+    const fb = await _Feedback2.default.findAll({
+      attributes: ['created_at', 'nps_value', 'shop_id','retail_id'],
       where: {
         retail_id: req.body.retail_id
       }
     });
+
     console.log("linha 66: index dashboard, fb: ", fb);
 
     if (!fb) {
@@ -85,10 +66,12 @@ class DashboardController {
         totalFeedbacks: 0,
         average: 0,
         dados: []
+
       });
     }
-
     console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
+
+
     const now = new Date();
     var oneYearAgo = new Date();
     var sixMonthsAgo = new Date();
@@ -96,6 +79,7 @@ class DashboardController {
     sixMonthsAgo.setFullYear(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() - 6);
     aMonthsAgo.setFullYear(aMonthsAgo.getFullYear(), aMonthsAgo.getMonth() - 1);
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
     const {
       posFeedbacks,
       negFeedbacks,
@@ -111,6 +95,7 @@ class DashboardController {
       average
     });
 
+
     if (fb) {
       return res.json({
         posFeedbacks,
@@ -119,16 +104,10 @@ class DashboardController {
         totalFeedbacks,
         average,
         dados: fb
+
       });
     }
-
-    return res.json({
-      error: 'Shop not found'
-    });
+    return res.json({ error: 'Shop not found' });
   }
-
 }
-
-var _default = new DashboardController();
-
-exports.default = _default;
+exports. default = new DashboardController();

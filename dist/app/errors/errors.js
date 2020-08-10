@@ -1,6 +1,4 @@
-"use strict";
-
-// module.exports = {
+"use strict";// module.exports = {
 //   validation_failed: 'validation failed',
 //   shop_exists: 'shop already exists',
 //   user_exists: 'user already exists',
@@ -15,6 +13,7 @@
 //   user_cannot_create_shop: 'A user cannot include a shop in the system',
 //   feedback_already_stored: 'Feedback already registered to a user',
 // };
+
 module.exports = {
   validation_failed: 'Validação falhou',
   shop_exists: 'Loja já existe',
@@ -28,5 +27,5 @@ module.exports = {
   email_already_used: 'Email já em uso',
   cpf_already_used: 'CPF já cadastrado',
   user_cannot_create_shop: 'Um consumidor não pode incluir uma loja',
-  feedback_already_stored: 'Feedback já registrado por um usuário'
+  feedback_already_stored: 'Feedback já registrado por um usuário',
 };

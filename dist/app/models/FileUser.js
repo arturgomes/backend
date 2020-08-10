@@ -1,43 +1,31 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _sequelize = _interopRequireWildcard(require("sequelize"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _sequelize = require('sequelize'); var _sequelize2 = _interopRequireDefault(_sequelize);
 
 class FileUser extends _sequelize.Model {
   static init(sequelize) {
-    super.init({
-      name: _sequelize.default.STRING,
-      size: _sequelize.default.INTEGER,
-      key: _sequelize.default.STRING,
-      url: _sequelize.default.STRING // url: {
-      //   type: Sequelize.VIRTUAL,
-      //   get() {
-      //     return `${process.env.APP_URL}`;
-      //     // return `http://localhost:8080/files/${this.path}`
-      //   },
-      // },
-
-    }, {
-      sequelize
-    });
+    super.init(
+      {
+        name: _sequelize2.default.STRING,
+        size: _sequelize2.default.INTEGER,
+        key: _sequelize2.default.STRING,
+        url : _sequelize2.default.STRING,
+        // url: {
+        //   type: Sequelize.VIRTUAL,
+        //   get() {
+        //     return `${process.env.APP_URL}`;
+        //     // return `http://localhost:8080/files/${this.path}`
+        //   },
+        // },
+      },
+      {
+        sequelize,
+      }
+    );
     return this;
   }
-
   static associate(models) {
-    this.belongsTo(models.User, {
-      foreignKey: 'user_id'
-    }); // this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retails' });
+    this.belongsTo(models.User, { foreignKey: 'user_id'});
+    // this.belongsTo(models.Retail, { foreignKey: 'retail_id', as: 'retails' });
   }
-
 }
 
-var _default = FileUser;
-exports.default = _default;
+exports. default = FileUser;

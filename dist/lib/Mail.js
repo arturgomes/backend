@@ -1,62 +1,48 @@
-"use strict";
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _nodemailer = require('nodemailer'); var _nodemailer2 = _interopRequireDefault(_nodemailer);
+var _expresshandlebars = require('express-handlebars'); var _expresshandlebars2 = _interopRequireDefault(_expresshandlebars);
+var _nodemailerexpresshandlebars = require('nodemailer-express-handlebars'); var _nodemailerexpresshandlebars2 = _interopRequireDefault(_nodemailerexpresshandlebars);
+var _path = require('path');
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _nodemailer = _interopRequireDefault(require("nodemailer"));
-
-var _expressHandlebars = _interopRequireDefault(require("express-handlebars"));
-
-var _nodemailerExpressHandlebars = _interopRequireDefault(require("nodemailer-express-handlebars"));
-
-var _path = require("path");
-
-var _mail = _interopRequireDefault(require("../config/mail"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _mail = require('../config/mail'); var _mail2 = _interopRequireDefault(_mail);
 
 class Mail {
   constructor() {
-    const {
+    const { host, port, secure, auth } = _mail2.default;
+    this.transporter = _nodemailer2.default.createTransport({
       host,
       port,
       secure,
-      auth
-    } = _mail.default;
-    this.transporter = _nodemailer.default.createTransport({
-      host,
-      port,
-      secure,
-      auth: auth.user ? auth : null
+      auth: auth.user ? auth : null,
     });
+
     this.configureTemplates();
   }
 
   configureTemplates() {
-    const viewPath = (0, _path.resolve)(__dirname, '..', 'app', 'views', 'emails'); // compilando o template do nodemailer - templates de email
+    const viewPath = _path.resolve.call(void 0, __dirname, '..', 'app', 'views', 'emails');
 
-    this.transporter.use('compile', (0, _nodemailerExpressHandlebars.default)({
-      viewEngine: _expressHandlebars.default.create({
-        layoutsDir: (0, _path.resolve)(viewPath, 'layouts'),
-        partialsDir: (0, _path.resolve)(viewPath, 'partials'),
-        defaultLayout: 'default',
-        extname: '.hbs'
-      }),
-      viewPath,
-      extName: '.hbs'
-    }));
+    // compilando o template do nodemailer - templates de email
+    this.transporter.use(
+      'compile',
+      _nodemailerexpresshandlebars2.default.call(void 0, {
+        viewEngine: _expresshandlebars2.default.create({
+          layoutsDir: _path.resolve.call(void 0, viewPath, 'layouts'),
+          partialsDir: _path.resolve.call(void 0, viewPath, 'partials'),
+          defaultLayout: 'default',
+          extname: '.hbs',
+        }),
+        viewPath,
+        extName: '.hbs',
+      })
+    );
   }
 
   sendMail(message) {
-    return this.transporter.sendMail({ ..._mail.default.default,
-      ...message
+    return this.transporter.sendMail({
+      ..._mail2.default.default,
+      ...message,
     });
   }
-
 }
 
-var _default = new Mail();
-
-exports.default = _default;
+exports. default = new Mail();
