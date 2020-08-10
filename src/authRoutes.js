@@ -78,4 +78,4 @@ routes.get("/logout", (req, res) => {
   res.redirect(process.env.CLIENT_HOME_PAGE_URL);
 });
 
-module.exports = routes;
+export default routes;
