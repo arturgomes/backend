@@ -69,7 +69,7 @@ class App {
   routes() {
     this.server.use(function (req, res, next) {
 		console.log(req.headers);
-		  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Content-Type, Authorization, X-Requested-With");
+		  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials, Content-Type, Authorization, X-Requested-With");
   		res.header('Access-Control-Allow-Origin', 'https://www.couponfeed.co');
   		res.header("Access-Control-Allow-Credentials", 'true');
   		console.log(res.headers);
