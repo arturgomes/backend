@@ -77,9 +77,9 @@ class CouponController {
 
     const coupon = await Coupon.findOne({ where: { name } });
 
-    const { id, name } = await coupon.update(req.body);
+    const { id, name: name_i } = await coupon.update(req.body);
 
-    return res.json({ id, name, email, cnpj });
+    return res.json({ id, name_i, email, cnpj });
   }
 }
 

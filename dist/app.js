@@ -18,7 +18,7 @@ var _routes = require('./routes'); var _routes2 = _interopRequireDefault(_routes
 var _sentry = require('./config/sentry'); var _sentry2 = _interopRequireDefault(_sentry);
 require('./config/passport-setup');
 require('./database');
-const permitidos = ['https://couponfeed.co','https://localhost:3001'];
+
 class App {
   constructor() {
     this.server = _express2.default.call(void 0, );
@@ -41,22 +41,10 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
-    this.server.use('/proxy', _expresshttpproxy2.default.call(void 0, {
-      pathRewrite: {
-        '^/proxy/': '/'
-      },
-      target: 'https://api.couponfeed.co',
-      secure: false
-    }));
     this.server.use(_cors2.default.call(void 0, {
-      origin: (origin, callback) => {
-        if (permitidos.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      },
-      baseURL: 'https://api.couponfeed.co/proxy',
+      //origin:'*',
+      origin: ['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
+      baseURL: 'https://api.couponfeed.co',
       credentials: true
     }));
     // this.server.use(
@@ -121,6 +109,18 @@ class App {
   }
 
   routes() {
+    this.server.use(function (req, res, next) {
+		console.log(req.headers);
+		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+  		res.setHeader('Access-Control-Allow-Origin', 'https://couponfeed.co');
+  		console.log(res.headers);
+		next();
+	});
+    this.server.use((req,res,next)=>{
+	console.log('request received');
+	console.log(req.headers);
+	next();
+    })
     this.server.use(_routes2.default);
     this.server.use(Sentry.Handlers.errorHandler());
   }

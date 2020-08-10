@@ -41,16 +41,10 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
-    this.server.use('/proxy', proxy({
-      pathRewrite: {
-        '^/proxy/': '/'
-      },
-      target: 'https://api.couponfeed.co',
-      secure: false
-    }));
     this.server.use(cors({
-      origin: ['https://couponfeed.co','https://localhost:3001'],
-      baseURL: 'https://api.couponfeed.co/proxy',
+      //origin:'*',
+      origin: 'https://www.couponfeed.co',//['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
+      baseURL: 'https://api.couponfeed.co',
       credentials: true
     }));
     // this.server.use(
@@ -115,6 +109,18 @@ class App {
   }
 
   routes() {
+    this.server.use(function (req, res, next) {
+		console.log(req.headers);
+		res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+  		res.header('Access-Control-Allow-Origin', 'https://www.couponfeed.co');
+  		console.log(res.headers);
+		next();
+	});
+    this.server.use((req,res,next)=>{
+	console.log('request received');
+	console.log(req.headers);
+	next();
+    })
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }

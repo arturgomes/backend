@@ -1,4 +1,4 @@
-"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _express = require('express');
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _express = require('express');
 var _passport = require('passport'); var _passport2 = _interopRequireDefault(_passport);
 
 var _jsonwebtoken = require('jsonwebtoken'); var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
@@ -77,5 +77,4 @@ routes.get("/logout", (req, res) => {
   req.session = null;
   res.redirect(process.env.CLIENT_HOME_PAGE_URL);
 });
-
-module.exports = routes;
+exports. default = routes;
