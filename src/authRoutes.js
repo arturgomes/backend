@@ -9,6 +9,7 @@ import authConfig from './config/auth';
 const routes = new Router();
 
 routes.get('/success', (req, res) => {
+  console.log(res.headers);
   if (req.user) {
     console.log(req.user);
     const { id, name } = req.user;
