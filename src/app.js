@@ -71,7 +71,7 @@ class App {
 		console.log(req.headers);
 		  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Content-Type, Authorization, X-Requested-With");
   		res.header('Access-Control-Allow-Origin', 'https://www.couponfeed.co');
-  		// res.header("Access-Control-Allow-Credentials", true);
+  		res.header("Access-Control-Allow-Credentials", 'true');
   		console.log(res.headers);
 		next();
 	});
