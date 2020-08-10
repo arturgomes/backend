@@ -13,6 +13,8 @@ routes.get('/success', (req, res) => {
   if (req.user) {
     console.log(req.user);
     const { id, name } = req.user;
+    console.log({resultHeaders: res});
+
     return res.status(200).json({
       success: true,
       message: "user has successfully authenticated",
