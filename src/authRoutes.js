@@ -29,6 +29,7 @@ routes.get('/success', (req, res) => {
       }),
     })
   }
+  console.log(res.headers);
   return res.status(401).json({message:"not authenticated"});
 }
 );
