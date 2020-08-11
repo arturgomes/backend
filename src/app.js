@@ -41,12 +41,12 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
-    this.server.use(cors({
-      // origin: 'https://www.couponfeed.co',//['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
-      baseURL: 'https://api.couponfeed.co',
-      origin: true,
-      credentials: true
-    }));
+    // this.server.use(cors({
+    //   // origin: 'https://www.couponfeed.co',//['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
+    //   baseURL: 'https://api.couponfeed.co',
+    //   origin: true,
+    //   credentials: true
+    // }));
 
     // initalize passport
     this.server.use(passport.initialize());
@@ -68,14 +68,14 @@ class App {
   }
 
   routes() {
-    // this.server.use(function (req, res, next) {
+    this.server.use(function (req, res, next) {
     //   // console.log(req.headers);
     //   res.header('Access-Control-Allow-Headers', "Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Content-Type,Authorization,X-Requested-With");
     //   res.header('Access-Control-Allow-Origin', 'https://www.couponfeed.co');
-    //   res.header('Access-Control-Allow-Credentials', true);
+      res.header('Access-Control-Allow-Credentials', true);
     //   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
-    //   next();
-    // });
+      next();
+    });
     this.server.use((req, res, next) => {
       // console.log('response sent');
 
