@@ -10,10 +10,9 @@ const routes = new Router();
 
 routes.get('/success', (req, res) => {
   if (req.user) {
-    console.log(req.user);
+    // console.log(req.user);
     const { id, name } = req.user;
-
-    return res.status(200).json({
+    const response = {
       success: true,
       message: "user has successfully authenticated",
       user: req.user,
@@ -27,7 +26,9 @@ routes.get('/success', (req, res) => {
       token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
-    })
+    };
+    console.log(response)
+    return res.status(200).json(response);
   }
   console.log(res.headers);
   return res.status(200).json({message:"not authenticated"});
