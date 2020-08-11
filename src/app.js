@@ -42,8 +42,9 @@ class App {
       })
     );
     this.server.use(cors({
-      origin: 'https://www.couponfeed.co',//['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
+      // origin: 'https://www.couponfeed.co',//['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
       baseURL: 'https://api.couponfeed.co',
+      origin: true,
       credentials: true
     }));
 
