@@ -38,7 +38,7 @@ class App {
       cookieSession({
         name: "session",
         keys: [process.env.COOKIE_KEY],
-        maxAge: 24 * 60 * 60 * 100
+        maxAge: 24 * 60 * 60 * 1000
       })
     );
 
@@ -61,23 +61,7 @@ class App {
   }
 
   routes() {
-    // this.server.use(function (req, res, next) {
-    //   // console.log(req.headers);
-    //   res.header('Access-Control-Allow-Headers', "Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Content-Type,Authorization,X-Requested-With");
-    //   res.header('Access-Control-Allow-Origin', 'https://www.couponfeed.co');
-      // res.header('Access-Control-Allow-Credentials', true);
-    //   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
-      // next();
-    // });
-    // this.server.use((req, res, next) => {
-    //   // console.log('response sent');
 
-    //   // console.log({ resultHeaders: res });
-
-    //   console.log('request received');
-    //   console.log(req.headers);
-    //   next();
-    // })
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }

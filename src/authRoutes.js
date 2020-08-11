@@ -70,10 +70,11 @@ routes.get(
 //facebook auth
 routes.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 routes.get('/facebook/redirect',
-  passport.authenticate('facebook', {
-    successRedirect: "https://www.couponfeed.co/login",
-    failureRedirect: "/auth/error"
-  })
+  passport.authenticate('facebook'), (req, res) => {
+    res.send(req.user);
+    // successRedirect: "https://www.couponfeed.co/login",
+    // failureRedirect: "/auth/error"
+  }
 );
 
 // When logout, redirect to client
