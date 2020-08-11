@@ -82,9 +82,9 @@ passport.use(
 
       if (currentUser) {
         console.log(currentUser)
-        if (currentUser.provider_type !== 'facebook') {
-          return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-        }
+        // if (currentUser.provider_type !== 'facebook') {
+        //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+        // }
         console.log("já existeq")
         return done(null, currentUser);
       }
