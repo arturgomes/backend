@@ -81,11 +81,11 @@ passport.use(
       //  User.findOne({ sub,email })//.then(res => done(null, res));
 
       if (currentUser) {
-        console.log(currentUser)
+        // console.log(currentUser)
         // if (currentUser.provider_type !== 'facebook') {
         //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
         // }
-        console.log("já existeq")
+        // console.log("já existe")
         return done(null, currentUser);
       }
       else {// create new user if the database doesn't have this user
@@ -93,7 +93,7 @@ passport.use(
         const newUser = await new User({
           user_id: sub, name, email, provider_type: 'facebook',
         }).save();
-        console.log("criou novo")
+        // console.log("criou novo")
 
         if (newUser) {
           return done(null, newUser);
