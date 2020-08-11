@@ -12,6 +12,7 @@ routes.get('/success', (req, res) => {
   if (req.user) {
     // console.log(req.user);
     const { id, name } = req.user;
+    console.log(req.user);
     const response = {
       success: true,
       message: "user has successfully authenticated",
@@ -27,7 +28,7 @@ routes.get('/success', (req, res) => {
         expiresIn: authConfig.expiresIn,
       }),
     };
-    console.log(response)
+    console.log({resp: response})
     return res.status(200).json(response);
   }
   console.log(res.headers);
