@@ -16,7 +16,7 @@ import User from './app/models/User';
 import routes from './routes';
 // import authRoutes from './authRoutes';
 import sentryConfig from './config/sentry';
-import './config/passport-setup';
+import passportSocial from './config/passport-setup';
 import './database';
 
 class App {
@@ -41,20 +41,13 @@ class App {
         maxAge: 24 * 60 * 60 * 100
       })
     );
-    // this.server.use(cors({
-    //   // origin: 'https://www.couponfeed.co',//['https://couponfeed.co','https://www.couponfeed.co','https://localhost:3001'],
-    //   baseURL: 'https://api.couponfeed.co',
-    //   origin: true,
-    //   credentials: true
-    // }));
+
 
     // initalize passport
     this.server.use(passport.initialize());
     // deserialize cookie from the browser
     this.server.use(passport.session());
     // set up cors to allow us to accept requests from our client
-
-
 
 
     this.server.use(Sentry.Handlers.requestHandler());
@@ -76,15 +69,15 @@ class App {
     //   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
       // next();
     // });
-    this.server.use((req, res, next) => {
-      // console.log('response sent');
+    // this.server.use((req, res, next) => {
+    //   // console.log('response sent');
 
-      // console.log({ resultHeaders: res });
+    //   // console.log({ resultHeaders: res });
 
-      console.log('request received');
-      console.log(req.headers);
-      next();
-    })
+    //   console.log('request received');
+    //   console.log(req.headers);
+    //   next();
+    // })
     this.server.use(routes);
     this.server.use(Sentry.Handlers.errorHandler());
   }
