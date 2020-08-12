@@ -12,7 +12,7 @@ import 'express-async-errors';
 import proxy from 'express-http-proxy';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-import * as RedisStore from 'connect-redis';
+var RedisStore = require('connect-redis')(session);
 import User from './app/models/User';
 
 
