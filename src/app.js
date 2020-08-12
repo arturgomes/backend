@@ -34,7 +34,6 @@ class App {
 
     // parse cookies
     this.server.use(cookieParser());
-    this.server.use(bodyParser());
     this.server.use(
       cookieSession({
         name: "session",
