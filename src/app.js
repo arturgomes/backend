@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 import express from 'express';
 // import session from 'express-session';
+import redis from 'redis';
 import path from 'path';
 import cors from 'cors';
 import passport from 'passport';
@@ -19,6 +20,8 @@ import sentryConfig from './config/sentry';
 import passportSocial from './config/passport-setup';
 import './database';
 
+const redisClient = redis.createClient();
+
 class App {
   constructor() {
     this.server = express();
@@ -34,13 +37,21 @@ class App {
 
     // parse cookies
     this.server.use(cookieParser());
-    this.server.use(
-      cookieSession({
-        name: "session",
-        keys: [process.env.COOKIE_KEY],
-        maxAge: 24 * 60 * 60 * 1000
-      })
-    );
+    // this.server.use(
+    //   cookieSession({
+    //     name: "session",
+    //     keys: [process.env.COOKIE_KEY],
+    //     maxAge: 24 * 60 * 60 * 1000
+    //   })
+    // );
+    this.server.use(express.session({
+      secret: 'Super Secret Password',
+      proxy: true,
+      key: 'session.sid',
+      cookie: {secure: true},
+   //NEVER use in-memory store for production - I'm using redis here
+      store: new redisStore({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, client: redisClient, ttl: 86400 }),
+   }));
 
 
     // initalize passport
