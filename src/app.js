@@ -10,7 +10,7 @@ import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 import proxy from 'express-http-proxy';
-import cookieSession from 'cookie-session';
+import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import User from './app/models/User';
 
