@@ -44,7 +44,7 @@ class App {
     //     maxAge: 24 * 60 * 60 * 1000
     //   })
     // );
-    this.server.use(express.session({
+    this.server.use(session({
       secret: 'Super Secret Password',
       proxy: true,
       key: 'session.sid',
