@@ -12,7 +12,9 @@ import 'express-async-errors';
 import proxy from 'express-http-proxy';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import * as RedisStore from 'connect-redis';
 import User from './app/models/User';
+
 
 import routes from './routes';
 // import authRoutes from './authRoutes';
@@ -50,7 +52,7 @@ class App {
       key: 'session.sid',
       cookie: {secure: true},
    //NEVER use in-memory store for production - I'm using redis here
-      store: new redisStore({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, client: redisClient, ttl: 86400 }),
+      store: new RedisStore({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, client: redisClient, ttl: 86400 }),
    }));
 
 
