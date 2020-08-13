@@ -10,15 +10,15 @@ const routes = new Router();
 
 routes.get('/success', (req, res) => {
   console.log("entrou no /success")
-  console.log(req.user);
+  // console.log(req.user);
   if (req.user) {
     // console.log(req.user);
     const { id, name } = req.user;
-    console.log(req.user);
+    // console.log(req.user);
     const response = {
       success: true,
       message: "user has successfully authenticated",
-      user: req.user,
+      // user: req.user,
       login: {
         id,
         name,
@@ -30,10 +30,10 @@ routes.get('/success', (req, res) => {
         expiresIn: authConfig.expiresIn,
       }),
     };
-    console.log({resp: response})
+    // console.log({resp: response})
     return res.status(200).json(response);
   }
-  console.log(res.headers);
+  // console.log(res.headers);
   return res.status(200).json({message:"not authenticated"});
 }
 );
