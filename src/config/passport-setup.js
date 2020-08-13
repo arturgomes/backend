@@ -14,7 +14,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   User.findByPk(id)
     .then(user => {
-      console.log(user);
+      // console.log(user);
       done(null, user);
     })
     .catch(e => {
