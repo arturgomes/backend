@@ -70,12 +70,7 @@ class App {
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
-    this.server.use((req,res,next)=>{
-      console.log(req.headers);
-      // res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.co"
-      // res.header('Access-Control-Allow-Credentials') = true;
-      next();
-    })
+
 
   }
 

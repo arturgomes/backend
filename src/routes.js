@@ -44,6 +44,12 @@ routes.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });*/
+const showHeaders = (req,res,next)=>{
+  console.log(req.headers);
+  // res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.co"
+  // res.header('Access-Control-Allow-Credentials') = true;
+  next();
+};
 
 routes.use('/auth',authRoutes);
 
@@ -100,7 +106,7 @@ routes.post('/filesc', upload.single('file'), CustomerFileController.store);
 routes.post('/filesc/:user_id', CustomerFileController.index);
 routes.delete('/filesc/:id', CustomerFileController.delete);
 
-routes.post('/dashboardDataC', CustomerDashboardController.index);
+routes.post('/dashboardDataC', showHeaders, CustomerDashboardController.index);
 
 routes.post('/dashboardData', authMiddleware, DashboardController.index);
 
