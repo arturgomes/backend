@@ -50,10 +50,10 @@ class App {
       secret: 'Super Secret Password',
       proxy: true,
       key: 'session.sid',
-      cookie: {secure: true},
-   //NEVER use in-memory store for production - I'm using redis here
+      cookie: { secure: true },
+      //NEVER use in-memory store for production - I'm using redis here
       store: new RedisStore({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, client: redisClient, ttl: 86400 }),
-   }));
+    }));
 
 
     // initalize passport
@@ -76,8 +76,10 @@ class App {
     //   console.log(req.headers);
     //   next();
     // })
-      this.server.use(cors())
-      this.server.options("*",cors());
+    this.server.use(cors({
+      origin: "https://www.couponfeed.co"
+    }))
+    this.server.options("*", cors());
 
   }
 
