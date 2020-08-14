@@ -73,7 +73,7 @@ routes.get('/facebook/redirect',
   passport.authenticate('facebook', {
     successRedirect: "https://www.couponfeed.co/login",
     failureRedirect: "/auth/error"
-  }
+  })
 );
 
 // When logout, redirect to client
