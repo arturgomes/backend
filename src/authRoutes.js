@@ -9,7 +9,7 @@ import authConfig from './config/auth';
 const routes = new Router();
 
 routes.get('/success', (req, res) => {
-  console.log("entrou no /success")
+  // console.log("entrou no /success")
   // console.log(req.user);
   if (req.user) {
     // console.log(req.user);

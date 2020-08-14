@@ -76,6 +76,8 @@ class App {
     //   console.log(req.headers);
     //   next();
     // })
+      this.server.use(cors())
+      this.server.options("*",cors());
 
   }
 
