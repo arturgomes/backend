@@ -61,7 +61,7 @@ routes.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 routes.get(
   "/google/redirect",
   passport.authenticate("google", {
-    successRedirect: "https://www.couponfeed.co/login",
+    successRedirect: "https://www.couponfeed.co/social",
     failureRedirect: "/auth/error"
   })
 );
@@ -71,7 +71,7 @@ routes.get(
 routes.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 routes.get('/facebook/redirect',
   passport.authenticate('facebook', {
-    successRedirect: "https://www.couponfeed.co/login",
+    successRedirect: "https://www.couponfeed.co/social",
     failureRedirect: "/auth/error"
   })
 );
