@@ -11,6 +11,28 @@ const routes = new Router();
 routes.get('/success', (req, res) => {
   // console.log("entrou no /success")
   // console.log(req.user);
+  if("cnpj" in req.user){
+    // console.log(req.user);
+    const { id, name } = req.user;
+    // console.log(req.user);
+    const response = {
+      success: true,
+      message: "user has successfully authenticated",
+      // user: req.user,
+      login: {
+        id,
+        name,
+        // email,
+        tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
+      },
+      cookies: req.cookies,
+      token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
+    };
+    // console.log({resp: response})
+    return res.status(200).json(response);
+  }
   if (req.user) {
     // console.log(req.user);
     const { id, name } = req.user;
