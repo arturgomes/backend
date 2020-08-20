@@ -122,5 +122,7 @@ routes.post('/shopsl', authMiddleware, ShopController.index);
 
 routes.post('/qr', authMiddleware, QrController.index);
 
+routes.post('/users/l/:user_id', UserController.index);
+
 // routes.post('/files', upload.single('file'), FileController.store);
 export default routes;

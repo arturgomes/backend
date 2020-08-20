@@ -96,25 +96,9 @@ class UserController {
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      // cpf: Yup.string(),
-      phone: Yup.string().email(),
-      oldPassword: Yup.string().min(6),
-      password: Yup.string()
-        .min(6)
-        .when('oldPassword', (oldPassword, field) =>
-          oldPassword ? field.required() : field
-        ),
-      confirmPassword: Yup.string().when('password', (password, field) =>
-        password ? field.required().oneOf([Yup.ref('password')]) : field
-      ),
-    });
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: Error.validation_failed });
-    }
 
-    const { cpf, email, oldPassword } = req.body;
+    const { cpf, name, phone } = req.body;
 
     const user = await User.findByPk(req.userId);
 
@@ -126,13 +110,17 @@ class UserController {
       }
     }
 
-    if (oldPassword && !(await user.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: Error.invalid_password });
-    }
 
     const { id, name } = await user.update(req.body);
 
-    return res.json({ id, name, email, cpf });
+    return res.status(200).json({ message: Error.ok });
+  }
+
+  async index(req, res) {
+    const { user_id } = req.params;
+    const {name, cpf, phone} = await User.findOne({ where: { id: user_id } })
+
+    return res.json(user);
   }
 }
 

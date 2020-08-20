@@ -57,7 +57,13 @@ routes.get('/error', (req, res) => {
 });
 
 //Google auth
+
 routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+routes.get('/google/retail', function(req,res,next){
+  req.retail = true;
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
+})
+
 routes.get(
   "/google/redirect",
   passport.authenticate("google", {

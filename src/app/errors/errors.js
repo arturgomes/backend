@@ -28,4 +28,5 @@ module.exports = {
   cpf_already_used: 'CPF já cadastrado',
   user_cannot_create_shop: 'Um consumidor não pode incluir uma loja',
   feedback_already_stored: 'Feedback já registrado por um usuário',
+  ok: 'feito',
 };

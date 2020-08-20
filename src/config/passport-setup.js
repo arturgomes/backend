@@ -2,6 +2,7 @@ import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import FacebookStrategy from "passport-facebook";
 import User from "../app/models/User";
+import Retail from "../app/models/Retail";
 
 
 // serialize the user.id to save in the cookie session
@@ -29,34 +30,63 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK
     },
-    async (token, tokenSecret, profile, done) => {
+    async (req, token, tokenSecret, profile, done) => {
       // find current user in UserModel
       // console.log(profile)
       const { sub, name, given_name, family_name, picture, email } = profile._json;
-      const currentUser = await User.findOne({ where: { email } })
-      //  User.findOne({ sub,email })//.then(res => done(null, res));
+      if (req.retail) {
+        const currentUser = await Retail.findOne({ where: { email } })
+        //  User.findOne({ sub,email })//.then(res => done(null, res));
 
-      if (currentUser) {
-        // console.log(currentUser)
-        if (currentUser.provider_type !== 'google') {
-          return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+        if (currentUser) {
+          // console.log(currentUser)
+          if (currentUser.provider_type !== 'google') {
+            return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+          }
+          // console.log("já existeq")
+          return done(null, currentUser);
         }
-        console.log("já existeq")
-        return done(null, currentUser);
-      }
-      else {// create new user if the database doesn't have this user
-        // if (!currentUser) {
+        else {// create new user if the database doesn't have this user
+          // if (!currentUser) {
           try {
-            await User.create({
-              user_id: sub, name, email, thumbnail:picture, provider_type: 'google',
+            await Retail.create({
+              user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
             })
               .then(newUser => {
-                console.log("criou novo");
+                // console.log("criou novo");
                 done(null, newUser)
               })
-          } catch(err) {
+          } catch (err) {
             console.log(err); // TypeError: failed to fetch
           }
+        }
+      }
+      else {
+        const currentUser = await User.findOne({ where: { email } })
+        //  User.findOne({ sub,email })//.then(res => done(null, res));
+
+        if (currentUser) {
+          // console.log(currentUser)
+          if (currentUser.provider_type !== 'google') {
+            return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+          }
+          // console.log("já existeq")
+          return done(null, currentUser);
+        }
+        else {// create new user if the database doesn't have this user
+          // if (!currentUser) {
+          try {
+            await User.create({
+              user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
+            })
+              .then(newUser => {
+                // console.log("criou novo");
+                done(null, newUser)
+              })
+          } catch (err) {
+            console.log(err); // TypeError: failed to fetch
+          }
+        }
       }
       // }
     }
@@ -73,30 +103,59 @@ passport.use(
       profileFields: ['id', 'displayName', 'emails']
 
     },
-    async (token, tokenSecret, profile, done) => {
+    async (req, token, tokenSecret, profile, done) => {
       // find current user in UserModel
       // console.log(profile)
       const { sub, name, given_name, family_name, picture, email } = profile._json;
-      const currentUser = await User.findOne({ where: { email } })
-      //  User.findOne({ sub,email })//.then(res => done(null, res));
+      if (req.retail) {
+        const currentUser = await Retail.findOne({ where: { email } })
+        //  User.findOne({ sub,email })//.then(res => done(null, res));
 
-      if (currentUser) {
-        console.log(currentUser)
-        // if (currentUser.provider_type !== 'facebook') {
-        //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-        // }
-        // console.log("já existe")
-        return done(null, currentUser);
+        if (currentUser) {
+          console.log(currentUser)
+          // if (currentUser.provider_type !== 'facebook') {
+          //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+          // }
+          // console.log("já existe")
+          return done(null, currentUser);
+        }
+        else {// create new user if the database doesn't have this user
+          // if (!currentUser) {
+            try {
+              await Retail.create({
+                user_id: sub, name, email, thumbnail: picture, provider_type: 'facebook',
+              })
+                .then(newUser => {
+                  // console.log("criou novo");
+                  done(null, newUser)
+                })
+            } catch (err) {
+              console.log(err); // TypeError: failed to fetch
+            }
+        }
       }
-      else {// create new user if the database doesn't have this user
-        // if (!currentUser) {
-        const newUser = await new User({
-          user_id: sub, name, email, provider_type: 'facebook',
-        }).save();
-        // console.log("criou novo")
+      {
+        const currentUser = await User.findOne({ where: { email } })
+        //  User.findOne({ sub,email })//.then(res => done(null, res));
 
-        if (newUser) {
-          return done(null, newUser);
+        if (currentUser) {
+          console.log(currentUser)
+          // if (currentUser.provider_type !== 'facebook') {
+          //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+          // }
+          // console.log("já existe")
+          return done(null, currentUser);
+        }
+        else {// create new user if the database doesn't have this user
+          // if (!currentUser) {
+          const newUser = await new User({
+            user_id: sub, name, email, provider_type: 'facebook',
+          }).save();
+          // console.log("criou novo")
+
+          if (newUser) {
+            return done(null, newUser);
+          }
         }
       }
       // }
