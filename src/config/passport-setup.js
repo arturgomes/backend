@@ -28,7 +28,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK
+      callbackURL: process.env.GOOGLE_CALLBACK,
+      passReqToCallback: true
     },
     async (req, token, tokenSecret, profile, done) => {
       // find current user in UserModel
@@ -100,7 +101,8 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       callbackURL: 'https://api.couponfeed.co/auth/facebook/redirect',
-      profileFields: ['id', 'displayName', 'emails']
+      profileFields: ['id', 'displayName', 'emails'],
+      passReqToCallback: true
 
     },
     async (req, token, tokenSecret, profile, done) => {
