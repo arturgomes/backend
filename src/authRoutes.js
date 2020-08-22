@@ -82,7 +82,7 @@ routes.get('/error', (req, res) => {
 
 routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get('/google/retail', function(req,res,next){
-
+  req.retail = true;
   passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
 })
 
