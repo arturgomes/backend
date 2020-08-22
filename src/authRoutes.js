@@ -82,8 +82,7 @@ routes.get('/error', (req, res) => {
 
 routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get('/google/retail', function(req,res,next){
-  req.retail = true;
-  console.log(req.retail);
+
   passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
 })
 

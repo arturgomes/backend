@@ -110,6 +110,7 @@ passport.use(
       // console.log(profile)
       const { sub, name, given_name, family_name, picture, email } = profile._json;
       if (req.retail) {
+          console.log(req.retail);
         const currentUser = await Retail.findOne({ where: { email } })
         //  User.findOne({ sub,email })//.then(res => done(null, res));
 
