@@ -11,7 +11,7 @@ const routes = new Router();
 routes.get('/success', (req, res) => {
   // console.log("entrou no /success")
   // console.log(req.user);
-  if("cnpj" in req.user){
+  if ("cnpj" in req.user) {
     // console.log(req.user);
     const { id, name } = req.user;
     // console.log(req.user);
@@ -56,7 +56,7 @@ routes.get('/success', (req, res) => {
     return res.status(200).json(response);
   }
   // console.log(res.headers);
-  return res.status(200).json({message:"not authenticated"});
+  return res.status(200).json({ message: "not authenticated" });
 }
 );
 
@@ -71,10 +71,12 @@ routes.get('/error', (req, res) => {
 //Google auth
 
 routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-routes.get('/google/retail', function(req,res,next){
-  req.retail = true;
-  passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
-})
+routes.get('/google/retail',
+  function (req, res, next) {
+    req.retail = true;
+    passport.authenticate('google', { scope: ['profile', 'email'] });
+  }
+)
 
 routes.get(
   "/google/redirect",
@@ -87,9 +89,9 @@ routes.get(
 
 //facebook auth
 routes.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-routes.get('/facebook/retail', function(req,res,next){
+routes.get('/facebook/retail', function (req, res, next) {
   req.retail = true;
-  passport.authenticate('facebook', { scope: ['email', 'public_profile'] })(req,res,next);
+  passport.authenticate('facebook', { scope: ['email', 'public_profile'] })(req, res, next);
 })
 routes.get('/facebook/redirect',
   passport.authenticate('facebook', {
