@@ -33,31 +33,24 @@ passport.use(
     },
     async (req, token, tokenSecret, profile, done) => {
       // find current user in UserModel
-      // console.log(profile)
-
       const { sub, name, given_name, family_name, picture, email } = profile._json;
-      if (req.retail) {
       console.log(req.retail);
+      if (req.retail) {
 
         const currentUser = await Retail.findOne({ where: { email } })
-        //  User.findOne({ sub,email })//.then(res => done(null, res));
 
         if (currentUser) {
-          // console.log(currentUser)
           if (currentUser.provider_type !== 'google') {
             return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
           }
-          // console.log("já existeq")
           return done(null, currentUser);
         }
         else {// create new user if the database doesn't have this user
-          // if (!currentUser) {
           try {
             await Retail.create({
               user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
             })
               .then(newUser => {
-                // console.log("criou novo");
                 done(null, newUser)
               })
           } catch (err) {
@@ -67,24 +60,19 @@ passport.use(
       }
       else {
         const currentUser = await User.findOne({ where: { email } })
-        //  User.findOne({ sub,email })//.then(res => done(null, res));
 
         if (currentUser) {
-          // console.log(currentUser)
           if (currentUser.provider_type !== 'google') {
             return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
           }
-          // console.log("já existeq")
           return done(null, currentUser);
         }
         else {// create new user if the database doesn't have this user
-          // if (!currentUser) {
           try {
             await User.create({
               user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
             })
               .then(newUser => {
-                // console.log("criou novo");
                 done(null, newUser)
               })
           } catch (err) {
@@ -92,7 +80,6 @@ passport.use(
           }
         }
       }
-      // }
     }
   )
 )

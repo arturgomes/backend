@@ -17,7 +17,7 @@ routes.get('/success', (req, res) => {
     // console.log(req.user);
     const response = {
       success: true,
-      message: "user has successfully authenticated",
+      message: "retail has successfully authenticated",
       // user: req.user,
       login: {
         id,
@@ -59,17 +59,7 @@ routes.get('/success', (req, res) => {
   return res.status(200).json({message:"not authenticated"});
 }
 );
-// when login is successful, retrieve user info
-// routes.get("/success", (req, res) => {
-//   if (req.user) {
-//     return res.json({
-//       success: true,
-//       message: "user has successfully authenticated",
-//       user: req.user,
-//       cookies: req.cookies
-//     });
-//   }
-// });
+
 
 routes.get('/error', (req, res) => {
   res.status(401).json({
