@@ -78,6 +78,7 @@ routes.get('/google/retail',
   }
 )
 
+
 routes.get(
   "/google/redirect",
   passport.authenticate("google", {
