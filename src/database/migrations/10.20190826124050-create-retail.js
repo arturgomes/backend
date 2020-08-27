@@ -53,17 +53,17 @@ module.exports = {
           },
           password_hash: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
           },
           cnpj: {
             type: Sequelize.STRING,
             defaultValue: false,
-            allowNull: false,
+            allowNull: true,
           },
           phone: {
             type: Sequelize.STRING,
             defaultValue: false,
-            allowNull: false,
+            allowNull: true,
           },
           created_at: {
             type: Sequelize.DATE,
