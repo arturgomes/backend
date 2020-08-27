@@ -45,7 +45,7 @@ class UserController {
       return res.status(400).json({ error: Error.cpf_already_used });
     }
     const { fid } = req.body;
-    console.log("UserController.47 fid: ",fid);
+    // console.log("UserController.47 fid: ",fid);
     const fc = fid ? 1 : 0
 
     const { id, name, email, phone } = await User.create({

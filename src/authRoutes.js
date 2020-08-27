@@ -11,7 +11,7 @@ const routes = new Router();
 routes.get('/success', (req, res) => {
   // console.log("entrou no /success")
   console.log(req.user);
-  if (req.session.retail) {
+  if (req.session.retail==="true") {
     // console.log(req.user);
     const { id, name } = req.user;
     // console.log(req.user);
@@ -33,7 +33,7 @@ routes.get('/success', (req, res) => {
     // console.log({resp: response})
     return res.status(200).json(response);
   }
-  if (req.user) {
+  else if (req.session.retail!=="true") {
     // console.log(req.user);
     const { id, name } = req.user;
     // console.log(req.user);
@@ -70,13 +70,17 @@ routes.get('/error', (req, res) => {
 
 //Google auth
 
-routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-// routes.use('/google/retail', retailMode()
-// )
+// routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+routes.get('/google',
+(req, res, next) => {
+  req.session.retail = "false"
+  const authenticator = passport.authenticate('google', { scope: ['profile', 'email']})
+  authenticator(req, res, next)
+})
+
 routes.get('/google/retail',
 (req, res, next) => {
   req.session.retail = "true"
-  // const state = retail
   const authenticator = passport.authenticate('google', { scope: ['profile', 'email']})
   authenticator(req, res, next)
 })

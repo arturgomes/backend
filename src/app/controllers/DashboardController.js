@@ -5,15 +5,15 @@ import Retail from '../models/Retail';
 
 
 function filterNPSResults(fb) {
-  console.log("linha 8");
+  // console.log("linha 8");
   let media = fb.map(f => { return parseInt(f.nps_value) });
   var total = media.reduce((result, number) => result + number);
   let nf = fb.filter(f => f.nps_value < 7);
   let ne = fb.filter(f => f.nps_value >= 7 && f.nps_value < 9);
   let po = fb.filter(f => f.nps_value >= 9);
   const negf = nf.length;
-  console.log("linha 15");
-  console.log(nf, po, ne)
+  // console.log("linha 15");
+  // console.log(nf, po, ne)
   return {
     posFeedbacks: po.length,
     negFeedbacks: negf,
@@ -56,7 +56,7 @@ class DashboardController {
       }
     });
 
-    console.log("linha 66: index dashboard, fb: ", fb);
+    // console.log("linha 66: index dashboard, fb: ", fb);
 
     if (!fb) {
       return res.json({
@@ -69,7 +69,7 @@ class DashboardController {
 
       });
     }
-    console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
+    // console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
 
 
     const now = new Date();
@@ -87,13 +87,13 @@ class DashboardController {
       totalFeedbacks,
       average
     } = filterNPSResults(fb);
-    console.log("linha 93: index dashboard, retail_id: ", {
-      posFeedbacks,
-      negFeedbacks,
-      neutralFeedbacks,
-      totalFeedbacks,
-      average
-    });
+    // console.log("linha 93: index dashboard, retail_id: ", {
+    //   posFeedbacks,
+    //   negFeedbacks,
+    //   neutralFeedbacks,
+    //   totalFeedbacks,
+    //   average
+    // });
 
 
     if (fb) {
