@@ -34,8 +34,8 @@ passport.use(
     async (req, accessToken, refreshToken, profile, done) => {
       // find current user in UserModel
       const { sub, name, given_name, family_name, picture, email } = profile._json;
-      console.log(req.retail);
-      if (req.retail) {
+      console.log(req._toParam);
+      if (req._toParam === 'Hello') {
 
         const currentUser = await Retail.findOne({ where: { email } })
 
