@@ -69,8 +69,6 @@ routes.get('/error', (req, res) => {
 });
 
 //Google auth
-const retailMode =
-
 routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 // routes.use('/google/retail', retailMode()
 // )
