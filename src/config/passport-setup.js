@@ -37,26 +37,28 @@ passport.use(
       console.log(req.session.retail);
       if (req.session.retail) {
 
-        const currentUser = await Retail.findOne({ where: { email } })
-
-        if (currentUser) {
-          if (currentUser.provider_type !== 'google') {
-            return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-          }
-          return done(null, currentUser);
-        }
-        else {// create new user if the database doesn't have this user
-          try {
-            await Retail.create({
-              user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
-            })
-              .then(newUser => {
-                done(null, newUser)
-              })
-          } catch (err) {
-            console.log(err); // TypeError: failed to fetch
-          }
-        }
+        await Retail.findOne({ where: { email } })
+          .then(currentUser => {
+            if (currentUser) {
+              if (currentUser.provider_type !== 'google') {
+                return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+              }
+              return done(null, currentUser);
+            }
+            else {// create new user if the database doesn't have this user
+              try {
+                await Retail.create({
+                  user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
+                })
+                  .then(newUser => {
+                    done(null, newUser)
+                  })
+              } catch (err) {
+                console.log(err); // TypeError: failed to fetch
+              }
+            }
+          })
+          .catch(error => res.json({message:"deu ruim no retail"}))
       }
       else {
         const currentUser = await User.findOne({ where: { email } })
@@ -115,17 +117,17 @@ passport.use(
         }
         else {// create new user if the database doesn't have this user
           // if (!currentUser) {
-            try {
-              await Retail.create({
-                user_id: sub, name, email, thumbnail: picture, provider_type: 'facebook',
+          try {
+            await Retail.create({
+              user_id: sub, name, email, thumbnail: picture, provider_type: 'facebook',
+            })
+              .then(newUser => {
+                // console.log("criou novo");
+                done(null, newUser)
               })
-                .then(newUser => {
-                  // console.log("criou novo");
-                  done(null, newUser)
-                })
-            } catch (err) {
-              console.log(err); // TypeError: failed to fetch
-            }
+          } catch (err) {
+            console.log(err); // TypeError: failed to fetch
+          }
         }
       }
       {
