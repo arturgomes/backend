@@ -29,12 +29,12 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK,
-      passReqToCallback: true
+      passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, done) => {
       // find current user in UserModel
       const { sub, name, given_name, family_name, picture, email } = profile._json;
-      console.log(req.query.state.retail);
+      console.log(req);
       if (req.query.state.retail) {
 
         const currentUser = await Retail.findOne({ where: { email } })

@@ -75,9 +75,9 @@ routes.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 // )
 routes.get('/google/retail',
 (req, res, next) => {
-  // const retail = "true"
+  req.retail = "true"
   // const state = retail
-  const authenticator = passport.authenticate('google', { scope: ['profile', 'email'], state : JSON.stringify({retail: true})})
+  const authenticator = passport.authenticate('google', { scope: ['profile', 'email']})
   authenticator(req, res, next)
 })
 
