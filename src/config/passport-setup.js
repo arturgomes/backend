@@ -40,9 +40,9 @@ passport.use(
         await Retail.findOne({ where: { email } })
           .then(currentUser => {
             if (currentUser) {
-              if (currentUser.provider_type !== 'google') {
-                return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-              }
+              // if (currentUser.provider_type !== 'google') {
+              //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
+              // }
               return done(null, currentUser);
             }
             else {// create new user if the database doesn't have this user
