@@ -69,14 +69,17 @@ routes.get('/error', (req, res) => {
 });
 
 //Google auth
+const retailMode =
 
 routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+// routes.use('/google/retail', retailMode()
+// )
 routes.get('/google/retail',
-  function (req, res, next) {
+  (req, res, next) => {
     req.retail = true;
     next();
   },
-  passport.authenticate('google', { scope: ['profile', 'email'] });
+  passport.authenticate('google', { scope: ['profile', 'email'] })
 )
 
 
