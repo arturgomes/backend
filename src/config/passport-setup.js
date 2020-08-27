@@ -3,7 +3,7 @@ import GoogleStrategy from "passport-google-oauth20";
 import FacebookStrategy from "passport-facebook";
 import User from "../app/models/User";
 import Retail from "../app/models/Retail";
-
+import {login} from './socialLoginFun';
 
 // serialize the user.id to save in the cookie session
 // so the browser will remember the user when login
@@ -12,11 +12,15 @@ passport.serializeUser((user, done) => {
 });
 
 // deserialize the cookieUserId to user in the database
+const checkRetail = Retail.findByPk(id);
+const checkUser = User.findByPk(id);
+
 passport.deserializeUser((id, done) => {
-  User.findByPk(id)
+  Promise.all([checkRetail,checkUser])
     .then(user => {
-      // console.log(user);
-      done(null, user);
+      // trying to get one user from users or retail and pass it to done
+      const usr = user[0] ? user[0] : user[1];
+      done(null, usr);
     })
     .catch(e => {
       done(new Error("Failed to deserialize an user"));
@@ -31,57 +35,7 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK,
       passReqToCallback: true,
     },
-    async (req, accessToken, refreshToken, profile, done) => {
-      // find current user in UserModel
-      console.log(accessToken,refreshToken,profile)
-      const { sub, name, given_name, family_name, picture, email } = profile._json;
-      console.log(req.session.retail);
-      if (req.session.retail) {
-
-        const currentUser = await Retail.findOne({ where: { email } })
-
-        if (currentUser) {
-          // if (currentUser.provider_type !== 'google') {
-          //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-          // }
-          return done(null, currentUser);
-        }
-        else {// create new user if the database doesn't have this user
-          try {
-            await Retail.create({
-              user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
-            })
-              .then(newUser => {
-                done(null, newUser)
-              })
-          } catch (err) {
-            console.log(err); // TypeError: failed to fetch
-          }
-        }
-      }
-      else {
-        const currentUser = await User.findOne({ where: { email } })
-
-        if (currentUser) {
-          // if (currentUser.provider_type !== 'google') {
-          //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-          // }
-          return done(null, currentUser);
-        }
-        else {// create new user if the database doesn't have this user
-          try {
-            await User.create({
-              user_id: sub, name, email, thumbnail: picture, provider_type: 'google',
-            })
-              .then(newUser => {
-                done(null, newUser)
-              })
-          } catch (err) {
-            console.log(err); // TypeError: failed to fetch
-          }
-        }
-      }
-    }
+  async (req, accessToken, refreshToken, profile, done) => login(req,'google',profile,done)
   )
 )
 
