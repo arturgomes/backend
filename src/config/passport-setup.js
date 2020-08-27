@@ -33,6 +33,7 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       // find current user in UserModel
+      console.log(accessToken,refreshToken,profile)
       const { sub, name, given_name, family_name, picture, email } = profile._json;
       console.log(req.session.retail);
       if (req.session.retail) {
