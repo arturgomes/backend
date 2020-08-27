@@ -74,12 +74,16 @@ routes.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 // routes.use('/google/retail', retailMode()
 // )
 routes.get('/google/retail',
-  (req, res, next) => {
-    req.retail = true;
-    next();
-  },
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-)
+  function(req,res,next){
+  req._toParam = 'Hello';
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
+  })
+  // (req, res, next) => {
+  //   req.retail = true;
+  //   next();
+  // },
+  // passport.authenticate('google', { scope: ['profile', 'email'] })
+
 
 
 routes.get(
