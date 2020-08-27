@@ -75,7 +75,7 @@ routes.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 // )
 routes.get('/google/retail',
   function(req,res,next){
-  req._toParam = 'Hello';
+  req.body._toParam = 'Hello';
   passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
   })
   // (req, res, next) => {
