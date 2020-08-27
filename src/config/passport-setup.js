@@ -12,11 +12,11 @@ passport.serializeUser((user, done) => {
 });
 
 // deserialize the cookieUserId to user in the database
-const checkRetail = Retail.findByPk(id);
-const checkUser = User.findByPk(id);
+const checkRetail = (id) => Retail.findByPk(id);
+const checkUser = (id) =>User.findByPk(id);
 
 passport.deserializeUser((id, done) => {
-  Promise.all([checkRetail,checkUser])
+  Promise.all([checkRetail(id),checkUser(id)])
     .then(user => {
       // trying to get one user from users or retail and pass it to done
       const usr = user[0] ? user[0] : user[1];
