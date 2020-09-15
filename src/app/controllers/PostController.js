@@ -10,11 +10,11 @@ class PostsController {
   }
 
   async store(req, res) {
+    console.log("posting to db")
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       author: Yup.string().required(),
       content: Yup.string().required(),
-
     });
 
     if (
