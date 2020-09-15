@@ -3,6 +3,7 @@ import Retail from "../app/models/Retail";
 
 
 export const login = async (req, provider, profile, done) => {
+  console.log(req.session.retail);
   if (req.session.retail === "true")
     logRetail(profile, provider, done);
   else
@@ -16,9 +17,6 @@ const logRetail = async (profile, provider, done) => {
   const currentUser = await Retail.findOne({ where: { email } })
 
   if (currentUser) {
-    // if (currentUser.provider_type !== 'google') {
-    //   return res.json({ message: `usuário existente com esse email usando outro login social`, provider_type: currentUser.provider_type })
-    // }
     return done(null, currentUser);
   }
   else {// create new user if the database doesn't have this user
@@ -46,7 +44,11 @@ const logCustomer = async (profile, provider, done) => {
   else {// create new user if the database doesn't have this user
     try {
       await User.create({
-        user_id: sub, name, email, thumbnail: picture, provider_type: provider,
+        user_id: sub,
+        name,
+        email,
+        thumbnail: picture,
+        provider_type: provider,
       })
         .then(newUser => {
           done(null, newUser)
