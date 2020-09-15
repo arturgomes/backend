@@ -4,6 +4,6 @@ import PostController from './app/controllers/PostController'
 
 const routes = new Router();
 
-routes.get('/new', PostController.store);
+routes.post('/new', PostController.store);
 
 export default routes;
