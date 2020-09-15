@@ -23,6 +23,7 @@ import ShortnerController from './app/controllers/ShortnerController';
 
 import authMiddleware from './app/middlewares/auth';
 // import enableCors from './app/middlewares/enableCors';
+import postsRoutes from './postsRoutes'
 import authRoutes from './authRoutes'
 
 const routes = new Router();
@@ -51,7 +52,8 @@ const showHeaders = (req,res,next)=>{
   next();
 };
 
-routes.use('/auth',authRoutes);
+routes.use('/post', postsRoutes);
+routes.use('/auth', authRoutes);
 
 const authCheck = (req, res, next) => {
   if (!req.user) {
