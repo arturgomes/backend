@@ -11,6 +11,7 @@ import CouponController from './app/controllers/CouponController';
 import ShopController from './app/controllers/ShopController';
 import AllShopsController from './app/controllers/AllShopsController';
 import SessionController from './app/controllers/SessionController';
+import SessionRetailController from './app/controllers/SessionRetailController';
 import FileController from './app/controllers/FileController';
 import CustomerFileController from './app/controllers/CustomerFileController';
 import FeedbackController from './app/controllers/FeedbackController';
@@ -52,7 +53,7 @@ const showHeaders = (req,res,next)=>{
   next();
 };
 
-routes.use('/post', postsRoutes);
+// routes.use('/post', postsRoutes);
 routes.use('/auth', authRoutes);
 
 const authCheck = (req, res, next) => {
@@ -97,6 +98,7 @@ routes.post('/surl/:short_url', ShortnerController.index);
 
 
 routes.post('/sessions', SessionController.store);
+routes.post('/rsessions', SessionRetailController.store);
 
 routes.use(authMiddleware);
 

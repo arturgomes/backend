@@ -29,8 +29,8 @@ class PostsController {
 
     const { id, title, author, content } = await Posts.create({
       title: req.body.title,
-        author: req.body.author,
-        content: req.body.content,
+      author: req.body.author,
+      content: req.body.content,
     });
 
     return res.json({ id, title, author, content  });

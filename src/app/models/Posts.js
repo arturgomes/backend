@@ -1,7 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcrypt';
 
-export default class Posts extends Model {
+class Posts extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -16,3 +15,5 @@ export default class Posts extends Model {
     return this;
   }
 }
+
+export default Posts;
