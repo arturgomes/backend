@@ -48,16 +48,13 @@ function _listItems(fb) {
 class DashboardController {
 
   async index(req, res) {
-
-    const fb = await Feedback.findAll({
+    await Feedback.findAll({
       attributes: ['created_at', 'nps_value', 'shop_id','retail_id'],
       where: {
         retail_id: req.body.retail_id
       }
-    });
-
+    }).then(fb => {
     // console.log("linha 66: index dashboard, fb: ", fb);
-
     if (!fb) {
       return res.json({
         posFeedbacks: 0,
@@ -70,8 +67,6 @@ class DashboardController {
       });
     }
     // console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
-
-
     const now = new Date();
     var oneYearAgo = new Date();
     var sixMonthsAgo = new Date();
@@ -95,7 +90,6 @@ class DashboardController {
     //   average
     // });
 
-
     if (fb) {
       return res.json({
         posFeedbacks,
@@ -108,6 +102,8 @@ class DashboardController {
       });
     }
     return res.json({ error: 'Shop not found' });
-  }
+  })
+  .catch(err => res.json({erro:err}));
+}
 }
 export default new DashboardController();
