@@ -71,7 +71,7 @@ const authCheck = (req, res, next) => {
 // otherwise, send a 401 response that the user is not authenticated
 // authCheck before navigating to home page
 
-routes.get('/', (req, res) => res.redirect('https://couponfeed.co'));
+routes.get('/', (req, res) => res.redirect('https://couponfeed.com.br'));
 // routes.get('/', authCheck, (req, res) => {
 //   res.status(200).json({
 //     authenticated: true,

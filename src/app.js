@@ -77,7 +77,8 @@ class App {
     //   next();
     // })
     this.server.use(cors({
-      origin: "https://www.couponfeed.co",
+      origin: "https://www.couponfeed.com.br",
+      // origin: "https://www.couponfeed.co",
       credentials:true
     }))
     this.server.options("*", cors());
