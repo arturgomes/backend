@@ -21,7 +21,7 @@ import routes from './routes.js';
 // import authRoutes from './authRoutes';
 import sentryConfig from './config/sentry.js';
 import passportSocial from './config/passport-setup.js';
-import './database';
+import './database/index.js';
 
 const redisClient = redis.createClient();
 
