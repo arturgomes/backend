@@ -23,7 +23,7 @@ module.exports = {
     "camelcase": "off",
     "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
     // "rules": {
-    "node/file-extension-in-import": ["error", "never"],
+    "node/file-extension-in-import": "never",
     // }
   }
 };
