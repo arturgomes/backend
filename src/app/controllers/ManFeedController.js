@@ -1,6 +1,6 @@
 // import * as Yup from 'yup';
-import User from '../models/User';
-import Feedback from '../models/Feedback';
+import User from '../models/User.js';
+import Feedback from '../models/Feedback.js';
 import Valid from 'validator';
 
 // import Error from '../errors/errors';
