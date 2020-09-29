@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'; //e aqui tbm
-import Feedback from '../models/Feedback';
-import Shop from '../models/Shop';
-import Retail from '../models/Retail';
+import Feedback from '../models/Feedback.js';
+import Shop from '../models/Shop.js';
+import Retail from '../models/Retail.js';
 
 
 function filterNPSResults(fb) {

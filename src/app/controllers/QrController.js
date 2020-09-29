@@ -1,4 +1,4 @@
-import Shop from '../models/Shop';
+import Shop from '../models/Shop.js';
 
 class QrController {
   async index(req, res) {

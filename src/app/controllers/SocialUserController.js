@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 import Valid from 'validator';
-import Feedback from '../models/Feedback';
-import User from '../models/User';
-import Error from '../errors/errors';
+import Feedback from '../models/Feedback.js';
+import User from '../models/User.js';
+import Error from '../errors/errors.js';
 
 class SocialUserController {
   store(req, res,next) {

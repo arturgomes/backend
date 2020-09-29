@@ -1,9 +1,9 @@
 // import * as Yup from 'yup';
-import Feedback from '../models/Feedback';
-import Shop from '../models/Shop';
+import Feedback from '../models/Feedback.js';
+import Shop from '../models/Shop.js';
 // import User from '../models/User';
-import questions from '../feedbacks/perguntas';
-import Error from '../errors/errors';
+import questions from '../feedbacks/perguntas.js';
+import Error from '../errors/errors.js';
 
 class FeedbackController {
   async index(req, res) {

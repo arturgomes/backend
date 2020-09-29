@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import Shop from '../models/Shop';
-import Error from '../errors/errors';
+import Shop from '../models/Shop.js';
+import Error from '../errors/errors.js';
 
 class ShortnerController {
   async index(req, res) {

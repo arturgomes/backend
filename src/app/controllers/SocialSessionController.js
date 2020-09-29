@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
-import authConfig from '../../config/auth';
-import User from '../models/User';
-import Error from '../errors/errors';
+import authConfig from '../../config/auth.js';
+import User from '../models/User.js';
+import Error from '../errors/errors.js';
 
 class SocialSessionController {
   async store(req, res) {
