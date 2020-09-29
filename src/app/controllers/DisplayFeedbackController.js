@@ -18,6 +18,7 @@ class DisplayFeedbackController {
       { attributes: ['id', 'retail_id', 'name'] },
       { where: { retail_id: req.body.retail_id } }
     ).then(shops => {
+      console.log(shops);
       if(shops.length ===0){
         res.json([])
       }
