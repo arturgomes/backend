@@ -7,14 +7,21 @@ import Shop from '../models/Shop';
 class DisplayFeedbackController {
   async index(req, res) {
     console.log("entrou no controller")
-    const shops = await Shop.findAll(
+    // const shops = await Shop.findAll(
+    //   { attributes: ['id', 'retail_id', 'name'] },
+    //   { where: { retail_id: req.body.retail_id } }
+    // )
+    //   .map(el => el.get({ plain: true }))
+    //   .filter(s => s.retail_id === req.body.retail_id);
+    // console.log(shops);
+    await Shop.findAll(
       { attributes: ['id', 'retail_id', 'name'] },
       { where: { retail_id: req.body.retail_id } }
-    )
-      .map(el => el.get({ plain: true }))
-      .filter(s => s.retail_id === req.body.retail_id);
-    console.log(shops);
-
+    ).then(shops => {})
+    .catch(err => console.log(err))
+    //   .map(el => el.get({ plain: true }))
+    //   .filter(s => s.retail_id === req.body.retail_id);
+    // console.log(shops);
 
     const fb = await Promise.all(
       shops.map(async s => {
