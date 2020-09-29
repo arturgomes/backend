@@ -1,5 +1,5 @@
-import User from "../app/models/User";
-import Retail from "../app/models/Retail";
+import User from "../app/models/User.js";
+import Retail from "../app/models/Retail.js";
 
 
 export const login = async (req, provider, profile, done) => {
