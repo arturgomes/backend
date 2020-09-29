@@ -59,7 +59,7 @@ class DisplayFeedbackController {
       ).then( fb => {
         const fbs = fb.map(el => el.get({ plain: true }))
         .filter(s => s.shop_id === id);
-        return fbsl
+        return fbs
       }
 
       ).catch(err => console.log(err))
