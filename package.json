@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "type": "module",
+  // "type": "module",
   "scripts": {
     "transpile": "babel ./src --out-dir dist",
     "server": "babel-node ./src/server.js",
