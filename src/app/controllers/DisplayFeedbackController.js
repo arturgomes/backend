@@ -1,3 +1,4 @@
+import {flatMap} from 'array.prototype.flatmap';
 // import * as Yup from 'yup';
 import Feedback from '../models/Feedback';
 import Shop from '../models/Shop';
