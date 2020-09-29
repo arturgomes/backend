@@ -13,6 +13,7 @@ class DisplayFeedbackController {
     // )
     //
     // console.log(shops);
+    let shopls;
     await Shop.findAll(
       { attributes: ['id', 'retail_id', 'name'] },
       { where: { retail_id: req.body.retail_id } }
@@ -23,6 +24,7 @@ class DisplayFeedbackController {
       if (list.length === 0) {
         res.json([])
       }
+      shopls = list;
 
     })
       .catch(err => console.log(err))
@@ -68,11 +70,11 @@ class DisplayFeedbackController {
       return functionWithPromise(id)
     }
 
-    const getData = async () => {
+    const getData = async (shops) => {
       return Promise.all(shops.map(item => anAsyncFunction(item)))
     }
 
-    getData().then(data => {
+    getData(shopls).then(data => {
       console.log(data)
       if (data !== null) return res.json(data);
     // if (fbs) {
