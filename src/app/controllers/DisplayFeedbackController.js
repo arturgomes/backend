@@ -17,7 +17,9 @@ class DisplayFeedbackController {
     await Shop.findAll(
       { attributes: ['id', 'retail_id', 'name'] },
       { where: { retail_id: req.body.retail_id } }
-    ).then(shops => {})
+    ).then(shops => {
+      console.log(shops)
+    })
     .catch(err => console.log(err))
     //   .map(el => el.get({ plain: true }))
     //   .filter(s => s.retail_id === req.body.retail_id);
