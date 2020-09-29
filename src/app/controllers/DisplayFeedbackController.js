@@ -6,7 +6,7 @@ import Shop from '../models/Shop';
 // essa porra de display tá dando nos nervos, depois eu continuo
 class DisplayFeedbackController {
   async index(req, res) {
-    console.log("entrou no controller")
+    console.log("entrou no controller", req.body.retail_id);
     // const shops = await Shop.findAll(
     //   { attributes: ['id', 'retail_id', 'name'] },
     //   { where: { retail_id: req.body.retail_id } }
