@@ -1,15 +1,15 @@
 import Sequelize from 'sequelize';
 // import mongoose from 'mongoose';
 
-import Coupon from '../app/models/Coupon';
-import User from '../app/models/User';
-import Shop from '../app/models/Shop';
-import Retail from '../app/models/Retail';
-import File from '../app/models/File';
-import FileUser from '../app/models/FileUser';
-import Feedback from '../app/models/Feedback';
-// import AuthProvider from '../app/models/AuthProvider';
-import databaseConfig from '../config/database';
+import Coupon from '../app/models/Coupon.js';
+import User from '../app/models/User.js';
+import Shop from '../app/models/Shop.js';
+import Retail from '../app/models/Retail.js';
+import File from '../app/models/File.js';
+import FileUser from '../app/models/FileUser.js';
+import Feedback from '../app/models/Feedback.js';
+// import AuthProvider from '../app/models/AuthProvider.js';
+import databaseConfig from '../config/database.js';
 
 const models = [
   Retail,
