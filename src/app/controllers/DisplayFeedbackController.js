@@ -82,7 +82,7 @@ class DisplayFeedbackController {
     //   return res.json(fbs);
     // }
     return res.json({ error: 'Shop not found' });
-    })
+    }).catch(err => console.log(err))
     // console.log(fb);
     console.log(fb);
 
