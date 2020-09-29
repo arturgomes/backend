@@ -22,9 +22,9 @@ import RetailController from './app/controllers/RetailController.js';
 import QrController from './app/controllers/QrController.js';
 import ShortnerController from './app/controllers/ShortnerController.js';
 
-import authMiddleware from './app/middlewares/auth';
+import authMiddleware from './app/middlewares/auth.js';
 // import enableCors from './app/middlewares/enableCors';
-import authRoutes from './authRoutes'
+import authRoutes from './authRoutes.js'
 
 const routes = new Router();
 const upload = multer(multerConfig);
