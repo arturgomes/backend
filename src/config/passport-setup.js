@@ -5,6 +5,7 @@ import User from "../app/models/User.js";
 import Retail from "../app/models/Retail.js";
 import {login} from './socialLoginFun.js';
 
+
 // serialize the user.id to save in the cookie session
 // so the browser will remember the user when login
 passport.serializeUser((user, done) => {
