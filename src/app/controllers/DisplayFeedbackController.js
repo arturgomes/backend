@@ -72,7 +72,7 @@ class DisplayFeedbackController {
     }
 
     const getData = async (shops) => {
-      return Promise.all(shops.map(item => anAsyncFunction(item)).flat())
+      return Promise.all(shops.flatMap(item => [anAsyncFunction(item)]))
     }
 
     getData(shopls).then(data => {
