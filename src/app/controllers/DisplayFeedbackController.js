@@ -62,15 +62,12 @@ class DisplayFeedbackController {
         console.log(fbs)
         return fbs
       }
-
       ).catch(err => console.log(err))
     }
-
     const anAsyncFunction = async item => {
       const {id } = item
       return functionWithPromise(id)
     }
-
     const getData = async (shops) => {
       return Promise.all(shops.flatMap(item => [anAsyncFunction(item)]))
     }
