@@ -1,9 +1,9 @@
 import { Op, Sequelize } from 'sequelize'; //e aqui tbm
-import Feedback from '../models/Feedback';
-import Shop from '../models/Shop';
-import Retail from '../models/Retail';
-import User from '../models/User';
-import Coupon from '../models/Coupon';
+import Feedback from '../models/Feedback.js';
+import Shop from '../models/Shop.js';
+import Retail from '../models/Retail.js';
+import User from '../models/User.js';
+import Coupon from '../models/Coupon.js';
 
 
 class CustomerDashboardController {

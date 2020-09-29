@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import Retail from '../models/Retail';
-import Error from '../errors/errors';
+import Retail from '../models/Retail.js';
+import Error from '../errors/errors.js';
 
 class RetailController {
   async index(req, res) {

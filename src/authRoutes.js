@@ -5,7 +5,7 @@ import passport from "passport";
 import jwt from 'jsonwebtoken';
 // import * as Yup from 'yup';
 
-import authConfig from './config/auth';
+import authConfig from './config/auth.js';
 // import User from '../models/User';
 const routes = new Router();
 

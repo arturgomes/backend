@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import Coupon from '../models/Coupon';
-import Error from '../errors/errors';
+import Coupon from '../models/Coupon.js';
+import Error from '../errors/errors.js';
 
 class CouponController {
   async index(req, res) {

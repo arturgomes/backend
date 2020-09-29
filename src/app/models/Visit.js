@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
-import User from './User';
-import Shop from './Shop';
+import User from './User.js';
+import Shop from './Shop.js';
 
 class Visit extends Model {
   static init(sequelize) {

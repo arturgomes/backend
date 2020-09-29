@@ -3,28 +3,28 @@ import multer from 'multer';
 import passport from "passport";
 import jwt from 'jsonwebtoken';
 
-import multerConfig from './config/multer';
+import multerConfig from './config/multer.js';
 
-import ManFeedController from './app/controllers/ManFeedController';
-import UserController from './app/controllers/UserController';
-import CouponController from './app/controllers/CouponController';
-import ShopController from './app/controllers/ShopController';
-import AllShopsController from './app/controllers/AllShopsController';
-import SessionController from './app/controllers/SessionController';
-import SessionRetailController from './app/controllers/SessionRetailController';
-import FileController from './app/controllers/FileController';
-import CustomerFileController from './app/controllers/CustomerFileController';
-import FeedbackController from './app/controllers/FeedbackController';
-import DashboardController from './app/controllers/DashboardController';
-import CustomerDashboardController from './app/controllers/CustomerDashboardController';
-import DisplayFeedbackController from './app/controllers/DisplayFeedbackController';
-import RetailController from './app/controllers/RetailController';
-import QrController from './app/controllers/QrController';
-import ShortnerController from './app/controllers/ShortnerController';
+import ManFeedController from './app/controllers/ManFeedController.js';
+import UserController from './app/controllers/UserController.js';
+import CouponController from './app/controllers/CouponController.js';
+import ShopController from './app/controllers/ShopController.js';
+import AllShopsController from './app/controllers/AllShopsController.js';
+import SessionController from './app/controllers/SessionController.js';
+import SessionRetailController from './app/controllers/SessionRetailController.js';
+import FileController from './app/controllers/FileController.js';
+import CustomerFileController from './app/controllers/CustomerFileController.js';
+import FeedbackController from './app/controllers/FeedbackController.js';
+import DashboardController from './app/controllers/DashboardController.js';
+import CustomerDashboardController from './app/controllers/CustomerDashboardController.js';
+import DisplayFeedbackController from './app/controllers/DisplayFeedbackController.js';
+import RetailController from './app/controllers/RetailController.js';
+import QrController from './app/controllers/QrController.js';
+import ShortnerController from './app/controllers/ShortnerController.js';
 
-import authMiddleware from './app/middlewares/auth';
+import authMiddleware from './app/middlewares/auth.js';
 // import enableCors from './app/middlewares/enableCors';
-import authRoutes from './authRoutes'
+import authRoutes from './authRoutes.js'
 
 const routes = new Router();
 const upload = multer(multerConfig);

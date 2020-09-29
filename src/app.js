@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import dotenv from 'dotenv'
+
 
 import express from 'express';
 // import session from 'express-session';
@@ -13,14 +14,14 @@ import proxy from 'express-http-proxy';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 var RedisStore = require('connect-redis')(session);
-import User from './app/models/User';
+import User from './app/models/User.js';
 
 
-import routes from './routes';
+import routes from './routes.js';
 // import authRoutes from './authRoutes';
-import sentryConfig from './config/sentry';
-import passportSocial from './config/passport-setup';
-import './database';
+import sentryConfig from './config/sentry.js';
+import passportSocial from './config/passport-setup.js';
+import './database/index.js';
 
 const redisClient = redis.createClient();
 

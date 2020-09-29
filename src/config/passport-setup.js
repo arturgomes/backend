@@ -1,9 +1,9 @@
 import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import FacebookStrategy from "passport-facebook";
-import User from "../app/models/User";
-import Retail from "../app/models/Retail";
-import {login} from './socialLoginFun';
+import User from "../app/models/User.js";
+import Retail from "../app/models/Retail.js";
+import {login} from './socialLoginFun.js';
 
 // serialize the user.id to save in the cookie session
 // so the browser will remember the user when login

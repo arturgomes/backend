@@ -1,5 +1,5 @@
-import FileUser from '../models/FileUser';
-import Error from '../errors/errors';
+import FileUser from '../models/FileUser.js';
+import Error from '../errors/errors.js';
 import aws from 'aws-sdk';
 import multerS3 from 'multer-s3';
 

@@ -1,5 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
-import Shop from './Shop';
+import Shop from './Shop.js';
 import bcrypt from 'bcrypt';
 
 class Retail extends Model {

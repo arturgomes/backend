@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 import Valid from 'validator';
-import Feedback from '../models/Feedback';
-import User from '../models/User';
-import Error from '../errors/errors';
+import Feedback from '../models/Feedback.js';
+import User from '../models/User.js';
+import Error from '../errors/errors.js';
 
 class UserController {
   async store(req, res) {
@@ -111,14 +111,14 @@ class UserController {
     }
 
 
-    const { id, name } = await user.update(req.body);
+    const upd = await user.update(req.body);
 
     return res.status(200).json({ message: Error.ok });
   }
 
   async index(req, res) {
     const { user_id } = req.params;
-    const {name, cpf, phone} = await User.findOne({ where: { id: user_id } })
+    const user = await User.findOne({ where: { id: user_id } })
 
     return res.json(user);
   }
