@@ -16,7 +16,7 @@ class DisplayFeedbackController {
     // console.log(shops);
     await Shop.findAll(
       { attributes: ['id', 'retail_id', 'name'] },
-      // { where: { retail_id: req.body.retail_id } }
+      { where: { retail_id: req.body.retail_id } }
     ).then(shops => {
       if(shops.length ===0){
         res.json([])
