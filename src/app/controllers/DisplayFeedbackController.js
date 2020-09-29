@@ -60,7 +60,7 @@ class DisplayFeedbackController {
         return fbsl
       }
 
-      )
+      ).catch(err => console.log(err))
     }
 
     const anAsyncFunction = async item => {
