@@ -1,2 +1,2 @@
-import app from './app.js';
+import * as app from './app.js';
 app.listen(5000);
