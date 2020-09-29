@@ -11,19 +11,20 @@ class DisplayFeedbackController {
     //   { attributes: ['id', 'retail_id', 'name'] },
     //   { where: { retail_id: req.body.retail_id } }
     // )
-    //   .map(el => el.get({ plain: true }))
-    //   .filter(s => s.retail_id === req.body.retail_id);
+    //
     // console.log(shops);
     await Shop.findAll(
       { attributes: ['id', 'retail_id', 'name'] },
       { where: { retail_id: req.body.retail_id } }
     ).then(shops => {
-      console.log(shops);
-      if(shops.length ===0){
+      const list = shops.map(el => el.get({ plain: true }))
+        .filter(s => s.retail_id === req.body.retail_id);
+      console.log(list);
+      if (list.length === 0) {
         res.json([])
       }
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
     //   .map(el => el.get({ plain: true }))
     //   .filter(s => s.retail_id === req.body.retail_id);
     // console.log(shops);
