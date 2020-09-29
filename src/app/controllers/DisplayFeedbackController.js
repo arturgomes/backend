@@ -12,7 +12,7 @@ class DisplayFeedbackController {
     )
       .map(el => el.get({ plain: true }))
       .filter(s => s.retail_id === req.body.retail_id);
-    // console.log(shops);
+    console.log(shops);
 
     const fb = await Promise.all(
       shops.map(async s => {

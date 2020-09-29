@@ -49,61 +49,61 @@ class DashboardController {
 
   async index(req, res) {
     await Feedback.findAll({
-      attributes: ['created_at', 'nps_value', 'shop_id','retail_id'],
+      attributes: ['created_at', 'nps_value', 'shop_id', 'retail_id'],
       where: {
         retail_id: req.body.retail_id
       }
     }).then(fb => {
-    // console.log("linha 66: index dashboard, fb: ", fb);
-    if (!fb) {
-      return res.json({
-        posFeedbacks: 0,
-        negFeedbacks: 0,
-        neutralFeedbacks: 0,
-        totalFeedbacks: 0,
-        average: 0,
-        dados: []
+      // console.log("linha 66: index dashboard, fb: ", fb);
+      if (!fb) {
+        return res.json({
+          posFeedbacks: 0,
+          negFeedbacks: 0,
+          neutralFeedbacks: 0,
+          totalFeedbacks: 0,
+          average: 0,
+          dados: []
 
-      });
-    }
-    // console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
-    const now = new Date();
-    var oneYearAgo = new Date();
-    var sixMonthsAgo = new Date();
-    var aMonthsAgo = new Date();
-    sixMonthsAgo.setFullYear(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() - 6);
-    aMonthsAgo.setFullYear(aMonthsAgo.getFullYear(), aMonthsAgo.getMonth() - 1);
-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        });
+      }
+      // console.log("linha 90: index dashboard, retail_id: ", req.body.retail_id);
+      const now = new Date();
+      var oneYearAgo = new Date();
+      var sixMonthsAgo = new Date();
+      var aMonthsAgo = new Date();
+      sixMonthsAgo.setFullYear(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() - 6);
+      aMonthsAgo.setFullYear(aMonthsAgo.getFullYear(), aMonthsAgo.getMonth() - 1);
+      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-    const {
-      posFeedbacks,
-      negFeedbacks,
-      neutralFeedbacks,
-      totalFeedbacks,
-      average
-    } = filterNPSResults(fb);
-    // console.log("linha 93: index dashboard, retail_id: ", {
-    //   posFeedbacks,
-    //   negFeedbacks,
-    //   neutralFeedbacks,
-    //   totalFeedbacks,
-    //   average
-    // });
-
-    if (fb) {
-      return res.json({
+      const {
         posFeedbacks,
         negFeedbacks,
         neutralFeedbacks,
         totalFeedbacks,
-        average,
-        dados: fb
+        average
+      } = filterNPSResults(fb);
+      // console.log("linha 93: index dashboard, retail_id: ", {
+      //   posFeedbacks,
+      //   negFeedbacks,
+      //   neutralFeedbacks,
+      //   totalFeedbacks,
+      //   average
+      // });
 
-      });
-    }
-    return res.json({ error: 'Shop not found' });
-  })
-  .catch(err => res.json({erro:err}));
-}
+      if (fb) {
+        return res.json({
+          posFeedbacks,
+          negFeedbacks,
+          neutralFeedbacks,
+          totalFeedbacks,
+          average,
+          dados: fb
+
+        });
+      }
+      return res.json({ error: 'Shop not found' });
+    })
+      .catch(err => res.json({ erro: err }));
+  }
 }
 export default new DashboardController();
