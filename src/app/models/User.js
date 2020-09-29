@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcrypt';
-import Shop from './Shop';
-import Retail from './Retail';
+import Shop from './Shop.js';
+import Retail from './Retail.js';
 
 export default class User extends Model {
   static init(sequelize) {

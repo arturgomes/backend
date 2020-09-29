@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcrypt';
-import User from './User';
+import User from './User.js';
 
 export default class AuthProvider extends Model {
   static init(sequelize) {
