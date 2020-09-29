@@ -111,14 +111,14 @@ class UserController {
     }
 
 
-    const { id, name } = await user.update(req.body);
+    const upd = await user.update(req.body);
 
     return res.status(200).json({ message: Error.ok });
   }
 
   async index(req, res) {
     const { user_id } = req.params;
-    const {name, cpf, phone} = await User.findOne({ where: { id: user_id } })
+    const user = await User.findOne({ where: { id: user_id } })
 
     return res.json(user);
   }
