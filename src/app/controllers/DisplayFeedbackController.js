@@ -14,6 +14,7 @@ class DisplayFeedbackController {
       .filter(s => s.retail_id === req.body.retail_id);
     console.log(shops);
 
+
     const fb = await Promise.all(
       shops.map(async s => {
         const { id } = s;
