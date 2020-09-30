@@ -43,6 +43,8 @@ routes.get('/success', (req, res) => {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
     console.log(req.user);
+    const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
+    console.log(tk);
     const response = {
       success: true,
       message: "user has successfully authenticated",
@@ -54,9 +56,7 @@ routes.get('/success', (req, res) => {
         tu: '897316929176464ebc9ad085f31e7284',
       },
       cookies: req.cookies,
-      token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+      token: tk
     };
     console.log({resp: response})
     return res.status(200).json(response);
