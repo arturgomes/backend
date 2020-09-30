@@ -11,7 +11,7 @@ const routes = new Router();
 
 routes.get('/success', (req, res) => {
   // console.log("entrou no /success")
-  console.log(req.user);
+  // console.log(req.user);
   if (req.session.retail==="true") {
     // console.log(req.user);
     const { id, name } = req.user;
@@ -31,7 +31,7 @@ routes.get('/success', (req, res) => {
         expiresIn: authConfig.expiresIn,
       }),
     };
-    // console.log({resp: response})
+    console.log({resp: response})
     return res.status(200).json(response);
   }
   else if (req.session.retail!=="true") {

@@ -72,14 +72,14 @@ class App {
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
     // this.server.use((req,res,next)=>{
-    //   res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.co"
+    //   res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.com.br"
     //   res.header('Access-Control-Allow-Credentials') = true;
     //   console.log(req.headers);
     //   next();
     // })
     this.server.use(cors({
       origin: "https://www.couponfeed.com.br",
-      // origin: "https://www.couponfeed.co",
+      // origin: "https://www.couponfeed.com.br",
       credentials:true
     }))
     this.server.options("*", cors());

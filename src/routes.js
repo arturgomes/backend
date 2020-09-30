@@ -40,14 +40,14 @@ const upload = multer(multerConfig);
 // };
 /*
 routes.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://couponfeed.co/");
+  res.header("Access-Control-Allow-Origin", "https://couponfeed.com.br/");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });*/
 const showHeaders = (req,res,next)=>{
   console.log(req.headers);
-  // res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.co"
+  // res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.com.br"
   // res.header('Access-Control-Allow-Credentials') = true;
   next();
 };
