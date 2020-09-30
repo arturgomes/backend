@@ -3,7 +3,7 @@ import passport from "passport";
 
 
 import jwt from 'jsonwebtoken';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 
 import authConfig from './config/auth.js';
 // import User from '../models/User';
@@ -27,9 +27,9 @@ routes.get('/success', (req, res) => {
         tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
       },
       cookies: req.cookies,
-      token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+      // token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
+      //   expiresIn: authConfig.expiresIn,
+      // }),
     };
     console.log({resp: response})
     return res.status(200).json(response);
@@ -49,9 +49,9 @@ routes.get('/success', (req, res) => {
         tu: '897316929176464ebc9ad085f31e7284',
       },
       cookies: req.cookies,
-      token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+      // token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
+      //   expiresIn: authConfig.expiresIn,
+      // }),
     };
     // console.log({resp: response})
     return res.status(200).json(response);
