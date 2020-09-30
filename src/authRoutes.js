@@ -32,7 +32,7 @@ routes.get('/success', (req, res) => {
         tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
       },
       cookies: req.cookies,
-      token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
+      token: jwt.sign({ id: req.user.id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     };
@@ -54,7 +54,7 @@ routes.get('/success', (req, res) => {
         tu: '897316929176464ebc9ad085f31e7284',
       },
       cookies: req.cookies,
-      token: jwt.sign({ id: req.user.user_id }, authConfig.secret, {
+      token: jwt.sign({ id: req.user.id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     };
