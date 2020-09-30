@@ -95,13 +95,14 @@ class App {
   exceptionHandler() {
     // middleware de tratamento de exceções
     this.server.use(async (err, req, res, next) => {
-      if (process.env.NODE_ENV === 'development') {
+      // if (process.env.NODE_ENV === 'development') {
         const errors = await new Youch(err, req).toJSON();
         return res.status(500).json(errors);
-      }
-      else {
-        return res.status(500).json({messsage:'Internal server error', error: err});}
-    });
+    //   }
+    //   else {
+    //     return res.status(500).json({messsage:'Internal server error', error: err});}
+    }
+    );
   }
 }
 
