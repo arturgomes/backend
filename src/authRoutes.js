@@ -17,6 +17,8 @@ const routes = new Router();
 routes.get('/success', (req, res) => {
   // console.log("entrou no /success")
   // console.log(req.session.retail);
+  console.log(req.user);
+
   if (req.session.retail === "true") {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
