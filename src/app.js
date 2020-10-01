@@ -38,15 +38,8 @@ class App {
 
   middlewares() {
 
-    // parse cookies
     this.server.use(cookieParser());
-    // this.server.use(
-    //   cookieSession({
-    //     name: "session",
-    //     keys: [process.env.COOKIE_KEY],
-    //     maxAge: 24 * 60 * 60 * 1000
-    //   })
-    // );
+
     this.server.use(session({
       secret: 'Super Secret Password',
       proxy: true,
@@ -61,26 +54,16 @@ class App {
     this.server.use(passport.initialize());
     // deserialize cookie from the browser
     this.server.use(passport.session());
-    // set up cors to allow us to accept requests from our client
-
-
     this.server.use(Sentry.Handlers.requestHandler());
-
     this.server.use(express.json());
     this.server.use(
       '/files',
       express.static(path.resolve('..', 'tmp', 'uploads'))
     );
-    // this.server.use((req,res,next)=>{
-    //   res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.com.br"
-    //   res.header('Access-Control-Allow-Credentials') = true;
-    //   console.log(req.headers);
-    //   next();
-    // })
+
     this.server.use(cors({
       origin: "https://www.couponfeed.com.br",
-      // origin: "https://www.couponfeed.com.br",
-      credentials:true
+      credentials: true
     }))
     this.server.options("*", cors());
 
@@ -96,11 +79,12 @@ class App {
     // middleware de tratamento de exceções
     this.server.use(async (err, req, res, next) => {
       // if (process.env.NODE_ENV === 'development') {
-        const errors = await new Youch(err, req).toJSON();
-        return res.status(500).json(errors);
-    //   }
-    //   else {
-    //     return res.status(500).json({messsage:'Internal server error', error: err});}
+      const errors = await new Youch(err, req).toJSON();
+      return res.status(500).json(errors);
+      //   }
+      //   else {
+      //     return res.status(500).json({messsage:'Internal server error', error: err});
+      // }
     }
     );
   }

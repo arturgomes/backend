@@ -16,12 +16,15 @@ const routes = new Router();
 
 routes.get('/success', (req, res) => {
   // console.log("entrou no /success")
-  console.log(req.session.retail);
-  if (req.session.retail==="true") {
+  // console.log(req.session.retail);
+  if (req.session.retail === "true") {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
     // console.log(req.user);
-    const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
+    // const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
+    const tk = jwt.sign({ id }, process.env.APP_SECRET, {
+      expiresIn: process.env.APP_SECRET_EXPIRES // expires in 5min
+    });
     console.log(tk);
     const response = {
       success: true,
@@ -36,10 +39,10 @@ routes.get('/success', (req, res) => {
       cookies: req.cookies,
       token: tk
     };
-    console.log({resp: response})
+    console.log({ resp: response })
     return res.status(200).json(response);
   }
-  else if (req.session.retail!=="true") {
+  else if (req.session.retail !== "true") {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
     console.log(req.user);
@@ -58,7 +61,7 @@ routes.get('/success', (req, res) => {
       cookies: req.cookies,
       token: tk
     };
-    console.log({resp: response})
+    console.log({ resp: response })
     return res.status(200).json(response);
   }
   // console.log(res.headers);
@@ -78,28 +81,28 @@ routes.get('/error', (req, res) => {
 
 // routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get('/google',
-(req, res, next) => {
-  req.session.retail = "false"
-  const authenticator = passport.authenticate('google', { scope: ['profile', 'email']})
-  authenticator(req, res, next)
-})
+  (req, res, next) => {
+    req.session.retail = "false"
+    const authenticator = passport.authenticate('google', { scope: ['profile', 'email'] })
+    authenticator(req, res, next)
+  })
 
 routes.get('/google/retail',
-(req, res, next) => {
-  req.session.retail = "true"
-  const authenticator = passport.authenticate('google', { scope: ['profile', 'email']})
-  authenticator(req, res, next)
-})
+  (req, res, next) => {
+    req.session.retail = "true"
+    const authenticator = passport.authenticate('google', { scope: ['profile', 'email'] })
+    authenticator(req, res, next)
+  })
 
-  // function(req,res,next){
-  // req.body._toParam = 'Hello';
-  // passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
-  // })
-  // (req, res, next) => {
-  //   req.retail = true;
-  //   next();
-  // },
-  // passport.authenticate('google', { scope: ['profile', 'email'] })
+// function(req,res,next){
+// req.body._toParam = 'Hello';
+// passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
+// })
+// (req, res, next) => {
+//   req.retail = true;
+//   next();
+// },
+// passport.authenticate('google', { scope: ['profile', 'email'] })
 
 
 
