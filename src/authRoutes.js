@@ -21,7 +21,7 @@ routes.get('/success', (req, res) => {
 
   if (req.session.retail === "true") {
     // console.log(req.user);
-    const { id, name } = req.user.dataValues;
+    const { id, name } = req.user;
     // console.log(req.user);
     const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
     // const tk = jwt.sign({ id }, process.env.APP_SECRET, {
@@ -46,7 +46,7 @@ routes.get('/success', (req, res) => {
   }
   else if (req.session.retail !== "true") {
     // console.log(req.user);
-    const { id, name } = req.user.dataValues;
+    const { id, name } = req.user;
     // console.log(req.user);
     // const tk = jwt.sign({ id }, process.env.APP_SECRET, {
     //   expiresIn: '7d' // expires in 5min
