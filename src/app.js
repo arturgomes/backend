@@ -43,6 +43,8 @@ class App {
     this.server.use(session({
       secret: 'Super Secret Password',
       proxy: true,
+      resave: true,
+saveUninitialized: true,
       key: 'session.sid',
       cookie: { secure: true },
       //NEVER use in-memory store for production - I'm using redis here
