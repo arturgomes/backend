@@ -21,11 +21,11 @@ routes.get('/success', (req, res) => {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
     // console.log(req.user);
-    // const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
-    const tk = jwt.sign({ id }, process.env.APP_SECRET, {
-      expiresIn: '7d' // expires in 5min
-    });
-    console.log(tk);
+    const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
+    // const tk = jwt.sign({ id }, process.env.APP_SECRET, {
+    //   expiresIn: '7d' // expires in 5min
+    // });
+    // console.log(tk);
     const response = {
       success: true,
       message: "retail has successfully authenticated",
@@ -39,17 +39,19 @@ routes.get('/success', (req, res) => {
       cookies: req.cookies,
       token: tk
     };
-    console.log({ resp: response })
+    // console.log({ resp: response })
     return res.status(200).json(response);
   }
   else if (req.session.retail !== "true") {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
     // console.log(req.user);
-    const tk = jwt.sign({ id }, process.env.APP_SECRET, {
-      expiresIn: '7d' // expires in 5min
-    });
-    console.log(tk);
+    // const tk = jwt.sign({ id }, process.env.APP_SECRET, {
+    //   expiresIn: '7d' // expires in 5min
+    // });
+    const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
+
+    // console.log(tk);
     const response = {
       success: true,
       message: "user has successfully authenticated",
@@ -63,7 +65,7 @@ routes.get('/success', (req, res) => {
       cookies: req.cookies,
       token: tk
     };
-    console.log({ resp: response })
+    // console.log({ resp: response })
     return res.status(200).json(response);
   }
   // console.log(res.headers);
