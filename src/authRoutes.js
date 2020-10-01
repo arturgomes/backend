@@ -23,7 +23,7 @@ routes.get('/success', (req, res) => {
     // console.log(req.user);
     // const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
-      expiresIn: process.env.APP_SECRET_EXPIRES // expires in 5min
+      expiresIn: '7d' // expires in 5min
     });
     console.log(tk);
     const response = {
