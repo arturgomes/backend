@@ -3,7 +3,7 @@ import Retail from "../app/models/Retail.js";
 
 
 export const login = async (req, provider, profile, done) => {
-  console.log(req.session.retail);
+  // console.log(req.session.retail);
   if (req.session.retail === "true")
     logRetail(profile, provider, done);
   else

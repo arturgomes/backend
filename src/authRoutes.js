@@ -45,8 +45,10 @@ routes.get('/success', (req, res) => {
   else if (req.session.retail !== "true") {
     // console.log(req.user);
     const { id, name } = req.user.dataValues;
-    console.log(req.user);
-    const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
+    // console.log(req.user);
+    const tk = jwt.sign({ id }, process.env.APP_SECRET, {
+      expiresIn: process.env.APP_SECRET_EXPIRES // expires in 5min
+    });
     console.log(tk);
     const response = {
       success: true,
