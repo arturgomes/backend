@@ -12,7 +12,6 @@ export default async (req, res, next) => {
   const [, token] = authHeader.split(' ');
 
   try {
-    console.log(process.env.APP_SECRET);
     const decoded = await promisify(jwt.verify)(token, process.env.APP_SECRET);
     // const decoded = await promisify(jwt.verify)(token, authConfig.secret);
     req.userId = decoded.id;
