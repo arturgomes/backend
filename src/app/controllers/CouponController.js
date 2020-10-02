@@ -6,7 +6,7 @@ class CouponController {
   async index(req, res) {
     const { retail_id } = req.params;
     const coupons = await Coupon.findAll({ where: { retail_id } })
-      .filter(s => s.retail_id === req.params.retail_id);
+      // .filter(s => s.retail_id === req.params.retail_id);
     // console.log("Cupons: ",coupons)
 
     if (!coupons) {
