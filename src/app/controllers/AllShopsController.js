@@ -9,14 +9,12 @@ class AllShopController {
     console.log("retail_id: ", retail_id);
     await Shop.findAll(
       {
-        attributes: ['id', 'retail_id', 'name', 'manager', 'phone', 'short_url']
-        // ,
-        // where: { retail_id }
+        attributes: ['id', 'retail_id', 'name', 'manager', 'phone', 'short_url'] ,
+        where: { retail_id }
       }
     ).then(
       shop => {
-        const shops = shop.map(el => el.get({ plain: true }))
-          .filter(s => s.retail_id === retail_id);
+        const shops = shop;//shop.map(el => el.get({ plain: true })) .filter(s => s.retail_id === retail_id);
 
         console.log(shops);
         if (!shops) {
