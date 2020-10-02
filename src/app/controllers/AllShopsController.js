@@ -14,7 +14,7 @@ class AllShopController {
       }
     )
       .map(el => el.get({ plain: true }))
-      .filter(s => s.retail_id === req.body.retail_id);
+      .filter(s => s.retail_id === retail_id);
     console.log(shop);
     if (!shop) {
       return res.status(400).json({ error: "no shops found for this retail" });
