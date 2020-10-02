@@ -7,19 +7,28 @@ class AllShopController {
   async index(req, res) {
     const { retail_id } = req.body;
     console.log("retail_id: ", retail_id);
-    const shop = await Shop.findAll(
-      { attributes: ['id', 'retail_id', 'name', 'manager', 'phone', 'short_url']
-      // ,
+    await Shop.findAll(
+      {
+        attributes: ['id', 'retail_id', 'name', 'manager', 'phone', 'short_url']
+        // ,
         // where: { retail_id }
       }
+    ).then(
+      shop => {
+        const shops = shop.map(el => el.get({ plain: true }))
+          .filter(s => s.retail_id === retail_id);
+
+        console.log(shops);
+        if (!shops) {
+          return res.status(400).json({ error: "no shops found for this retail" });
+        }
+        return res.json(shops);
+      }
+    ).catch(
+      err => console.log(err)
     )
-      .map(el => el.get({ plain: true }))
-      .filter(s => s.retail_id === retail_id);
-    console.log(shop);
-    if (!shop) {
-      return res.status(400).json({ error: "no shops found for this retail" });
-    }
-    return res.json(shop);
+
+
   }
 
 }
