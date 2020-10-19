@@ -100,7 +100,7 @@ routes.get('/google/retail', (req, res, next) => {
 
 routes.get(
   '/google/redirect',
-  console.log('auth google'),
+  () => console.log('auth google'),
 
   passport.authenticate('google', {
     successRedirect: 'https://www.couponfeed.com.br/social',
@@ -124,7 +124,7 @@ routes.get('/facebook/retail', function (req, res, next) {
 });
 routes.get(
   '/facebook/redirect',
-  console.log('auth face'),
+  () => console.log('auth face'),
   passport.authenticate('facebook', {
     successRedirect: 'https://www.couponfeed.com.br/social',
     failureRedirect: '/auth/error',
