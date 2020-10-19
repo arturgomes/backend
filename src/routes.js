@@ -78,7 +78,7 @@ routes.post('/filesc', upload.single('file'), CustomerFileController.store);
 routes.post('/filesc/:user_id', CustomerFileController.index);
 routes.delete('/filesc/:id', CustomerFileController.delete);
 
-routes.post('/dashboardDataC', showHeaders, CustomerDashboardController.index);
+routes.post('/dashboardDataC', CustomerDashboardController.index);
 
 routes.post('/dashboardData', authMiddleware, DashboardController.index);
 
