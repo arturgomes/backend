@@ -54,6 +54,9 @@ const authCheck = (req, res, next) => {
 // authCheck before navigating to home page
 
 routes.get('/', (req, res) => res.redirect('https://www.couponfeed.com.br'));
+routes.get('/auth/facebook/response', (req, res) => {
+  console.log('facebook response');
+});
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
