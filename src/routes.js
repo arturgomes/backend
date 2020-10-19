@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import passport from "passport";
+import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
 import multerConfig from './config/multer.js';
@@ -24,33 +24,15 @@ import ShortnerController from './app/controllers/ShortnerController.js';
 
 import authMiddleware from './app/middlewares/auth.js';
 // import enableCors from './app/middlewares/enableCors';
-import authRoutes from './authRoutes.js'
+import authRoutes from './authRoutes.js';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-// const authCheck = (req, res, next) => {
-//   if (!req.user) {
-//     res.status(200).json({
-//       authenticated: false,
-//       message: "user has not been authenticated"
-//     });
-//   } else {
-//     next();
-//   }
+
+// const showHeaders = (req, res, next) => {
+//   console.log(req.headers);
+//   next();
 // };
-/*
-routes.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://couponfeed.com.br/");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
-const showHeaders = (req,res,next)=>{
-  console.log(req.headers);
-  // res.header('Access-Control-Allow-Origin') = "https://www.couponfeed.com.br"
-  // res.header('Access-Control-Allow-Credentials') = true;
-  next();
-};
 
 // routes.use('/post', postsRoutes);
 // routes.use(showHeaders)
@@ -60,7 +42,7 @@ const authCheck = (req, res, next) => {
   if (!req.user) {
     res.status(401).json({
       authenticated: false,
-      message: "user has not been authenticated"
+      message: 'user has not been authenticated',
     });
   } else {
     next();
@@ -71,20 +53,7 @@ const authCheck = (req, res, next) => {
 // otherwise, send a 401 response that the user is not authenticated
 // authCheck before navigating to home page
 
-routes.get('/', (req, res) => res.redirect('https://app.couponfeed.com.br'));
-// routes.get('/', authCheck, (req, res) => {
-//   res.status(200).json({
-//     authenticated: true,
-//     message: "user successfully authenticated",
-//     login: {
-//       user_id: req.user.user_id, //pass in the id and displayName params from Facebook
-//       name: req.user.name,
-//       email: req.user.email,
-//       tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
-//     },
-//     cookies: req.cookies
-//   });
-// });
+routes.get('/', (req, res) => res.redirect('https://www.couponfeed.com.br'));
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
@@ -95,7 +64,6 @@ routes.post('/retails', RetailController.store);
 routes.post('/feed/:shop_id/f', FeedbackController.index);
 routes.post('/feed/:shop_id/c', FeedbackController.store);
 routes.post('/surl/:short_url', ShortnerController.index);
-
 
 routes.post('/sessions', SessionController.store);
 routes.post('/rsessions', SessionRetailController.store);
@@ -128,12 +96,12 @@ routes.post('/qr', authMiddleware, QrController.index);
 
 routes.post('/users/l/:user_id', UserController.index);
 
-routes.use(function(err, req, res) {
+routes.use(function (err, req, res) {
   res.status(err.status || 500);
   // if you using view enggine
   res.send({
-      message: err.message,
-      error: {}
+    message: err.message,
+    error: {},
   });
   // or you can use res.send();
 });
