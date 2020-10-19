@@ -129,7 +129,16 @@ routes.get(
   passport.authenticate('facebook', {
     successRedirect: 'https://www.couponfeed.com.br/social',
     failureRedirect: '/auth/error',
-  })
+  }), function(req, res, next) {
+    if(req.user) {
+        res.json(req.user)
+
+    } else {
+        //handle errors here, decide what you want to send back to your front end
+        //so that it knows the user wasn't found
+        res.statusCode = 503;
+        res.send({message: 'Not Found'})
+    }
 );
 
 // When logout, redirect to client
