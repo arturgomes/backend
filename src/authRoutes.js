@@ -105,6 +105,7 @@ routes.get(
   //   failureRedirect: '/auth/error',
   // })
   (req, res) => {
+    console.log('google redirect');
     return res.json({ message: 'entrou no redirect do google' });
   }
 );
