@@ -83,6 +83,7 @@ routes.get('/error', (req, res) => {
 
 // routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get('/google', (req, res, next) => {
+  console.log('entrou na auth do google');
   req.session.retail = 'false';
   const authenticator = passport.authenticate('google', {
     scope: ['profile', 'email'],
@@ -92,6 +93,8 @@ routes.get('/google', (req, res, next) => {
 
 routes.get('/google/retail', (req, res, next) => {
   req.session.retail = 'true';
+  console.log('entrou na auth do google retail');
+
   const authenticator = passport.authenticate('google', {
     scope: ['profile', 'email'],
   });
@@ -100,8 +103,6 @@ routes.get('/google/retail', (req, res, next) => {
 
 routes.get(
   '/google/redirect',
-  () => console.log('auth google'),
-
   passport.authenticate('google', {
     successRedirect: 'https://www.couponfeed.com.br/social',
     failureRedirect: '/auth/error',
@@ -111,11 +112,12 @@ routes.get(
 //facebook auth
 routes.get(
   '/facebook',
-
   passport.authenticate('facebook', { scope: ['email', 'public_profile'] })
 );
 routes.get('/facebook/retail', function (req, res, next) {
   req.retail = true;
+  console.log('entrou na auth do face retail');
+
   passport.authenticate('facebook', { scope: ['email', 'public_profile'] })(
     req,
     res,
@@ -124,7 +126,6 @@ routes.get('/facebook/retail', function (req, res, next) {
 });
 routes.get(
   '/facebook/redirect',
-  () => console.log('auth face'),
   passport.authenticate('facebook', {
     successRedirect: 'https://www.couponfeed.com.br/social',
     failureRedirect: '/auth/error',

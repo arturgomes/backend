@@ -36,9 +36,7 @@ const upload = multer(multerConfig);
 
 // routes.use('/post', postsRoutes);
 // routes.use(showHeaders)
-routes.get('/auth/facebook/redirect', (req, res) => {
-  console.log('facebook response');
-});
+
 routes.use('/auth', authRoutes);
 
 const authCheck = (req, res, next) => {
