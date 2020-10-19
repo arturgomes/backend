@@ -98,16 +98,22 @@ routes.get('/google/retail', (req, res, next) => {
   authenticator(req, res, next);
 });
 
+// function(req,res,next){
+// req.body._toParam = 'Hello';
+// passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
+// })
+// (req, res, next) => {
+//   req.retail = true;
+//   next();
+// },
+// passport.authenticate('google', { scope: ['profile', 'email'] })
+
 routes.get(
   '/google/redirect',
-  // passport.authenticate('google', {
-  //   successRedirect: 'https://www.couponfeed.com.br/social',
-  //   failureRedirect: '/auth/error',
-  // })
-  (req, res) => {
-    console.log('google redirect');
-    return res.json({ message: 'entrou no redirect do google' });
-  }
+  passport.authenticate('google', {
+    successRedirect: 'https://www.couponfeed.com.br/social',
+    failureRedirect: '/auth/error',
+  })
 );
 
 //facebook auth
