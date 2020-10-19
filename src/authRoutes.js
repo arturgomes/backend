@@ -83,7 +83,6 @@ routes.get('/error', (req, res) => {
 
 // routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get('/google', (req, res, next) => {
-  console.log('entrou na auth do google');
   req.session.retail = 'false';
   const authenticator = passport.authenticate('google', {
     scope: ['profile', 'email'],
@@ -93,13 +92,21 @@ routes.get('/google', (req, res, next) => {
 
 routes.get('/google/retail', (req, res, next) => {
   req.session.retail = 'true';
-  console.log('entrou na auth do google retail');
-
   const authenticator = passport.authenticate('google', {
     scope: ['profile', 'email'],
   });
   authenticator(req, res, next);
 });
+
+// function(req,res,next){
+// req.body._toParam = 'Hello';
+// passport.authenticate('google', { scope: ['profile', 'email'] })(req,res,next);
+// })
+// (req, res, next) => {
+//   req.retail = true;
+//   next();
+// },
+// passport.authenticate('google', { scope: ['profile', 'email'] })
 
 routes.get(
   '/google/redirect',
@@ -116,8 +123,6 @@ routes.get(
 );
 routes.get('/facebook/retail', function (req, res, next) {
   req.retail = true;
-  console.log('entrou na auth do face retail');
-
   passport.authenticate('facebook', { scope: ['email', 'public_profile'] })(
     req,
     res,
@@ -129,17 +134,7 @@ routes.get(
   passport.authenticate('facebook', {
     successRedirect: 'https://www.couponfeed.com.br/social',
     failureRedirect: '/auth/error',
-  }),
-  function (req, res, next) {
-    if (req.user) {
-      res.json(req.user);
-    } else {
-      //handle errors here, decide what you want to send back to your front end
-      //so that it knows the user wasn't found
-      res.statusCode = 503;
-      res.send({ message: 'Not Found' });
-    }
-  }
+  })
 );
 
 // When logout, redirect to client
