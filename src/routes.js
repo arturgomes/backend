@@ -36,6 +36,9 @@ const upload = multer(multerConfig);
 
 // routes.use('/post', postsRoutes);
 // routes.use(showHeaders)
+routes.get('/auth/facebook/response', (req, res) => {
+  console.log('facebook response');
+});
 routes.use('/auth', authRoutes);
 
 const authCheck = (req, res, next) => {
@@ -54,9 +57,6 @@ const authCheck = (req, res, next) => {
 // authCheck before navigating to home page
 
 routes.get('/', (req, res) => res.redirect('https://www.couponfeed.com.br'));
-routes.get('/auth/facebook/response', (req, res) => {
-  console.log('facebook response');
-});
 
 routes.post('/users', UserController.store);
 routes.post('/users/i', ManFeedController.store);
