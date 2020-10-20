@@ -49,7 +49,7 @@ class CustomerDashboardController {
 
     //get all the user data
     const user = await User.findByPk(user_id);
-
+    console.log(user);
     return res.json({
       user,
       last_feedback,
