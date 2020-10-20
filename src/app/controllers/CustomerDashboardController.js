@@ -8,6 +8,7 @@ import Coupon from '../models/Coupon.js';
 class CustomerDashboardController {
   async index(req, res) {
     const { user_id } = req.body;
+    let feedbacksX;
     Promise.all([
       //retrieve all feedbacks from that user_id
       Feedback.findAll({
@@ -22,26 +23,13 @@ class CustomerDashboardController {
         ],
         include: [{ attributes: [['name', 'retail_name']], model: Retail }],
       }),
-      //count all feedbacks
-      Feedback.count({ where: { user_id } }),
-
-      // get the last feedback
-      Feedback.findOne({
-        where: {
-          user_id,
-        },
-        order: [['createdAt', 'DESC']],
-      }),
-      //get all the user data
-      User.findByPk(user_id),
-    ])
-      .then(([feedbacks, total_feedbacks, last_feedback]) => {
-        // console.log(feedbacks);
-
-        //make a list of retail_ids form the feedback list
-        const retail_ids = feedbacks.map((f) => f.retail_id);
+    ]).then(([feedbacks]) => {
+      const retail_ids = feedbacks.map((f) => f.retail_id);
+      feedbacksX = feedbacks;
+      Promise.all([
+        Feedback.count({ where: { user_id } }),
         //get all the coupons available from the retail_ids list
-        const loyalties = Coupon.findAll({
+        Coupon.findAll({
           attributes: [
             'feedcoins',
             'name',
@@ -55,20 +43,35 @@ class CustomerDashboardController {
             },
           },
           include: [{ attributes: [['name', 'retail_name']], model: Retail }],
-        });
+        }),
+        // get the last feedback
+        Feedback.findOne({
+          where: {
+            user_id,
+          },
+          order: [['createdAt', 'DESC']],
+        }),
+        //get all the user data
+        User.findByPk(user_id),
+      ])
+        .then(([total_feedbacks, loyalties, last_feedback]) => {
+          // console.log(feedbacks);
 
-        // console.log("loyalty_set: ",loyalties)
+          //make a list of retail_ids form the feedback list
 
-        return res.json({
-          user,
-          last_feedback,
-          total_feedbacks,
-          fb: feedbacks,
-          loyalties,
-        });
-      })
-      .catch((err) => res.json({ erro: err }));
-    // return res.json(feedbacks);
+          // console.log("loyalty_set: ",loyalties)
+
+          return res.json({
+            user,
+            last_feedback,
+            total_feedbacks,
+            fb: feedbacksX,
+            loyalties,
+          });
+        })
+        .catch((err) => res.json({ erro: err }));
+      // return res.json(feedbacks);
+    });
   }
 }
 
