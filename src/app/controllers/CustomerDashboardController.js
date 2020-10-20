@@ -24,8 +24,24 @@ class CustomerDashboardController {
       }),
       //count all feedbacks
       Feedback.count({ where: { user_id } }),
-      //get all the coupons available from the retail_ids list
-      Coupon.findAll({
+
+      // get the last feedback
+      Feedback.findOne({
+        where: {
+          user_id,
+        },
+        order: [['createdAt', 'DESC']],
+      }),
+      //get all the user data
+      User.findByPk(user_id),
+    ])
+      .then(([feedbacks, total_feedbacks, last_feedback]) => {
+        // console.log(feedbacks);
+
+        //make a list of retail_ids form the feedback list
+        const retail_ids = feedbacks.map(f => f.retail_id)
+        //get all the coupons available from the retail_ids list
+        const loyalties = Coupon.findAll({
         attributes: [
           'feedcoins',
           'name',
@@ -40,21 +56,6 @@ class CustomerDashboardController {
         },
         include: [{ attributes: [['name', 'retail_name']], model: Retail }],
       }),
-      // get the last feedback
-      Feedback.findOne({
-        where: {
-          user_id,
-        },
-        order: [['createdAt', 'DESC']],
-      }),
-      //get all the user data
-      User.findByPk(user_id),
-    ])
-      .then(([feedbacks, total_feedbacks, loyalties, last_feedback]) => {
-        // console.log(feedbacks);
-
-        //make a list of retail_ids form the feedback list
-        // const retail_ids = feedbacks.map(f => f.retail_id)
 
         // console.log("loyalty_set: ",loyalties)
 
