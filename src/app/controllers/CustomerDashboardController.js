@@ -5,9 +5,7 @@ import Retail from '../models/Retail.js';
 import User from '../models/User.js';
 import Coupon from '../models/Coupon.js';
 
-
 class CustomerDashboardController {
-
   async index(req, res) {
     const { user_id } = req.body;
     Promise.all([
@@ -15,21 +13,32 @@ class CustomerDashboardController {
       Feedback.findAll({
         group: ['Feedback.retail_id', 'Retail.id'],
         where: { user_id },
-        attributes: ['retail_id', [Sequelize.fn('count', Sequelize.col('retail_id')), 'feedbacks_count']],
+        attributes: [
+          'retail_id',
+          [
+            Sequelize.fn('count', Sequelize.col('retail_id')),
+            'feedbacks_count',
+          ],
+        ],
         include: [{ attributes: [['name', 'retail_name']], model: Retail }],
       }),
       //count all feedbacks
       Feedback.count({ where: { user_id } }),
       //get all the coupons available from the retail_ids list
       Coupon.findAll({
-        attributes: ['feedcoins', 'name', 'description', 'discount', 'retail_id',],
+        attributes: [
+          'feedcoins',
+          'name',
+          'description',
+          'discount',
+          'retail_id',
+        ],
         where: {
           retail_id: {
-            [Op.in]: retail_ids
-          }
+            [Op.in]: retail_ids,
+          },
         },
         include: [{ attributes: [['name', 'retail_name']], model: Retail }],
-
       }),
       // get the last feedback
       Feedback.findOne({
@@ -39,34 +48,27 @@ class CustomerDashboardController {
         order: [['createdAt', 'DESC']],
       }),
       //get all the user data
-      User.findByPk(user_id)
-    ]).then(([feedbacks, total_feedbacks, loyalties, last_feedback]) => {
+      User.findByPk(user_id),
+    ])
+      .then(([feedbacks, total_feedbacks, loyalties, last_feedback]) => {
+        // console.log(feedbacks);
 
+        //make a list of retail_ids form the feedback list
+        // const retail_ids = feedbacks.map(f => f.retail_id)
 
+        // console.log("loyalty_set: ",loyalties)
 
-      // console.log(feedbacks);
-
-
-      //make a list of retail_ids form the feedback list
-      const retail_ids = feedbacks.map(f => f.retail_id)
-
-
-      // console.log("loyalty_set: ",loyalties)
-
-      return res.json({
-        user,
-        last_feedback,
-        total_feedbacks,
-        fb: feedbacks,
-        loyalties,
-      });
-    })
-    .catch(err => res.json({erro:err}));
+        return res.json({
+          user,
+          last_feedback,
+          total_feedbacks,
+          fb: feedbacks,
+          loyalties,
+        });
+      })
+      .catch((err) => res.json({ erro: err }));
     // return res.json(feedbacks);
   }
-
-
-
 }
 
 export default new CustomerDashboardController();
