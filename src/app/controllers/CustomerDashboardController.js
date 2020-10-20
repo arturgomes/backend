@@ -60,7 +60,13 @@ class CustomerDashboardController {
           //make a list of retail_ids form the feedback list
 
           // console.log("loyalty_set: ",loyalties)
-
+          console.log({
+            user,
+            last_feedback,
+            total_feedbacks,
+            fb: feedbacksX,
+            loyalties,
+          });
           return res.json({
             user,
             last_feedback,
