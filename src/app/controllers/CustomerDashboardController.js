@@ -39,23 +39,23 @@ class CustomerDashboardController {
         // console.log(feedbacks);
 
         //make a list of retail_ids form the feedback list
-        const retail_ids = feedbacks.map(f => f.retail_id)
+        const retail_ids = feedbacks.map((f) => f.retail_id);
         //get all the coupons available from the retail_ids list
         const loyalties = Coupon.findAll({
-        attributes: [
-          'feedcoins',
-          'name',
-          'description',
-          'discount',
-          'retail_id',
-        ],
-        where: {
-          retail_id: {
-            [Op.in]: retail_ids,
+          attributes: [
+            'feedcoins',
+            'name',
+            'description',
+            'discount',
+            'retail_id',
+          ],
+          where: {
+            retail_id: {
+              [Op.in]: retail_ids,
+            },
           },
-        },
-        include: [{ attributes: [['name', 'retail_name']], model: Retail }],
-      }),
+          include: [{ attributes: [['name', 'retail_name']], model: Retail }],
+        });
 
         // console.log("loyalty_set: ",loyalties)
 
