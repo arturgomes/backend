@@ -76,6 +76,7 @@ class ShopController {
   }
   async delete(req,res){
     const { id } = req.body;
+    console.log(id);
 
     const shop = await Shop.findByPk(id);
     console.log(shop);
