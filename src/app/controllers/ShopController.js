@@ -74,46 +74,17 @@ class ShopController {
 
     return res.json({ id, name, manager, phone, short_url });
   }
+  async delete(req,res){
+    const id = req.params.id;
 
-  // async update(req, res) {
-  //   const schema = Yup.object().shape({
-  //     cnpj: Yup.string(),
-  //     email: Yup.string().email(),
-  //     oldPassword: Yup.string().min(6),
-  //     password: Yup.string()
-  //       .min(6)
-  //       .when('oldPassword', (oldPassword, field) =>
-  //         oldPassword ? field.required() : field
-  //       ),
-  //     confirmPassword: Yup.string().when('password', (password, field) =>
-  //       password ? field.required().oneOf([Yup.ref('password')]) : field
-  //     ),
-  //   });
+    const file = await Shop.findOne({ where: { id} });
+    file.destroy();
 
-  //   if (!(await schema.isValid(req.body))) {
-  //     return res.status(400).json({ error: Error.validation_failed });
-  //   }
+    return res.status(200).json({
+      message: 'Shop deleted',
+    });
+  }
 
-  //   const { cnpj, email, oldPassword } = req.body;
-
-  //   const shop = await Shop.findByPk(req.shopId);
-
-  //   if (cnpj !== shop.cnpj) {
-  //     const shopExists = await Shop.findOne({ where: { cnpj } });
-
-  //     if (shopExists) {
-  //       return res.status(400).json({ error: Error.shop_exists });
-  //     }
-  //   }
-
-  //   if (oldPassword && !(await shop.checkPassword(oldPassword))) {
-  //     return res.status(401).json({ error: Error.invalid_password });
-  //   }
-
-  //   const { id, name } = await shop.update(req.body);
-
-  //   return res.json({ id, name, email, cnpj });
-  // }
 }
 
 export default new ShopController();

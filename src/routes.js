@@ -91,6 +91,8 @@ routes.post('/coupons-s', authMiddleware, CouponController.store);
 routes.post('/allshops', authMiddleware, AllShopsController.index);
 
 routes.post('/shops', authMiddleware, ShopController.store);
+routes.post('/shops/:retail_id', authMiddleware, ShopController.delete);
+
 routes.post('/shopsl', authMiddleware, ShopController.index);
 
 routes.post('/qr', authMiddleware, QrController.index);
