@@ -75,10 +75,10 @@ class ShopController {
     return res.json({ id, name, manager, phone, short_url });
   }
   async delete(req,res){
-    const { id } = req.body;
-    console.log(id);
+    const { shop_id } = req.body;
+    console.log(shop_id);
 
-    const shop = await Shop.findByPk(id);
+    const shop = await Shop.findByPk(shop_id);
     console.log(shop);
     shop.destroy();
 
