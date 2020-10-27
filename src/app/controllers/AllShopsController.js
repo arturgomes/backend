@@ -16,7 +16,7 @@ class AllShopController {
         if (!shop) {
           return res.status(400).json({ error: "no shops found for this retail" });
         }
-        return res.json(shop);
+        return res.status(200).json(shop);
       }
     ).catch(
       err => console.log(err)
