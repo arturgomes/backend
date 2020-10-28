@@ -94,6 +94,8 @@ class CouponController {
 
     return res.status(200).json({
       message: 'Cupom deleted',
+      coupon,
+      coupon_id
     });
   }
 }
