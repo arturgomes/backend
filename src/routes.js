@@ -101,7 +101,7 @@ routes.post('/qr', authMiddleware, QrController.index);
 routes.post('/users/l/:user_id', UserController.index);
 
 routes.use(function (err, req, res) {
-  res.status(err.status || 500);
+  // res.status(err.status || 500);
   // if you using view enggine
   res.send({
     message: err.message,
