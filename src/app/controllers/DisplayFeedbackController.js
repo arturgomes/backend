@@ -22,7 +22,7 @@ class DisplayFeedbackController {
         // console.log(id);
         const f = await Feedback.findAll(
           {
-            attributes: ['date', 'shop_id', 'nps_value', 'comment_optional'],
+            attributes: ['date', 'nps_value', 'comment_optional'],
             where: { shop_id: id },
             raw:true
           }
