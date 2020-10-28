@@ -94,7 +94,7 @@ class CouponController {
       .then(
         coupon => {
           // console.log(shop);
-          await coupon.destroy();
+           coupon.destroy();
 
           return res.status(200).json({
             message: 'Cupom deleted',
