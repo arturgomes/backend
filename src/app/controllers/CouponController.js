@@ -45,13 +45,16 @@ class CouponController {
 
     // console.log("passou no yup");
     await Coupon.create(validation)
-      .then(response => { console.log(response) })
+      .then(coupon => { console.log(coupon)
+        if (!coupon) {
+          return res.status(400).json({ error: "Cupom não criado" })
+        }
+        console.log("id: ", coupon);
+        return res.json(coupon);
+
+      })
       .catch(error => { console.log(error) });
-    if (!coupon) {
-      return res.status(400).json({ error: "Cupom não criado" })
-    }
-    console.log("id: ", coupon);
-    return res.json(coupon);
+
   }
 
   async update(req, res) {
