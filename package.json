@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "upgrade": "./script-update.sh",
+    "repo": "./script-update.sh",
     "transpile": "babel ./src --out-dir dist",
     "server": "babel-node ./src/server.js",
     "start": "node dist/server.js",
