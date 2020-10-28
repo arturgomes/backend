@@ -29,7 +29,7 @@ class DisplayFeedbackController {
           // .map(el => el.get({ plain: true }))
           // .filter(s => s.shop_id === id);
         // console.log(f);
-        const ob = {...f, shop_name:s.name}
+        const ob = f.map(feed => {return {...feed, shop_name:s.name}})
 
         return ob;
       })
