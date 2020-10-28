@@ -36,7 +36,7 @@ class CouponController {
       expire_date: req.body.expDate,
     };
 
-    console.log("passou no schema", validation);
+    // console.log("passou no schema", validation);
     // if (
     //   !(await schema.isValid(validation))
     // ) {
