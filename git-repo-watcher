@@ -138,6 +138,7 @@ while true; do
         sleep $interval_in_seconds
         continue
     fi
+    
 
     git_local=$(git rev-parse @)
     git_remote=$(git rev-parse "$upstream")
