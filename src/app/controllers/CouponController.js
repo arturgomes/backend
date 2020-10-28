@@ -86,24 +86,17 @@ class CouponController {
 
     return res.json({ id, name_i, email, cnpj });
   }
-  async delete(req, res) {
+  async delete(req,res){
     const { coupon_id } = req.body;
-    // console.log(shop_id);
+    console.log(coupon_id);
 
-    await Coupon.findByPk(coupon_id)
-      .then(
-        coupon => {
-          // console.log(shop);
-           coupon.destroy();
+    const coupon = await Coupon.findByPk(coupon_id);
+    console.log(coupon);
+    await coupon.destroy();
 
-          return res.status(200).json({
-            message: 'Cupom deleted',
-            coupon,
-            coupon_id
-          });
-        }
-      )
-
+    return res.status(200).json({
+      message: 'Coupon deleted',
+    });
   }
 }
 
