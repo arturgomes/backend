@@ -5,14 +5,14 @@ import Error from '../errors/errors.js';
 class CouponController {
   async index(req, res) {
     const { retail_id } = req.params;
-    const coupons = await Coupon.findAll({ where: { retail_id } })
+    await Coupon.findAll({ where: { retail_id } })
       // .filter(s => s.retail_id === req.params.retail_id);
     // console.log("Cupons: ",coupons)
-
+    .then( coupons =>{
     if (!coupons) {
       return res.status(400).json({ error: "no coupons found for this retail" });
     }
-    return res.json(coupons);
+    return res.json(coupons);})
   }
 
   async store(req, res) {
@@ -83,6 +83,18 @@ class CouponController {
     const { id, name: name_i } = await coupon.update(req.body);
 
     return res.json({ id, name_i, email, cnpj });
+  }
+  async delete(req,res){
+    const { coupon_id } = req.body;
+    // console.log(shop_id);
+
+    const coupon = await Coupon.findByPk(coupon_id);
+    // console.log(shop);
+    await coupon.destroy();
+
+    return res.status(200).json({
+      message: 'Cupom deleted',
+    });
   }
 }
 

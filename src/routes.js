@@ -85,8 +85,9 @@ routes.post('/dashboardData', authMiddleware, DashboardController.index);
 
 routes.post('/list', authMiddleware, DisplayFeedbackController.index);
 
-routes.post('/coupons-l/:retail_id', authMiddleware, CouponController.index);
-routes.post('/coupons-s', authMiddleware, CouponController.store);
+routes.post('/coupons/l/:retail_id', authMiddleware, CouponController.index);
+routes.post('/coupons/s', authMiddleware, CouponController.store);
+routes.post('/coupons/d', authMiddleware, CouponController.delete);
 
 routes.post('/allshops', authMiddleware, AllShopsController.index);
 
