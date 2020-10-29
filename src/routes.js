@@ -89,12 +89,11 @@ routes.post('/coupons/l/:retail_id', authMiddleware, CouponController.index);
 routes.post('/coupons/s', authMiddleware, CouponController.store);
 routes.post('/coupons/d', authMiddleware, CouponController.delete);
 
-routes.post('/allshops', authMiddleware, AllShopsController.index);
 
 routes.post('/shops', authMiddleware, ShopController.store);
 routes.post('/shops/d', authMiddleware, ShopController.delete);
-
-routes.post('/shopsl', authMiddleware, ShopController.index);
+routes.post('/shops/p', authMiddleware, ShopController.index);
+routes.post('/shops/l', authMiddleware, AllShopsController.index);
 
 routes.post('/qr', authMiddleware, QrController.index);
 
@@ -105,7 +104,7 @@ routes.use(function (err, req, res) {
   // if you using view enggine
   res.send({
     message: err.message,
-    error: {},  
+    error: {},
   });
   // or you can use res.send();
 });

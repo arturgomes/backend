@@ -8,7 +8,7 @@ class AllShopController {
     const { retail_id } = req.body;
     await Shop.findAll(
       {
-        attributes: ['id', 'retail_id', 'name', 'manager', 'phone', 'short_url'] ,
+        attributes: ['id', 'name', 'manager', 'phone'],
         where: { retail_id }
       }
     ).then(
