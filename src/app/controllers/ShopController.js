@@ -4,13 +4,13 @@ import Error from '../errors/errors.js';
 
 class ShopController {
 
-  getrandom(){
-    let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < 5; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    return text;
-  }
+  // getrandom(){
+  //   let text = "";
+  //   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  //   for (let i = 0; i < 5; i++)
+  //       text += possible.charAt(Math.floor(Math.random() * possible.length));
+  //   return text;
+  // }
   async index(req, res) {
     const { shop_id } = req.body;
 
@@ -28,7 +28,7 @@ class ShopController {
       manager: Yup.string().required(),
       phone: Yup.string().required(),
       retail_id: Yup.string().required(),
-      // short_url: Yup.string().required(),
+      short_url: Yup.string().required(),
     });
     if (
       !(await schema.isValid({
@@ -37,7 +37,7 @@ class ShopController {
         manager: req.body.manager,
       retail_id: req.body.retail_id,
 
-        // short_url: req.body.short_url,
+        short_url: req.body.short_url,
       }))
     ) {
       return res.status(400).json({ error: Error.validation_failed });
@@ -48,7 +48,7 @@ class ShopController {
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
-      short_url: this.getrandom(),
+      short_url: req.body.short_url,
     });
 
     return res.json({ id, name, manager, phone, short_url });
