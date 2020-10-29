@@ -25,61 +25,38 @@ class ShopController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      // address_street: Yup.string().required(),
-      // address_number: Yup.string().required(),
-      // address_comp: Yup.string().required(),
-      // address_neighb: Yup.string().required(),
-      // address_city: Yup.string().required(),
-      // address_state: Yup.string().required(),
-      // address_zip: Yup.string().required(),
-      // address_country: Yup.string().required(),
       manager: Yup.string().required(),
       phone: Yup.string().required(),
-      short_url: Yup.string().required(),
+      retail_id: Yup.string().required(),
       // short_url: Yup.string().required(),
     });
-    // console.log(req.body);
     if (
       !(await schema.isValid({
         name: req.body.name,
         phone: req.body.phone,
         manager: req.body.manager,
-        short_url: req.body.short_url,
-        // short_url: get,
+      retail_id: req.body.retail_id,
+
+        // short_url: req.body.short_url,
       }))
     ) {
-      // console.log('bad schema for ShopController');
       return res.status(400).json({ error: Error.validation_failed });
     }
 
-    // const shopExists = await Shop.findOne({
-    //   where: { cnpj: req.body.cnpj },
-    // });
-
-    // if (shopExists) {
-    //   return res.status(400).json({ error: Error.shop_exists });
-    // }
-    // const usr = await User.findOne({ where: { id: req.userId } });
-    // if (usr) {
-    //   return res.status(400).json({ error: Error.user_cannot_create_shop });
-    // }
-    // const short_url = this.getrandom();
     const { id, name, manager, phone,short_url } = await Shop.create({
       name: req.body.name,
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
-      short_url: req.body.short_url,
+      short_url: getrandom(),
     });
 
     return res.json({ id, name, manager, phone, short_url });
   }
   async delete(req,res){
     const { shop_id } = req.body;
-    // console.log(shop_id);
 
     const shop = await Shop.findByPk(shop_id);
-    // console.log(shop);
     await shop.destroy();
 
     return res.status(200).json({
