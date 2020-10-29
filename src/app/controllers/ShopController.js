@@ -48,7 +48,7 @@ class ShopController {
       phone: req.body.phone,
       manager: req.body.manager,
       retail_id: req.body.retail_id,
-      short_url: getrandom(),
+      short_url: this.getrandom(),
     });
 
     return res.json({ id, name, manager, phone, short_url });
