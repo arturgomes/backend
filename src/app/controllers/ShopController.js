@@ -50,10 +50,11 @@ class ShopController {
       retail_id: req.body.retail_id,
       short_url: req.body.short_url,
     })
-      .then(new_shop =>
-        res.status(200).json({ message: "shop added" }))
+      .then(new_shop => {
+        return res.status(200).json({ message: "shop added" })
+      })
       .catch(error => {
-        res.status(500).message(error)
+        return res.status(500).message(error)
       })
 
   }
