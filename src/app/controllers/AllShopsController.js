@@ -7,7 +7,7 @@ class AllShopController {
 
   async index(req, res) {
     const { retail_id } = req.body;
-    console.log(retail_id)
+    // console.log(retail_id)
     await Shop.findAll(
       {
         attributes: ['id', 'name', 'manager', 'phone'],
@@ -15,7 +15,7 @@ class AllShopController {
       }
     ).then(
       shop => {
-        console.log(shop)
+        // console.log(shop)
         if (!shop) {
           return res.status(400).json({ error: "no shops found for this retail" });
         }
