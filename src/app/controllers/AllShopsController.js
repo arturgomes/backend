@@ -4,6 +4,7 @@ import Error from '../errors/errors.js';
 
 class AllShopController {
 
+
   async index(req, res) {
     const { retail_id } = req.body;
     console.log(retail_id)
