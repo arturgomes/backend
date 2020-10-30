@@ -54,7 +54,7 @@ class ShopController {
         return res.status(200).json({ message: "shop added" })
       })
       .catch(error => {
-        return res.status(500).message(error)
+        return res.status(500).json(error)
       })
 
   }
