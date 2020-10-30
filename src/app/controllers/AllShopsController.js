@@ -6,6 +6,7 @@ class AllShopController {
 
   async index(req, res) {
     const { retail_id } = req.body;
+    console.log(retail_id)
     await Shop.findAll(
       {
         attributes: ['id', 'name', 'manager', 'phone'],
