@@ -13,6 +13,7 @@ class AllShopController {
       }
     ).then(
       shop => {
+        console.log(shop)
         if (!shop) {
           return res.status(400).json({ error: "no shops found for this retail" });
         }
