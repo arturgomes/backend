@@ -16,7 +16,7 @@ class DisplayFeedbackController {
     // .filter(s => s.retail_id === req.body.retail_id);
     // console.log(shops);
 
-    const fb = await Promise.all(
+    const tmp = await Promise.all(
       shops.map(async s => {
         const { id } = s;
         // console.log(id);
@@ -30,12 +30,13 @@ class DisplayFeedbackController {
         // .map(el => el.get({ plain: true }))
         // .filter(s => s.shop_id === id);
         const ob = f.map(feed => ({ ...feed, shop_name: s.name }))
-        console.log(ob);
+        // console.log(ob);
 
         return ob;
       })
     );
-    console.log(fb);
+    console.log(tmp);
+    const fb = [].concat.apply([], tmp);
 
     if (fb !== null) return res.json(fb);
     // if (fbs) {
