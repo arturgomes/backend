@@ -12,8 +12,8 @@ class DisplayFeedbackController {
         where: { retail_id: req.body.retail_id }
       }
     )
-      // .map(el => el.get({ plain: true }))
-      // .filter(s => s.retail_id === req.body.retail_id);
+    // .map(el => el.get({ plain: true }))
+    // .filter(s => s.retail_id === req.body.retail_id);
     // console.log(shops);
 
     const fb = await Promise.all(
@@ -24,13 +24,13 @@ class DisplayFeedbackController {
           {
             attributes: ['date', 'nps_value', 'comment_optional'],
             where: { shop_id: id },
-            raw:true
+            raw: true
           }
         )
-          // .map(el => el.get({ plain: true }))
-          // .filter(s => s.shop_id === id);
-        // console.log(f);
-        const ob = f.map(feed =>  ({...feed, shop_name:s.name}))
+        // .map(el => el.get({ plain: true }))
+        // .filter(s => s.shop_id === id);
+        const ob = f.map(feed => ({ ...feed, shop_name: s.name }))
+        console.log(ob);
 
         return ob;
       })
