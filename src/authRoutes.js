@@ -5,6 +5,9 @@
 
 import { Router } from 'express';
 import passport from 'passport';
+import Valid from 'validator';
+import Feedback from './app/models/Feedback.js';
+
 
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
@@ -13,7 +16,7 @@ import authConfig from './config/auth.js';
 // import User from '../models/User';
 const routes = new Router();
 
-routes.get('/success', (req, res) => {
+routes.get('/success', async (req, res) => {
   // console.log("entrou no /success")
   // console.log(req.session.retail);
   console.log(req.user.id);
@@ -49,6 +52,26 @@ routes.get('/success', (req, res) => {
     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
       expiresIn: '7d', // expires in 5min
     });
+
+    if (req.params.fid && Valid.isUUID(req.params.fid)) {
+      await Feedback.findOne({
+        id: req.params.fid,
+      })
+        .then(feed => {
+          if (feed.user_id) {
+            return res
+              .status(400)
+              .json({ error: Error.feedback_already_stored });
+          }
+          feed.update({
+            user_id: id,
+          });
+          return res.json({ message: 'OK' });
+        })
+        .catch(() => { });
+
+
+    }
     // const tk = jwt.sign({ id }, authConfig.secret, { expiresIn: authConfig.expiresIn, });
 
     // console.log(tk);
