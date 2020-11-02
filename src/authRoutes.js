@@ -84,6 +84,9 @@ routes.get('/error', (req, res) => {
 // routes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get('/google/:fid', (req, res, next) => {
   req.session.retail = 'false';
+  if (req.params.fid) {
+    req.user_feedback = req.params.fid;
+  }
   const authenticator = passport.authenticate('google', {
     scope: ['profile', 'email'],
   });
@@ -119,15 +122,21 @@ routes.get(
 //facebook auth
 routes.get(
   '/facebook/:fid',
-  passport.authenticate('facebook', { scope: ['email', 'public_profile'] })
+  function (req, res, next) {
+    req.session.retail = 'false';
+
+    if (req.params.fid) {
+      req.user_feedback = req.params.fid;
+    }
+    const faceAuth = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
+    faceAuth(req, res, next);
+  }
 );
 routes.get('/facebook/retail', function (req, res, next) {
-  req.retail = true;
-  passport.authenticate('facebook', { scope: ['email', 'public_profile'] })(
-    req,
-    res,
-    next
-  );
+  req.session.retail = 'true';
+
+  const faceAuth = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
+  faceAuth(req, res, next);
 });
 routes.get(
   '/facebook/redirect',
