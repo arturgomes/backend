@@ -19,7 +19,7 @@ function filterNPSResults(fb) {
     negFeedbacks: negf,
     neutralFeedbacks: ne.length,
     totalFeedbacks: fb.length,
-    average: (total / fb.length),
+    average: (((po.length - negf) / fb.length) * 100),
   };
 }
 function flatten(arr) {
