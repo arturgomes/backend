@@ -98,6 +98,7 @@ routes.post('/shops/l', authMiddleware, AllShopsController.index);
 routes.post('/qr', authMiddleware, QrController.index);
 
 routes.post('/users/l/:user_id', UserController.index);
+routes.post('/users/add/feedback', UpdateFeedbackController.index);
 
 routes.use(function (err, req, res) {
   res.status(err.status || 500);
