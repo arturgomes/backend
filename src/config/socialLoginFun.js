@@ -1,7 +1,7 @@
 import Valid from 'validator';
 import User from "../app/models/User.js";
 import Retail from "../app/models/Retail.js";
-import Feedback from './app/models/Feedback.js';
+import Feedback from '../app/models/Feedback.js';
 
 
 export const login = async (req, provider, profile, done) => {
