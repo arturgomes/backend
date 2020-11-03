@@ -1,5 +1,7 @@
+import Valid from 'validator';
 import User from "../app/models/User.js";
 import Retail from "../app/models/Retail.js";
+import Feedback from './app/models/Feedback.js';
 
 
 export const login = async (req, provider, profile, done) => {
@@ -7,7 +9,7 @@ export const login = async (req, provider, profile, done) => {
   if (req.session.retail === "true")
     logRetail(profile, provider, done);
   else
-    logCustomer(profile, provider, done)
+    logCustomer(req, profile, provider, done)
 
 }
 
@@ -33,7 +35,7 @@ const logRetail = async (profile, provider, done) => {
     }
   }
 }
-const logCustomer = async (profile, provider, done) => {
+const logCustomer = async (req, profile, provider, done) => {
   const { sub, name, picture, email } = profile._json;
 
   const currentUser = await User.findOne({ where: { email } })
@@ -51,6 +53,25 @@ const logCustomer = async (profile, provider, done) => {
         provider_type: provider,
       })
         .then(newUser => {
+          if (req.params.fid && Valid.isUUID(req.params.fid)) {
+            await Feedback.findOne({
+              id: req.params.fid,
+            })
+              .then(feed => {
+                if (feed.user_id) {
+                  return res
+                    .status(400)
+                    .json({ error: Error.feedback_already_stored });
+                }
+                feed.update({
+                  user_id: id,
+                });
+                return res.json({ message: 'OK' });
+              })
+              .catch(() => { });
+
+
+          }
           done(null, newUser)
         })
     } catch (err) {
