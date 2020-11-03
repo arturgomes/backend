@@ -54,7 +54,7 @@ const logCustomer = async (req, profile, provider, done) => {
       })
         .then(newUser => {
           if (req.params.fid && Valid.isUUID(req.params.fid)) {
-            await Feedback.findOne({
+            Feedback.findOne({
               id: req.params.fid,
             })
               .then(feed => {
