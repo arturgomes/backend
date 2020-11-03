@@ -21,7 +21,7 @@ import DisplayFeedbackController from './app/controllers/DisplayFeedbackControll
 import RetailController from './app/controllers/RetailController.js';
 import QrController from './app/controllers/QrController.js';
 import ShortnerController from './app/controllers/ShortnerController.js';
-
+import UpdateFeedbackController from './app/controllers/ShortnerController.js';
 import authMiddleware from './app/middlewares/auth.js';
 // import enableCors from './app/middlewares/enableCors';
 import authRoutes from './authRoutes.js';
