@@ -77,6 +77,8 @@ routes.get('/google', (req, res, next) => {
 });
 routes.get('/google/:fid',
   (req, res, next) => {
+    console.log(req.params.fid)
+
     req.session.retail = 'false';
     req.session.fid = req.params.fid;
     const authenticator = passport.authenticate('google', {
@@ -115,6 +117,7 @@ routes.get(
 routes.get(
   '/facebook/:fid',
   (req, res, next) => {
+    console.log(req.params.fid)
     req.session.retail = 'false';
     req.session.fid = req.params.fid;
     const authenticator = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
