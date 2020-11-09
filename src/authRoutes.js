@@ -12,8 +12,7 @@ import authConfig from './config/auth.js';
 // import User from '../models/User';
 const routes = new Router();
 
-routes.get('/success/:fid', async (req, res) => {
-  console.log(req.params.fid);
+routes.post('/success', async (req, res) => {
 
   if (req.session.retail === 'true') {
     const { id, name } = req.user;
@@ -39,12 +38,11 @@ routes.get('/success/:fid', async (req, res) => {
     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
       expiresIn: '7d', // expires in 5min
     });
-    console.log(req.session.fid);
-    const tmp_feedback = req.session.fid;
+    console.log(req.body.fid);
 
-    if (tmp_feedback && Valid.isUUID(tmp_feedback)) {
+    if (req.body.fid && Valid.isUUID(req.body.fid)) {
       await Feedback.findOne({
-        id: tmp_feedback,
+        id: req.body.fid,
       })
         .then(feed => {
           if (feed.user_id) {
@@ -77,6 +75,51 @@ routes.get('/success/:fid', async (req, res) => {
   }
   return res.status(200).json({ message: 'not authenticated' });
 });
+
+
+// routes.get('/success', async (req, res) => {
+
+//   if (req.session.retail === 'true') {
+//     const { id, name } = req.user;
+//     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
+//       expiresIn: '7d', // expires in 5min
+//     });
+//     const response = {
+//       success: true,
+//       message: 'retail has successfully authenticated',
+//       // user: req.user,
+//       login: {
+//         id,
+//         name,
+//         // email,
+//         tu: 'b026324c6904b2a9cb4b88d6d61c81d1',
+//       },
+//       cookies: req.cookies,
+//       token: tk,
+//     };
+//     return res.status(200).json(response);
+//   } else if (req.session.retail !== 'true') {
+//     const { id, name } = req.user;
+//     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
+//       expiresIn: '7d', // expires in 5min
+//     });
+
+//     const response = {
+//       success: true,
+//       message: 'user has successfully authenticated',
+//       login: {
+//         id,
+//         name,
+//         // email,
+//         tu: '897316929176464ebc9ad085f31e7284',
+//       },
+//       cookies: req.cookies,
+//       token: tk,
+//     };
+//     return res.status(200).json(response);
+//   }
+//   return res.status(200).json({ message: 'not authenticated' });
+// });
 
 
 
