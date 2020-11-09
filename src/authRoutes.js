@@ -39,6 +39,7 @@ routes.get('/success', async (req, res) => {
     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
       expiresIn: '7d', // expires in 5min
     });
+    console.log(req.session.fid);
 
     const response = {
       success: true,
@@ -66,28 +67,33 @@ routes.get('/error', (req, res) => {
 
 //Google auth
 
-routes.get('/google/:fid', (req, res, next) => {
-  req.session.retail = 'false';
-  const authenticator = passport.authenticate('google', {
-    scope: ['profile', 'email'],
-  });
-  authenticator(req, res, next);
-});
-
 routes.get('/google', (req, res, next) => {
-  const authenticator = passport.authenticate('google', {
-    scope: ['profile', 'email'],
-  });
-  authenticator(req, res, next);
-});
+  req.session.retail = 'false';
 
-routes.get('/google/retail', (req, res, next) => {
-  req.session.retail = 'true';
   const authenticator = passport.authenticate('google', {
     scope: ['profile', 'email'],
   });
   authenticator(req, res, next);
 });
+routes.get('/google/:fid',
+  (req, res, next) => {
+    req.session.retail = 'false';
+    req.session.fid = req.params.fid;
+    const authenticator = passport.authenticate('google', {
+      scope: ['profile', 'email'],
+    });
+    authenticator(req, res, next);
+  });
+
+
+routes.get('/google/retail',
+  (req, res, next) => {
+    req.session.retail = 'true';
+    const authenticator = passport.authenticate('google', {
+      scope: ['profile', 'email'],
+    });
+    authenticator(req, res, next);
+  });
 
 routes.get(
   '/google/redirect',
@@ -100,24 +106,25 @@ routes.get(
 //facebook auth
 routes.get(
   '/facebook/',
-  function (req, res, next) {
+  (req, res, next) => {
     req.session.retail = 'false';
-    const faceAuth = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
-    faceAuth(req, res, next);
+    const authenticator = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
+    authenticator(req, res, next);
   }
 );
 routes.get(
   '/facebook/:fid',
-  function (req, res, next) {
+  (req, res, next) => {
     req.session.retail = 'false';
-    const faceAuth = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
-    faceAuth(req, res, next);
+    req.session.fid = req.params.fid;
+    const authenticator = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
+    authenticator(req, res, next);
   }
 );
 routes.get('/facebook/retail', function (req, res, next) {
   req.session.retail = 'true';
-  const faceAuth = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
-  faceAuth(req, res, next);
+  const authenticator = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
+  authenticator(req, res, next);
 });
 routes.get(
   '/facebook/redirect',
