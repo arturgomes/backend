@@ -75,16 +75,7 @@ routes.get('/google', (req, res, next) => {
   });
   authenticator(req, res, next);
 });
-routes.get('/google/:fid',
-  (req, res, next) => {
-    console.log(req.params.fid)
-    req.session.retail = 'false';
-    req.session.fid = req.params.fid;
-    const authenticator = passport.authenticate('google', {
-      scope: ['profile', 'email'],
-    });
-    authenticator(req, res, next);
-  });
+
 
 
 routes.get('/google/retail',
@@ -109,16 +100,6 @@ routes.get(
   '/facebook/',
   (req, res, next) => {
     req.session.retail = 'false';
-    const authenticator = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
-    authenticator(req, res, next);
-  }
-);
-routes.get(
-  '/facebook/:fid',
-  (req, res, next) => {
-    console.log(req.params.fid)
-    req.session.retail = 'false';
-    req.session.fid = req.params.fid;
     const authenticator = passport.authenticate('facebook', { scope: ['email', 'public_profile'] });
     authenticator(req, res, next);
   }
