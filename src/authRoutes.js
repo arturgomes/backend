@@ -12,8 +12,8 @@ import authConfig from './config/auth.js';
 // import User from '../models/User';
 const routes = new Router();
 
-routes.get('/success', async (req, res) => {
-  console.log(req.user.id);
+routes.get('/success/:fid', async (req, res) => {
+  console.log(req.params.fid);
 
   if (req.session.retail === 'true') {
     const { id, name } = req.user;
@@ -40,7 +40,27 @@ routes.get('/success', async (req, res) => {
       expiresIn: '7d', // expires in 5min
     });
     console.log(req.session.fid);
+    const tmp_feedback = req.session.fid;
 
+    if (tmp_feedback && Valid.isUUID(tmp_feedback)) {
+      await Feedback.findOne({
+        id: tmp_feedback,
+      })
+        .then(feed => {
+          if (feed.user_id) {
+            return res
+              .status(400)
+              .json({ error: Error.feedback_already_stored });
+          }
+          feed.update({
+            user_id: id,
+          });
+          return res.json({ message: 'OK' });
+        })
+        .catch(() => { });
+
+
+    }
     const response = {
       success: true,
       message: 'user has successfully authenticated',
@@ -57,6 +77,8 @@ routes.get('/success', async (req, res) => {
   }
   return res.status(200).json({ message: 'not authenticated' });
 });
+
+
 
 routes.get('/error', (req, res) => {
   res.status(401).json({
