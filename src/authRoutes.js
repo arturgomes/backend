@@ -38,27 +38,7 @@ routes.post('/success', async (req, res) => {
     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
       expiresIn: '7d', // expires in 5min
     });
-    console.log(req.body.fid);
 
-    if (req.body.fid && Valid.isUUID(req.body.fid)) {
-      await Feedback.findOne({
-        id: req.body.fid,
-      })
-        .then(feed => {
-          if (feed.user_id) {
-            return res
-              .status(400)
-              .json({ error: Error.feedback_already_stored });
-          }
-          feed.update({
-            user_id: id,
-          });
-          return res.json({ message: 'OK' });
-        })
-        .catch(() => { });
-
-
-    }
     const response = {
       success: true,
       message: 'user has successfully authenticated',
