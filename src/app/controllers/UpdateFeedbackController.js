@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import Valid from 'validator';
 import Error from '../errors/errors.js';
-import Feedback from '../app/models/Feedback.js';
+import Feedback from '../models/Feedback.js';
 class UpdateFeedbackController {
 
 
