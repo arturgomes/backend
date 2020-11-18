@@ -52,7 +52,7 @@ routes.post('/success', async (req, res) => {
     };
     return res.status(200).json(response);
   }
-  return res.status(200).json({ message: 'not authenticated' });
+  else { return res.status(200).json({ message: 'not authenticated' }); }
 });
 
 
