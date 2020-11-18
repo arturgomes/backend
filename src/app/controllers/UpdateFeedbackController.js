@@ -2,10 +2,8 @@ import * as Yup from 'yup';
 import Valid from 'validator';
 import Error from '../errors/errors.js';
 import Feedback from '../models/Feedback.js';
+
 class UpdateFeedbackController {
-
-
-
   async store(req, res) {
     const { user_id, tmp_feedback } = req.body;
     console.log({ user_id, tmp_feedback });
@@ -34,4 +32,4 @@ class UpdateFeedbackController {
 
 }
 
-export default new ShopController();
+export default new UpdateFeedbackController();
