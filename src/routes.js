@@ -20,7 +20,7 @@ import SessionController from './app/controllers/SessionController.js';
 import SessionRetailController from './app/controllers/SessionRetailController.js';
 import ShopController from './app/controllers/ShopController.js';
 import ShortnerController from './app/controllers/ShortnerController.js';
-import UpdateFeedbackController from './app/controllers/ShortnerController.js';
+import UpdateFeedbackController from './app/controllers/UpdateFeedbackController.js';
 import UserController from './app/controllers/UserController.js';
 import authMiddleware from './app/middlewares/auth.js';
 // import enableCors from './app/middlewares/enableCors';
