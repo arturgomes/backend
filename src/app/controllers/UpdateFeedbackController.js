@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import Valid from 'validator';
 import Error from '../errors/errors.js';
 import Feedback from '../models/Feedback.js';
@@ -13,16 +13,12 @@ class UpdateFeedbackController {
       })
         .then(feed => {
           if (feed.user_id) {
-            return res
-              .status(400)
-              .json({ error: Error.feedback_already_stored });
+            return res.status(400).json({ error: Error.feedback_already_stored });
           }
-          feed.update({
-            user_id: user_id,
-          });
-          return res.json({ message: 'OK' });
+          feed.update({ user_id: user_id });
+          return res.status(200).json({ message: 'OK' });
         })
-        .catch(() => { });
+        .catch((e) => { console.log(e) });
 
 
     }
