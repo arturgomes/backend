@@ -13,7 +13,6 @@ import authConfig from './config/auth.js';
 const routes = new Router();
 
 routes.post('/success', async (req, res) => {
-
   if (req.session.retail === 'true') {
     const { id, name } = req.user;
     const tk = jwt.sign({ id }, process.env.APP_SECRET, {
@@ -23,7 +22,7 @@ routes.post('/success', async (req, res) => {
       success: true,
       message: 'retail has successfully authenticated',
       // user: req.user,
-      login: {
+      loginUser: {
         id,
         name,
         // email,
@@ -42,7 +41,7 @@ routes.post('/success', async (req, res) => {
     const response = {
       success: true,
       message: 'user has successfully authenticated',
-      login: {
+      loginUser: {
         id,
         name,
         // email,
