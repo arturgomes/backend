@@ -6,7 +6,7 @@ import Feedback from '../models/Feedback.js';
 class UpdateFeedbackController {
   async store(req, res) {
     const { user_id, tmp_feedback } = req.body;
-    console.log({ user_id, tmp_feedback });
+    // console.log({ user_id, tmp_feedback });
     if (tmp_feedback && Valid.isUUID(tmp_feedback)) {
       await Feedback.findOne({
         id: tmp_feedback,
